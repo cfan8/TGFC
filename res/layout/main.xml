@@ -1,14 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tgfcapp="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World, MyActivity"
-            />
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical"
+		>
+
+	<android.support.v4.widget.DrawerLayout
+			android:orientation="vertical"
+			android:id="@+id/main_drawer"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			style="@style/TgfcTheme.Drawer"
+			>
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:fitsSystemWindows="true"
+				android:orientation="vertical"
+				>
+
+
+			<android.support.v7.widget.Toolbar
+					android:id="@+id/main_toolbar"
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:minHeight="?attr/actionBarSize"
+					android:background="?attr/colorPrimary"
+					/>
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/white"
+					>
+
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Hello World, MyActivity"
+						/>
+			</LinearLayout>
+
+
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="304dp"
+				android:layout_height="match_parent"
+				android:layout_gravity="left|start"
+				android:background="@color/white"
+				android:orientation="vertical"
+				>
+
+			<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					>
+
+				<ImageView
+						android:layout_width="match_parent"
+						android:layout_height="160dp"
+						android:src="@drawable/drawer_header"
+						android:id="@+id/main_drawer_header_image"
+						/>
+
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignBottom="@+id/main_drawer_header_image"
+						android:layout_alignParentLeft="true"
+						android:paddingLeft="20dp"
+						android:text="UserNickName"
+						android:layout_marginBottom="3dp"
+						style="@style/Base.TextAppearance.AppCompat.Small"
+						android:id="@+id/main_drawer_username_textview"
+						/>
+
+				<ImageButton
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:scaleType="fitCenter"
+						android:layout_alignBottom="@+id/main_drawer_header_image"
+						android:layout_alignRight="@+id/main_drawer_header_image"
+						android:layout_marginRight="20dp"
+						android:background="@color/transparent"
+						android:src="@drawable/ic_login"
+						/>
+
+			</RelativeLayout>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					style="@style/TgfcTheme.Drawer.CaptionText"
+					android:text="已置顶的版块"
+					>
+			</TextView>
+
+			<LinearLayout
+					android:orientation="vertical"
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:id="@+id/main_drawer_pinlist"
+					>
+			</LinearLayout>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					style="@style/TgfcTheme.Drawer.CaptionText"
+					android:text="最近访问"
+					>
+			</TextView>
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:id="@+id/main_drawer_recentlist"
+					></LinearLayout>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					style="@style/TgfcTheme.Drawer.CaptionText"
+					android:text="所有板块"
+					>
+			</TextView>
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:id="@+id/main_drawer_alllist"
+					></LinearLayout>
+
+
+		</LinearLayout>
+	</android.support.v4.widget.DrawerLayout>
 </LinearLayout>
+
 

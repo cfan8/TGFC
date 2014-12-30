@@ -16,18 +16,18 @@
 
 <resources>
 
-    <!-- The maximum number of action buttons that should be permitted within
-         an action bar/action mode. This will be used to determine how many
-         showAsAction="ifRoom" items can fit. "always" items can override this. -->
-    <integer name="abc_max_action_buttons">5</integer>
+	<!-- The maximum number of action buttons that should be permitted within
+		 an action bar/action mode. This will be used to determine how many
+		 showAsAction="ifRoom" items can fit. "always" items can override this. -->
+	<integer name="abc_max_action_buttons">5</integer>
 
-    <!-- Use the default title sizes on tablets. -->
-    <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- Use the default subtitle sizes on tablets. -->
-    <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
-    <!-- Default height of an action bar. -->
-    <dimen name="abc_action_bar_default_height_material">64dp</dimen>
-    <!-- Default padding of an action bar. -->
-    <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
+	<!-- Use the default title sizes on tablets. -->
+	<dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
+	<!-- Use the default subtitle sizes on tablets. -->
+	<dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
+	<!-- Default height of an action bar. -->
+	<dimen name="abc_action_bar_default_height_material">64dp</dimen>
+	<!-- Default padding of an action bar. -->
+	<dimen name="abc_action_bar_default_padding_material">4dp</dimen>
 
 </resources>

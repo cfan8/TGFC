@@ -16,7 +16,7 @@
 
 <resources>
 
-    <!-- Minimum width of the search view text entry area. -->
-    <dimen name="abc_search_view_text_min_width">256dip</dimen>
+	<!-- Minimum width of the search view text entry area. -->
+	<dimen name="abc_search_view_text_min_width">256dip</dimen>
 
 </resources>

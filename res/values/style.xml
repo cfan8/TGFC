@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+	<!-- Base Theme -->
+	<style name="TgfcThemeBase" parent="@style/Theme.AppCompat.Light">
+		<item name="colorPrimary">@color/tgred</item>
+		<item name="colorPrimaryDark">@color/tgreddark</item>
+		<item name="colorAccent">@color/tgbluelight</item>
+		<item name="android:textColorPrimary">@color/white</item>
+		<item name="windowActionBar">false</item>
+	</style>
+
+	<style name="TgfcThemeBase.Activity">
+		<item name="android:background">@color/white</item>
+	</style>
+
+	<style name="TgfcThemeBase.Drawer">
+	</style>
+
+
+	<!-- General Theme For Lower API Devices -->
+	<style name="TgfcTheme" parent="@style/TgfcThemeBase">
+	</style>
+
+	<style name="TgfcTheme.Activity" parent="TgfcThemeBase.Activity">
+	</style>
+
+	<style name="TgfcTheme.Drawer" parent="TgfcThemeBase.Drawer">
+	</style>
+
+	<style name="TgfcTheme.Drawer.CaptionText" parent="Base.TextAppearance.AppCompat.Medium">
+		<item name="android:layout_marginLeft">20dp</item>
+	</style>
+</resources>

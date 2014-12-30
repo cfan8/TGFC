@@ -15,5 +15,5 @@
 -->
 
 <resources>
-    <bool name="abc_action_bar_embed_tabs_pre_jb">true</bool>
+	<bool name="abc_action_bar_embed_tabs_pre_jb">true</bool>
 </resources>

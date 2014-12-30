@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="tgred">#CA2A20</color>
+	<color name="tgreddark">#8D1D16</color>
+	<color name="tgredlight">#DA6A63</color>
+	<color name="tgbluelight">#5C85FF</color>
+	<color name="white">#FFFFFF</color>
+	<color name="deepgray">#222222</color>
+	<color name="transparent">#00000000</color>
+</resources>

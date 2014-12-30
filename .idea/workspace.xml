@@ -19,7 +19,200 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7ccfa4c-5caa-4147-9549-1fbe9fa64003" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/appcompat/appcompat.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/linangran/tgfcapp/Activity/MainActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/style.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/MyActivity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/linangran/tgfcapp/MyActivity.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/android/support/v7/appcompat/R$color.class" afterPath="$PROJECT_DIR$/out/production/TGFC/android/support/v7/appcompat/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$color.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$dimen.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$dimen.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$drawable.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$id.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$integer.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$integer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$layout.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$string.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$string.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$style.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$style.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$styleable.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R$styleable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R.class" afterPath="$PROJECT_DIR$/out/production/TGFC/com/linangran/tgfcapp/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/TGFC.apk" afterPath="$PROJECT_DIR$/out/production/TGFC/TGFC.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TGFC/TGFC.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/TGFC/TGFC.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/AndroidManifest.xml" afterPath="$PROJECT_DIR$/appcompat/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_title_item.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_title_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_up_container.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_up_container.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_view_list_nav_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_bar_view_list_nav_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_menu_item_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_menu_item_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_menu_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_menu_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_mode_bar.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_mode_bar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_action_mode_close_item_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_action_mode_close_item_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view_include.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view_include.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view_list_item.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_activity_chooser_view_list_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_background_cache_hint_selector_material_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_background_cache_hint_selector_material_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_background_cache_hint_selector_material_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_background_cache_hint_selector_material_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_btn_check_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_btn_check_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_btn_radio_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_btn_radio_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_cab_background_internal_bg.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_cab_background_internal_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_cab_background_top_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_cab_background_top_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_edit_text_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_edit_text_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_expanded_menu_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_expanded_menu_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_fade_in.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_fade_in.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_fade_out.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_fade_out.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_item_background_holo_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_item_background_holo_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_item_background_holo_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_item_background_holo_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_checkbox.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_checkbox.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_icon.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_icon.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_radio.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_list_menu_item_radio.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_background_transition_holo_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_background_transition_holo_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_background_transition_holo_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_background_transition_holo_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_holo_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_holo_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_holo_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_list_selector_holo_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_popup_menu_item_layout.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_popup_menu_item_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_disable_only_material_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_disable_only_material_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_disable_only_material_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_disable_only_material_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_material_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_material_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_material_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_primary_text_material_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_content_include.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout-v11/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout-v11/abc_screen_content_include.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_simple.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_simple.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_simple_overlay_action_mode.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_simple_overlay_action_mode.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_toolbar.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_screen_toolbar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_search_dropdown_item_icons_2line.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_search_dropdown_item_icons_2line.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_search_url_text.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_search_url_text.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_search_view.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_search_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_secondary_text_material_dark.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_secondary_text_material_dark.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/color/abc_secondary_text_material_light.xml" afterPath="$PROJECT_DIR$/appcompat/res/color/abc_secondary_text_material_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/abc_simple_dropdown_hint.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/abc_simple_dropdown_hint.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_in_bottom.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_in_bottom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_in_top.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_in_top.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_out_bottom.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_out_bottom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_out_top.xml" afterPath="$PROJECT_DIR$/appcompat/res/anim/abc_slide_out_top.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_switch_thumb_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_switch_thumb_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_tab_indicator_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_tab_indicator_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/drawable/abc_textfield_search_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/drawable/abc_textfield_search_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/appcompat.iml" afterPath="$PROJECT_DIR$/appcompat/appcompat.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/attrs.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/attrs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-land/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-land/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-large/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-large/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-port/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-port/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w480dp/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w480dp/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w720dp/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w720dp/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-xlarge/bools.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-xlarge/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/colors.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/colors_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/colors_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/config.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-land/config.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-land/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-large/config.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-large/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sw600dp/config.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sw600dp/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w480dp/config.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w480dp/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-land/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-land/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-large/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-large/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sw600dp/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sw600dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w360dp/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w360dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w500dp/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w500dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-w600dp/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-w600dp/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-xlarge/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-xlarge/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-xlarge-land/dimens.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-xlarge-land/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/dimens_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/dimens_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-land/dimens_material.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-land/dimens_material.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/ids.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/ids.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main.xml" afterPath="$PROJECT_DIR$/res/layout/main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-af/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-af/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-am/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-am/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ar/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ar/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-bg/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-bg/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-bn-rBD/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-bn-rBD/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ca/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ca/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-cs/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-cs/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-da/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-da/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-de/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-el/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-el/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-en-rGB/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-en-rGB/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-en-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-en-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-es/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-es-rUS/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-es-rUS/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-et-rEE/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-et-rEE/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-eu-rES/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-eu-rES/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-fa/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-fa/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-fi/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-fi/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-fr/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-fr-rCA/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-fr-rCA/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-gl-rES/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-gl-rES/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-hi/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-hi/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-hr/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-hr/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-hu/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-hu/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-hy-rAM/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-hy-rAM/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-in/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-in/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-is-rIS/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-is-rIS/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-it/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-it/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-iw/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-iw/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ja/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ja/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ka-rGE/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ka-rGE/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-kk-rKZ/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-kk-rKZ/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-km-rKH/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-km-rKH/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-kn-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-kn-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ko/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ko/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ky-rKG/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ky-rKG/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-lo-rLA/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-lo-rLA/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-lt/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-lt/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-lv/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-lv/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-mk-rMK/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-mk-rMK/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ml-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ml-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-mn-rMN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-mn-rMN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-mr-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-mr-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ms-rMY/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ms-rMY/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-my-rMM/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-my-rMM/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-nb/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-nb/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ne-rNP/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ne-rNP/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-nl/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-nl/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-pl/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-pt/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-pt/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-pt-rPT/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-pt-rPT/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ro/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ro/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ru/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-si-rLK/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-si-rLK/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sk/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sk/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sl/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sl/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sr/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sr/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sv/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sv/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-sw/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-sw/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ta-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ta-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-te-rIN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-te-rIN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-th/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-th/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-tl/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-tl/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-tr/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-tr/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-uk/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-uk/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-ur-rPK/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-ur-rPK/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-uz-rUZ/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-uz-rUZ/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-vi/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-vi/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-zh-rCN/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-zh-rCN/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-zh-rHK/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-zh-rHK/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-zh-rTW/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-zh-rTW/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-zu/strings.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-zu/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/styles.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/styles_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/styles_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v11/styles_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v11/styles_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v21/styles_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v21/styles_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/styles_base_text.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/styles_base_text.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v11/styles_base_text.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v11/styles_base_text.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v21/styles_base_text.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v21/styles_base_text.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/styles_rtl.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/styles_rtl.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v17/styles_rtl.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v17/styles_rtl.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/layout/support_simple_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/appcompat/res/layout/support_simple_spinner_dropdown_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/themes.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/themes.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values/themes_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values/themes_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-large/themes_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-large/themes_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v11/themes_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v11/themes_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v14/themes_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v14/themes_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/appcompat/res/values-v21/themes_base.xml" afterPath="$PROJECT_DIR$/appcompat/res/values-v21/themes_base.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tgfcapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,24 +238,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MyActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/MyActivity.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/Activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48723897" vertical-offset="0" max-vertical-offset="431">
-              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="825">
+              <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#890#907#0" expanded="true" />
+                <element signature="e#909#926#0" expanded="true" />
+                <element signature="e#992#993#0" expanded="true" />
+                <element signature="e#1026#1027#0" expanded="true" />
+                <element signature="e#1089#1090#0" expanded="true" />
+                <element signature="e#1123#1124#0" expanded="true" />
+                <element signature="e#1321#1322#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="330">
-              <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -73,8 +263,45 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="300">
-              <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state vertical-scroll-proportion="-4.4333334" vertical-offset="1292" max-vertical-offset="2250">
+              <caret line="95" column="63" selection-start-line="95" selection-start-column="63" selection-end-line="95" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ic_logout.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/drawable-xxhdpi/ic_logout.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/res/values/style.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6264501" vertical-offset="0" max-vertical-offset="600">
+              <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values-v19/style.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+              <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="color.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/color.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+              <caret line="9" column="12" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -88,9 +315,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/res/themes/theme.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/values-v19/style.xml" />
         <option value="$PROJECT_DIR$/src/com/linangran/tgfcapp/MyActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/color.xml" />
+        <option value="$PROJECT_DIR$/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/res/values/style.xml" />
       </list>
     </option>
   </component>
@@ -98,7 +329,7 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
+    <option name="x" value="66" />
     <option name="y" value="23" />
     <option name="width" value="1215" />
     <option name="height" value="777" />
@@ -110,7 +341,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -126,6 +357,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -158,7 +391,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tgfcapp" />
+              <option name="myItemId" value="Activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -173,6 +406,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values-v19" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgfcapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TGFC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -204,14 +459,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="appcompat" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgfcapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TGFC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-xxhdpi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -224,11 +495,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/appcompat/libs/android-support-v4.jar!/" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="GM7S5DF6INLBUKH6" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="MSM8926" />
     <property name="FullScreen" value="false" />
+    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="LayoutCode.rearrangeEntriesXML" value="true" />
+    <property name="LayoutCode.rearrangeEntries" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/drawable-hdpi" />
+      <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
+      <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
+      <recent name="$PROJECT_DIR$/res/values" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.TGFC">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
@@ -475,12 +759,12 @@
     </configuration>
     <configuration default="false" name="TGFC" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="TGFC" />
-      <option name="ACTIVITY_CLASS" value="com.linangran.tgfcapp.MyActivity" />
+      <option name="ACTIVITY_CLASS" value="com.linangran.tgfcapp.Activity.MainActivity" />
       <option name="MODE" value="specific_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
       <option name="PREFERRED_AVD" value="" />
       <option name="USE_COMMAND_LINE" value="true" />
       <option name="COMMAND_LINE" value="" />
@@ -515,46 +799,67 @@
       <updated>1417174312304</updated>
       <workItem from="1417174318095" duration="1777000" />
       <workItem from="1418622872699" duration="591000" />
+      <workItem from="1419918618066" duration="10705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2368000" />
+    <option name="totallyTimeSpent" value="13073000" />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="23" width="1215" height="777" extended-state="0" />
-    <editor active="false" />
+    <frame x="66" y="23" width="1215" height="777" extended-state="6" />
+    <editor active="true" />
     <layout>
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24978687" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24978687" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329927" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329927" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -583,12 +888,19 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/MyActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/Activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#890#907#0" expanded="true" />
+            <element signature="e#909#926#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1089#1090#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1321#1322#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -612,6 +924,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/Activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#890#907#0" expanded="true" />
+            <element signature="e#909#926#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1089#1090#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1321#1322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="330">
+          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -625,19 +962,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.52204174" vertical-offset="0" max-vertical-offset="435">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/MyActivity.java">
+    <entry file="file://$PROJECT_DIR$/res/values-v19/style.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48723897" vertical-offset="0" max-vertical-offset="431">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xxhdpi/ic_logout.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <caret line="9" column="12" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/linangran/tgfcapp/Activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="825">
+          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#890#907#0" expanded="true" />
+            <element signature="e#909#926#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1089#1090#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1321#1322#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.4333334" vertical-offset="1292" max-vertical-offset="2250">
+          <caret line="95" column="63" selection-start-line="95" selection-start-column="63" selection-end-line="95" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/style.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6264501" vertical-offset="0" max-vertical-offset="600">
+          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -693,7 +1077,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>appcompat</last-edited>
+          <last-edited>TGFC</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

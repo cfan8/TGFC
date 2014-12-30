@@ -17,13 +17,13 @@
 */
 -->
 <android.support.v7.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_chooser_view_content"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    style="?attr/activityChooserViewStyle">
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/activity_chooser_view_content"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		style="?attr/activityChooserViewStyle">
 
-    <include layout="@layout/abc_activity_chooser_view_include" />
+	<include layout="@layout/abc_activity_chooser_view_include"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

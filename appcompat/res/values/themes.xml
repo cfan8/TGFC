@@ -16,68 +16,68 @@
 
 <resources>
 
-    <!-- Themes in the "Theme.AppCompat" family will contain an action bar by default.
-         If Holo themes are available on the current platform version they will be used.
-         A limited Holo-styled action bar will be provided on platform versions older
-         than 3.0. (API 11)
+	<!-- Themes in the "Theme.AppCompat" family will contain an action bar by default.
+		 If Holo themes are available on the current platform version they will be used.
+		 A limited Holo-styled action bar will be provided on platform versions older
+		 than 3.0. (API 11)
 
-         These theme declarations contain any version-independent specification. Items
-         that need to vary based on platform version should be defined in the corresponding
-         "Theme.Base" theme. -->
+		 These theme declarations contain any version-independent specification. Items
+		 that need to vary based on platform version should be defined in the corresponding
+		 "Theme.Base" theme. -->
 
-    <!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
-    <style name="Theme.AppCompat" parent="Base.Theme.AppCompat" />
+	<!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
+	<style name="Theme.AppCompat" parent="Base.Theme.AppCompat"/>
 
-    <!-- Platform-independent theme providing an action bar in a light-themed activity. -->
-    <style name="Theme.AppCompat.Light" parent="Base.Theme.AppCompat.Light" />
+	<!-- Platform-independent theme providing an action bar in a light-themed activity. -->
+	<style name="Theme.AppCompat.Light" parent="Base.Theme.AppCompat.Light"/>
 
-    <!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
-    <style name="Theme.AppCompat.Light.DarkActionBar" parent="Base.Theme.AppCompat.Light.DarkActionBar" />
+	<!-- Platform-independent theme providing an action bar in a dark-themed activity. -->
+	<style name="Theme.AppCompat.Light.DarkActionBar" parent="Base.Theme.AppCompat.Light.DarkActionBar"/>
 
-    <style name="Theme.AppCompat.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+	<style name="Theme.AppCompat.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
 
-    <style name="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+	<style name="Theme.AppCompat.Light.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
 
-    <style name="Theme.AppCompat.DialogWhenLarge"
-           parent="Base.Theme.AppCompat.DialogWhenLarge">
-    </style>
+	<style name="Theme.AppCompat.DialogWhenLarge"
+		   parent="Base.Theme.AppCompat.DialogWhenLarge">
+	</style>
 
-    <style name="Theme.AppCompat.Light.DialogWhenLarge"
-           parent="Base.Theme.AppCompat.Light.DialogWhenLarge">
-    </style>
+	<style name="Theme.AppCompat.Light.DialogWhenLarge"
+		   parent="Base.Theme.AppCompat.Light.DialogWhenLarge">
+	</style>
 
-    <style name="Theme.AppCompat.Dialog" parent="Base.Theme.AppCompat.Dialog" />
+	<style name="Theme.AppCompat.Dialog" parent="Base.Theme.AppCompat.Dialog"/>
 
-    <style name="Theme.AppCompat.Light.Dialog" parent="Base.Theme.AppCompat.Light.Dialog" />
+	<style name="Theme.AppCompat.Light.Dialog" parent="Base.Theme.AppCompat.Light.Dialog"/>
 
-    <!-- Menu/item attributes -->
-    <style name="Theme.AppCompat.CompactMenu"
-           parent="Base.Theme.AppCompat.CompactMenu">
-    </style>
+	<!-- Menu/item attributes -->
+	<style name="Theme.AppCompat.CompactMenu"
+		   parent="Base.Theme.AppCompat.CompactMenu">
+	</style>
 
-    <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat" />
+	<style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
 
-    <!-- Theme overlay that replaces colors with their light versions but preserves
-         the value of colorAccent, colorPrimary and its variants. -->
-    <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light" />
+	<!-- Theme overlay that replaces colors with their light versions but preserves
+		 the value of colorAccent, colorPrimary and its variants. -->
+	<style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
 
-    <!-- Theme overlay that replaces colors with their dark versions but preserves
-         the value of colorAccent, colorPrimary and its variants. -->
-    <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark" />
+	<!-- Theme overlay that replaces colors with their dark versions but preserves
+		 the value of colorAccent, colorPrimary and its variants. -->
+	<style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
 
-    <!-- Theme overlay that replaces the normal control color, which by default is the same as the
-         secondary text color, with the primary text color. -->
-    <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar" />
+	<!-- Theme overlay that replaces the normal control color, which by default is the same as the
+		 secondary text color, with the primary text color. -->
+	<style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
 
-    <!-- Theme overlay that replaces colors with their dark versions and replaces the normal
-         control color, which by default is the same as the secondary text color, with the primary
-         text color. -->
-    <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+	<!-- Theme overlay that replaces colors with their dark versions and replaces the normal
+		 control color, which by default is the same as the secondary text color, with the primary
+		 text color. -->
+	<style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
 </resources>

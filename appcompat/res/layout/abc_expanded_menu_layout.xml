@@ -15,8 +15,8 @@
 -->
 
 <android.support.v7.internal.view.menu.ExpandedMenuView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/expanded_menu"
-        android:layout_width="?attr/panelMenuListWidth"
-        android:layout_height="wrap_content"
-        android:background="?attr/panelBackground"/>
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/expanded_menu"
+		android:layout_width="?attr/panelMenuListWidth"
+		android:layout_height="wrap_content"
+		android:background="?attr/panelBackground"/>

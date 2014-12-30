@@ -15,7 +15,7 @@
 -->
 
 <resources>
-    <!-- Size of the indeterminate Progress Bar -->
-    <dimen name="abc_action_bar_progress_bar_size">32dp</dimen>
+	<!-- Size of the indeterminate Progress Bar -->
+	<dimen name="abc_action_bar_progress_bar_size">32dp</dimen>
 
 </resources>
