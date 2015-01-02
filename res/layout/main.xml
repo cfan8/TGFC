@@ -18,6 +18,7 @@
 				android:layout_height="match_parent"
 				android:fitsSystemWindows="true"
 				android:orientation="vertical"
+				android:background="?attr/themeColorPrimary"
 				>
 
 
@@ -35,11 +36,10 @@
 					android:background="@color/white"
 					>
 
-				<TextView
+				<fragment
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Hello World, MyActivity"
-						/>
+						android:layout_height="match_parent"
+						android:name="com.linangran.tgfcapp.fragments.ForumListFragment" />
 			</LinearLayout>
 
 
@@ -60,7 +60,8 @@
 
 				<ImageView
 						android:layout_width="match_parent"
-						android:layout_height="160dp"
+						android:layout_height="166dp"
+						android:scaleType="centerCrop"
 						android:src="@drawable/drawer_header"
 						android:id="@+id/main_drawer_header_image"
 						/>
@@ -71,17 +72,19 @@
 						android:layout_alignBottom="@+id/main_drawer_header_image"
 						android:layout_alignParentLeft="true"
 						android:paddingLeft="20dp"
+						android:paddingBottom="10dp"
 						android:text="UserNickName"
 						android:layout_marginBottom="3dp"
+						android:textColor="@color/white"
 						style="@style/Base.TextAppearance.AppCompat.Small"
 						android:id="@+id/main_drawer_username_textview"
 						/>
 
 				<ImageButton
-						android:layout_width="24dp"
-						android:layout_height="24dp"
+						android:layout_width="20dp"
+						android:layout_height="20dp"
 						android:scaleType="fitCenter"
-						android:layout_alignBottom="@+id/main_drawer_header_image"
+						android:layout_alignTop="@+id/main_drawer_username_textview"
 						android:layout_alignRight="@+id/main_drawer_header_image"
 						android:layout_marginRight="20dp"
 						android:background="@color/transparent"
@@ -90,54 +93,108 @@
 
 			</RelativeLayout>
 
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/TgfcTheme.Drawer.CaptionText"
-					android:text="已置顶的版块"
+			<ScrollView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
 					>
-			</TextView>
+
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						>
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							style="@style/TgfcTheme.Drawer.CaptionText"
+							android:text="已置顶的版块"
+							>
+
+					</TextView>
+
+					<LinearLayout
+							android:orientation="vertical"
+							android:layout_height="wrap_content"
+							android:layout_width="match_parent"
+							android:id="@+id/main_drawer_pinlist"
+							>
+					</LinearLayout>
+
+					<ImageView
+							android:layout_width="match_parent"
+							android:layout_height="1dp"
+							android:background="@color/lightgray"
+							android:layout_marginTop="20dp"
+							/>
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							style="@style/TgfcTheme.Drawer.CaptionText"
+							android:text="最近访问"
+							>
+					</TextView>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="vertical"
+							android:id="@+id/main_drawer_recentlist"
+							></LinearLayout>
+
+
+					<ImageView
+							android:layout_width="match_parent"
+							android:layout_height="1dp"
+							android:background="@color/lightgray"
+							android:layout_marginTop="20dp"
+							/>
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							style="@style/TgfcTheme.Drawer.CaptionText"
+							android:text="所有板块"
+							>
+					</TextView>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="vertical"
+							android:id="@+id/main_drawer_alllist"
+							></LinearLayout>
+
+				</LinearLayout>
+
+
+			</ScrollView>
 
 			<LinearLayout
-					android:orientation="vertical"
-					android:layout_height="wrap_content"
 					android:layout_width="match_parent"
-					android:id="@+id/main_drawer_pinlist"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:background="@color/lightgray"
 					>
+
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="设置"
+						android:layout_margin="0dp"
+						android:layout_gravity="center"
+						android:paddingLeft="20dp"
+						android:paddingTop="15dp"
+						android:paddingBottom="15dp"
+						android:textSize="@dimen/abc_text_size_small_material"
+						android:clickable="true"
+						android:background="?attr/selectableItemBackground"
+						/>
 			</LinearLayout>
-
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/TgfcTheme.Drawer.CaptionText"
-					android:text="最近访问"
-					>
-			</TextView>
-
-			<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:id="@+id/main_drawer_recentlist"
-					></LinearLayout>
-
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					style="@style/TgfcTheme.Drawer.CaptionText"
-					android:text="所有板块"
-					>
-			</TextView>
-
-			<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:id="@+id/main_drawer_alllist"
-					></LinearLayout>
-
-
 		</LinearLayout>
+
 	</android.support.v4.widget.DrawerLayout>
 </LinearLayout>
 

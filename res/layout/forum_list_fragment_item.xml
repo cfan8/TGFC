@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:paddingLeft="10dp"
+			  android:paddingRight="10dp"
+		>
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/forum_list_fragment_item_title"
+			style="@style/TgfcTheme.ForumList.Title"
+			android:text="这里是帖子的标题"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="5dp"
+			>
+	</TextView>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginBottom="10dp"
+			>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/forum_list_fragment_item_poster"
+				style="@style/TgfcTheme.ForumList.Info"
+				android:text="我是发帖人的ID"
+				/>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/forum_list_fragment_item_read_count"
+				style="@style/TgfcTheme.ForumList.Info"
+				android:layout_marginLeft="50dp"
+				android:text="100/1000"
+				/>
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/forum_list_fragment_item_replier"
+				android:gravity="right"
+				style="@style/TgfcTheme.ForumList.Info"
+				android:text="我是回复人的ID"
+				/>
+
+	</LinearLayout>
+</LinearLayout>

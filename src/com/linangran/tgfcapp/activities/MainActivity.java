@@ -1,4 +1,4 @@
-package com.linangran.tgfcapp.Activity;
+package com.linangran.tgfcapp.activities;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;

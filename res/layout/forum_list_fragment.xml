@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+		>
+
+	<android.support.v4.widget.SwipeRefreshLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			>
+
+		<ListView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/forum_list_fragment_list_view"
+				android:divider="?attr/themeColorDivider"
+				android:dividerHeight="1px"
+				>
+
+		</ListView>
+	</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

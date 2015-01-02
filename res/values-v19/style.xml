@@ -5,13 +5,12 @@
 		<item name="android:windowTranslucentNavigation">true</item>
 		<item name="android:windowTranslucentStatus">true</item>
 		<item name="android:fitsSystemWindows">false</item>
-		<item name="android:windowBackground">@color/tgred</item>
 	</style>
 
 	<style name="TgfcTheme.Drawer" parent="TgfcThemeBase.Drawer">
 		<item name="android:fitsSystemWindows">false</item>
 	</style>
 	<style name="TgfcTheme.Activity" parent="TgfcThemeBase.Activity">
-		<item name="android:fitsSystemWindows">true</item>
+		<item name="android:fitsSystemWindows">false</item>
 	</style>
 </resources>
