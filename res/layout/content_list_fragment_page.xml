@@ -9,15 +9,13 @@
 	<android.support.v4.widget.SwipeRefreshLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:id="@+id/forum_list_fragment_swipe_refresh"
+			android:id="@+id/content_list_fragment_page_swipe_refresh"
 			>
 
 		<ListView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:id="@+id/forum_list_fragment_list_view"
-				android:divider="?attr/themeColorDivider"
-				android:dividerHeight="1px"
+				android:id="@+id/content_list_fragment_page_list_view"
 				>
 
 		</ListView>

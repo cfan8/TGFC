@@ -10,6 +10,13 @@ public class ForumListItemData {
 	public String replierName;
 	public int replyCount;
 	public int readCount;
+	public boolean isTopped;
+	public int tid;
+
+	public ForumListItemData()
+	{
+
+	}
 
 	public ForumListItemData(String title, String posterName, String replierName, int replyCount, int readCount) {
 		this.title = title;

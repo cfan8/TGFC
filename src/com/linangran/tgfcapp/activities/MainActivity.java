@@ -7,8 +7,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.network.NetworkUtils;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+{
 	/**
 	 * Called when the activity is first created.
 	 */
@@ -17,8 +19,10 @@ public class MainActivity extends ActionBarActivity {
 	private DrawerLayout drawerLayout;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
+		NetworkUtils.init(getApplicationContext());
 		setContentView(R.layout.main);
 		this.drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -26,19 +30,23 @@ public class MainActivity extends ActionBarActivity {
 		this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, toolbar, R.string.app_name, R.string.app_name)
 		{
 			@Override
-			public void onDrawerClosed(View drawerView) {
+			public void onDrawerClosed(View drawerView)
+			{
 				invalidateOptionsMenu();
 			}
 
 			@Override
-			public void onDrawerOpened(View drawerView) {
+			public void onDrawerOpened(View drawerView)
+			{
 				invalidateOptionsMenu();
 			}
 		};
 		this.drawerLayout.setDrawerListener(this.drawerToggle);
-		this.drawerLayout.post(new Runnable() {
+		this.drawerLayout.post(new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 				MainActivity.this.drawerToggle.syncState();
 			}
 		});

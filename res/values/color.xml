@@ -15,4 +15,10 @@
 	<color name="lightgray">#DDDDDD</color>
 	<color name="verylightgray">#EEEEEE</color>
 	<color name="transparent">#00000000</color>
+
+
+	<color name="googleblue">#0266C8</color>
+	<color name="googlered">#F90101</color>
+	<color name="googleyellow">#F2B50F</color>
+	<color name="googlegreen">#00933B</color>
 </resources>

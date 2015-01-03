@@ -16,5 +16,31 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="appcompat" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs/commons-io-2.4" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/libs/commons-io-2.4" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/libs/commons-io-2.4" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/libs/commons-io-2.4" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs/commons-lang-2.6" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/libs/commons-lang-2.6" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/libs/commons-lang-2.6" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/libs/commons-lang-2.6" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>
