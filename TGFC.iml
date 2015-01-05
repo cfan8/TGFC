@@ -42,5 +42,18 @@
         <jarDirectory url="file://$MODULE_DIR$/libs/commons-lang-2.6" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs/jsoup-1.8.1" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/libs/jsoup-1.8.1" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/libs/jsoup-1.8.1" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/libs/jsoup-1.8.1" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

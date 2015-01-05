@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:orientation="vertical"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+		>
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_poster_name"
+				android:text="发帖用户名"
+				/>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_rating"
+				android:text="+10086"
+				android:layout_toRightOf="@id/content_list_fragment_page_list_view_item_poster_name"
+				/>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_time"
+				android:text="19:20 Jan 3"
+				android:layout_below="@+id/content_list_fragment_page_list_view_item_poster_name"
+				android:layout_alignLeft="@id/content_list_fragment_page_list_view_item_poster_name"
+				/>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_floor_num"
+				android:text="#1"
+				android:layout_alignParentRight="true"
+				android:layout_alignTop="@+id/content_list_fragment_page_list_view_item_poster_name"
+				/>
+
+
+		<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:id="@+id/content_list_fragment_page_list_view_item_button_group"
+				android:layout_below="@+id/content_list_fragment_page_list_view_item_floor_num"
+				android:layout_alignRight="@+id/content_list_fragment_page_list_view_item_floor_num"
+				>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/content_list_fragment_page_list_view_item_quote"
+					android:text="引用"
+					/>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/content_list_fragment_page_list_view_item_rate"
+					android:text="评分"
+					/>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/content_list_fragment_page_list_view_item_share"
+					android:text="分享"
+					/>
+		</LinearLayout>
+
+
+	</RelativeLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			>
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/shape_button_border"
+				android:orientation="vertical"
+				>
+
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="引用 @ABC 于 18:25 Jan 3 发表"
+					android:id="@+id/content_list_fragment_page_list_view_item_quote_info"
+					/>
+
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					>
+
+				<ImageView
+						android:layout_width="1dp"
+						android:layout_height="match_parent"
+						android:background="@color/tgred"
+						android:layout_marginLeft="5dp"
+						android:layout_marginRight="5dp"
+						>
+				</ImageView>
+
+
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/content_list_fragment_page_list_view_item_quoted_text"
+						android:text="这里显示的是被引用的内容"
+						/>
+			</LinearLayout>
+		</LinearLayout>
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_main_text"
+				android:text="这里显示的是帖子的主内容"
+				/>
+
+
+	</LinearLayout>
+
+
+</LinearLayout>
