@@ -39,6 +39,7 @@
 				<fragment
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
+						android:id="@+id/main_forum_list_fragment"
 						android:name="com.linangran.tgfcapp.fragments.ForumListFragment" />
 			</LinearLayout>
 
@@ -129,7 +130,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="1dp"
 							android:background="@color/lightgray"
-							android:layout_marginTop="20dp"
+							android:layout_marginTop="10dp"
 							/>
 
 					<TextView
@@ -145,6 +146,7 @@
 							android:layout_height="wrap_content"
 							android:orientation="vertical"
 							android:id="@+id/main_drawer_alllist"
+							android:paddingLeft="20dp"
 							></LinearLayout>
 
 				</LinearLayout>

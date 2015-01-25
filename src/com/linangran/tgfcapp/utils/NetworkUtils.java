@@ -338,7 +338,7 @@ public class NetworkUtils
 				itemData.quotedInfo = quoteString.substring(0, t);
 				itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
 				itemData.quotedText = quoteString.substring(t + divider.length());
-				itemData.quotedText = getPlainText(cleanText(itemData.quotedText));
+				itemData.quotedText = getPlainText(cleanText(itemData.quotedText)).trim();
 				msgElement.select(".ui-topic-content").remove();
 			}
 			itemData.mainText = msgElement.html();

@@ -30,6 +30,12 @@ public class ForumListFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 	}
 
+	public void reload(int fid)
+	{
+		this.forumListAdapter = new ForumListAdapter(this.getActivity(), new ArrayList<ForumListItemData>(), this, fid);
+		this.listView.setAdapter(this.forumListAdapter);
+	}
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View fragmentView = inflater.inflate(R.layout.forum_list_fragment, container, false);
 		this.listView = (ListView) fragmentView.findViewById(R.id.forum_list_fragment_list_view);

@@ -3,6 +3,11 @@ package com.linangran.tgfcapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.google.gson.Gson;
+import com.linangran.tgfcapp.data.ForumBasicData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by linangran on 25/1/15.
@@ -13,6 +18,8 @@ public class PreferenceUtils
 	public static final String KEY_PIKA_UID = "tgc_pika_uid";
 	public static final String KEY_PIKA_VERIFY = "tgc_pika_verify";
 	public static final String KEY_USERNAME = "username";
+
+	public static final String KEY_PINNED_LIST = "pinned_list";
 
 
 	static SharedPreferences pref = null;
@@ -30,6 +37,34 @@ public class PreferenceUtils
 	public static String getUID()
 	{
 		return pref.getString(KEY_PIKA_UID, null);
+	}
+
+	private static<T> T getObject(String key, Class<T> clazz)
+	{
+		String s = pref.getString(key, null);
+		if (s == null)
+		{
+			return null;
+		}
+		else
+		{
+			Gson gson = new Gson();
+			return gson.fromJson(s, clazz);
+		}
+	}
+
+	public static List<ForumBasicData> getPinnedList()
+	{
+		List<ForumBasicData> result = new ArrayList<ForumBasicData>();
+		List<ForumBasicData> storedValue = getObject(KEY_PINNED_LIST, result.getClass());
+		if (storedValue == null)
+		{
+			return result;
+		}
+		else
+		{
+			return storedValue;
+		}
 	}
 
 	public static String getVerify()
