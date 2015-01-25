@@ -1,4 +1,4 @@
-package com.linangran.tgfcapp.network;
+package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -13,14 +13,12 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParamBean;
 import org.apache.http.params.HttpConnectionParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +26,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -51,7 +48,6 @@ public class NetworkUtils
 		HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
 		HttpConnectionParams.setSoTimeout(httpParams, 15000);
 	}
-
 
 
 	private static String getUserAgent()
@@ -253,7 +249,7 @@ public class NetworkUtils
 			else
 			{
 				generalContentParser(html, pageData, tid);
-				contentListParser(html, pageData, tid);
+				contentListParser(html, pageData, tid, url);
 				contentResult.setResult(pageData);
 				return contentResult;
 			}
@@ -265,10 +261,12 @@ public class NetworkUtils
 
 	}
 
-	public static void contentListParser(String html, ContentListPageData pageData, int tid)
+	public static void contentListParser(String html, ContentListPageData pageData, int tid, String referer)
 	{
 		List<ContentListItemData> dataList = pageData.dataList;
-		Document htmlDoc = Jsoup.parse(html);
+		Document htmlDoc = Jsoup.parse(html, referer);
+		Elements lightMessageEmelents = htmlDoc.select(".lightmessage");
+		lightMessageEmelents.remove();
 		Elements messageElements = htmlDoc.select(".message");
 		Elements infobarElements = htmlDoc.select(".infobar");
 		int messageStart = 0;
@@ -288,12 +286,13 @@ public class NetworkUtils
 			{
 				itemData.ratings = Integer.parseInt(ratingMatcher.group(1));
 			}
-			Pattern pidPattern = Pattern.compile("收藏<\\/a> \\| <a href=\".*?pid=(\\d+).*?\">评分<\\/a>");
+			Pattern pidPattern = Pattern.compile("作者:<a href=\".*?pid=(\\d+)[^\\>]*?>");
 			Matcher pidMatcher = pidPattern.matcher(html);
 			if (pidMatcher.find())
 			{
 				itemData.pid = Integer.parseInt(pidMatcher.group(1));
 			}
+			itemData.mainText = cleanText(messageElements.get(0).html());
 			dataList.add(itemData);
 		}
 		for (int i = messageStart, j = 0; i < messageElements.size(); i++, j++)
@@ -302,7 +301,7 @@ public class NetworkUtils
 			Element msgElement = messageElements.get(i);
 			Element barElement = infobarElements.get(j);
 			String infoString = StringEscapeUtils.unescapeHtml(barElement.html());
-			Pattern barPattern = Pattern.compile("<a href=\".*?pid=(\\d+).*?>#(\\d+)[\\s\\S]*?<a href=\".*?uid=(\\d+).*?>(.+?)<\\/a>[\\s\\S]*?骚\\((\\d+)\\)[\\s\\S]*?<span class=\"nf\"> (.*)<\\/span>");
+			Pattern barPattern = Pattern.compile("<a href=\".*?pid=(\\d+).*?>#(\\d+)[\\s\\S]*?<a href=\".*?uid=(\\d+).*?>(.+?)<\\/a>[\\s\\S]*?(?:骚\\((\\d+)\\)[\\s\\S]*?)?<span class=\"nf\">(?:<font \\S*>)? (.*?)(?:<\\/font>)?<\\/span>");
 			Matcher barMatcher = barPattern.matcher(infoString);
 			if (barMatcher.find())
 			{
@@ -310,20 +309,49 @@ public class NetworkUtils
 				itemData.floorNum = Integer.parseInt(barMatcher.group(2));
 				itemData.posterUID = Integer.parseInt(barMatcher.group(3));
 				itemData.posterName = barMatcher.group(4);
-				itemData.ratings = Integer.parseInt(barMatcher.group(5));
+				if (barMatcher.group(5) != null)
+				{
+					itemData.ratings = Integer.parseInt(barMatcher.group(5));
+				}
 				itemData.posterTime = barMatcher.group(6);
 			}
 			Elements quotedElements = msgElement.select(".quote-bd");
 			if (quotedElements.size() > 0)
 			{
-				Element quoteInfoElement = quotedElements.get(0);
-				itemData.quotedInfo = quoteInfoElement.children().get(0).toString();
-				itemData.quotedText = quoteInfoElement.children().get(2).html();
+				String quoteString = quotedElements.get(0).html();
+				String divider = "<br>";
+				int t = quoteString.indexOf(divider);
+				itemData.quotedInfo = quoteString.substring(0, t);
+				itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
+				itemData.quotedText = quoteString.substring(t + divider.length());
+				itemData.quotedText = getPlainText(cleanText(itemData.quotedText));
+				msgElement.select(".ui-topic-content").remove();
 			}
-			msgElement.select(".ui-topic-content fn-break").remove();
 			itemData.mainText = msgElement.html();
+			itemData.mainText = cleanText(itemData.mainText);
 			dataList.add(itemData);
 		}
+	}
+
+	public static String cleanQuote(String html)
+	{
+		return html.replaceAll("<\\/?i>", "").replaceAll("\\s{2}", " ");
+	}
+
+
+	public static String cleanText(String html)
+	{
+		html = html.replaceAll("\\[color=#(.{6})\\]", "").replaceAll("\\[\\/color\\]", "");
+		html = html.replaceAll("\\[size=([^\\[])+\\]", "").replaceAll("\\[\\/size\\]", "");
+		return html;
+	}
+
+	public static String getPlainText(String html)
+	{
+		Document htmlDoc = Jsoup.parse(html);
+		htmlDoc.select("br").append("#br#");
+		String text = htmlDoc.text();
+		return text.replaceAll("(\\s*#br#\\s*)+", "\n");
 	}
 
 	public static void generalContentParser(String html, ContentListPageData pageData, int tid)
@@ -335,7 +363,7 @@ public class NetworkUtils
 		{
 			pageData.title = titleMatcher.group(1);
 		}
-		Pattern pageInfoPattern = Pattern.compile("<\\/a>\\s*\\((\\d+)\\/(\\d+)页\\)<\\/span>");
+		Pattern pageInfoPattern = Pattern.compile("\\((\\d+)\\/(\\d+)页\\)<\\/span>");
 		Matcher pageInfoMatcher = pageInfoPattern.matcher(html);
 		if (pageInfoMatcher.find())
 		{

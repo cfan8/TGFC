@@ -1,0 +1,3 @@
+[submodule "MaterialDesign"]
+	path = MaterialDesign
+	url = https://github.com/cfan8/MaterialDesignLibrary.git
