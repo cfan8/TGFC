@@ -13,13 +13,20 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -68,7 +75,7 @@ public class NetworkUtils
 		return userAgent;
 	}
 
-	private static HttpResponse httpRequest(String url, String referer, List<NameValuePair> getParams, List<NameValuePair> postParams)
+	private static HttpResponse httpRequest(String url, String referer, boolean shouldLogin, List<NameValuePair> getParams, List<NameValuePair> postParams)
 	{
 		try
 		{
@@ -103,7 +110,13 @@ public class NetworkUtils
 			{
 				httpPost.addHeader("Referer", referer);
 			}
-			HttpResponse response = httpClient.execute(httpPost);
+			HttpContext httpContext = new BasicHttpContext();
+			if (shouldLogin || PreferenceUtils.isLogin())
+			{
+				String cookies = PreferenceUtils.KEY_PIKA_UID + "=" + PreferenceUtils.getUID() + "; " + PreferenceUtils.KEY_PIKA_VERIFY + "=" + PreferenceUtils.getVerify();
+				httpPost.addHeader("Cookie", cookies);
+			}
+			HttpResponse response = httpClient.execute(httpPost, httpContext);
 			return response;
 		}
 		catch (IOException e)
@@ -113,7 +126,7 @@ public class NetworkUtils
 		return null;
 	}
 
-	private static HttpResponse httpGet(String url, String referer, String... args)
+	private static HttpResponse httpGet(String url,  String referer, boolean shouldLogin, String... args)
 	{
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
 		if (args.length % 2 != 0)
@@ -127,17 +140,18 @@ public class NetworkUtils
 				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
 				getParams.add(pair);
 			}
-			return httpRequest(url, referer, getParams, null);
+			return httpRequest(url, referer, shouldLogin, getParams, null);
 		}
 	}
 
-	private static HttpResult<String> httpGetString(String url, String referer, String... args)
+	private static HttpResult<String> httpGetString(String url, String referer, boolean shouldLogin,String... args)
 	{
-		HttpResponse response = httpGet(url, referer, args);
+		HttpResponse response = httpGet(url, referer, shouldLogin, args);
 		HttpResult<String> result = new HttpResult<String>();
 		if (response == null || response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
 		{
 			result.hasError = true;
+			result.errorType = HttpResult.ERROR_TYPE_NETWORK_FAIL;
 			if (response != null)
 			{
 				result.errorInfo = response.getStatusLine().getReasonPhrase();
@@ -156,12 +170,12 @@ public class NetworkUtils
 			}
 			try
 			{
-				result.result = IOUtils.toString(response.getEntity().getContent(), encoding);
+				result.setResult(IOUtils.toString(response.getEntity().getContent(), encoding));
 			}
 			catch (IOException e)
 			{
 				e.printStackTrace();
-				result.setErrorInfo(e.toString());
+				result.setErrorInfo(e.toString(), HttpResult.ERROR_TYPE_OTHERS);
 			}
 		}
 		return result;
@@ -170,19 +184,19 @@ public class NetworkUtils
 	public static HttpResult<List<ForumListItemData>> getForumList(int fid, int page)
 	{
 		String url = APIURL.WAP_VIEW_FORUM_URL + fid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false);
 		HttpResult<List<ForumListItemData>> listResult = new HttpResult<List<ForumListItemData>>(stringResult);
 		if (stringResult.hasError == false)
 		{
 			String html = StringEscapeUtils.unescapeHtml(stringResult.result);
 			if (html.contains("<div>无权访问本版块</div>"))
 			{
-				listResult.setErrorInfo("无权访问本版块");
+				listResult.setErrorInfo("无权访问本版块", HttpResult.ERROR_TYPE_NOT_AUTHORIZED);
 				return listResult;
 			}
 			else if (html.contains("<title>TGFC 手机版</title>"))
 			{
-				listResult.setErrorInfo("版面不存在");
+				listResult.setErrorInfo("版面不存在", HttpResult.ERROR_TYPE_ARGUMENT_ERROR);
 				return listResult;
 			}
 
@@ -208,7 +222,7 @@ public class NetworkUtils
 				line.replyCount = Integer.parseInt(replyCount);
 				dataList.add(line);
 			}
-			listResult.result = dataList;
+			listResult.setResult(dataList);
 		}
 		return listResult;
 	}
@@ -230,7 +244,7 @@ public class NetworkUtils
 	public static HttpResult<ContentListPageData> getContentList(int tid, int page)
 	{
 		String url = APIURL.WAP_VIEW_CONTENT_URL + tid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false);
 		HttpResult<ContentListPageData> contentResult = new HttpResult<ContentListPageData>(stringResult);
 		ContentListPageData pageData = new ContentListPageData();
 		if (stringResult.hasError == false)
@@ -238,12 +252,12 @@ public class NetworkUtils
 			String html = StringEscapeUtils.unescapeHtml(stringResult.result);
 			if (html.contains("<div>指定主题不存在</div>"))
 			{
-				contentResult.setErrorInfo("指定的主题不存在");
+				contentResult.setErrorInfo("指定的主题不存在", HttpResult.ERROR_TYPE_ARGUMENT_ERROR);
 				return contentResult;
 			}
 			else if (html.contains("<div>无权查看本主题</div>"))
 			{
-				contentResult.setErrorInfo("无权查看本主题");
+				contentResult.setErrorInfo("无权查看本主题", HttpResult.ERROR_TYPE_NOT_AUTHORIZED);
 				return contentResult;
 			}
 			else
@@ -384,5 +398,33 @@ public class NetworkUtils
 		{
 			pageData.totalReplyCount = 1;
 		}
+	}
+
+	public static HttpResult<String> fetchUsername()
+	{
+		HttpResult<String> httpResult = httpGetString(APIURL.WAP_MY_INFO, APIURL.WAP_API_URL, true);
+		HttpResult<String> usernameResult = new HttpResult<String>();
+		if (httpResult.hasError == false)
+		{
+			String html = StringEscapeUtils.unescapeHtml(httpResult.result);
+			if (html.contains("请登录后使用本功能"))
+			{
+				usernameResult.setErrorInfo("登录态失效，请重新登录", HttpResult.ERROR_TYPE_LOGIN_REQUIRED);
+			}
+			else
+			{
+				Pattern usernamePattern = Pattern.compile("用户名:\\s(.+?)<br \\/>");
+				Matcher matcher = usernamePattern.matcher(html);
+				if (matcher.find())
+				{
+					usernameResult.setResult(matcher.group(1));
+				}
+				else
+				{
+					usernameResult.setErrorInfo("API错误！可能您的网络连接受到干扰或者已中断", HttpResult.ERROR_TYPE_API_ERROR);
+				}
+			}
+		}
+		return usernameResult;
 	}
 }

@@ -4,11 +4,14 @@
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
+			  android:padding="10dp"
 		>
 
 	<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:layout_marginTop="5dp"
 			>
 
 		<TextView
@@ -88,39 +91,41 @@
 		<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@drawable/shape_button_border"
-				android:orientation="vertical"
+				android:id="@+id/content_list_fragment_page_list_view_item_quote_layout"
+				android:orientation="horizontal"
 				>
 
 
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="引用 @ABC 于 18:25 Jan 3 发表"
-					android:id="@+id/content_list_fragment_page_list_view_item_quote_info"
-					/>
+			<ImageView
+					android:layout_width="1dp"
+					android:layout_height="match_parent"
+					android:background="?attr/themeColorDivider"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					>
+			</ImageView>
+
 
 			<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:orientation="horizontal"
+					android:orientation="vertical"
 					>
 
-				<ImageView
-						android:layout_width="1dp"
-						android:layout_height="match_parent"
-						android:background="@color/tgred"
-						android:layout_marginLeft="5dp"
-						android:layout_marginRight="5dp"
-						>
-				</ImageView>
 
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="引用 @ABC 于 18:25 Jan 3 发表"
+						android:id="@+id/content_list_fragment_page_list_view_item_quote_info"
+						/>
 
 				<TextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:id="@+id/content_list_fragment_page_list_view_item_quoted_text"
 						android:text="这里显示的是被引用的内容"
+						style="@style/TgfcTheme.ContentList.QuoteText"
 						/>
 			</LinearLayout>
 		</LinearLayout>
@@ -130,6 +135,7 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/content_list_fragment_page_list_view_item_main_text"
 				android:text="这里显示的是帖子的主内容"
+				style="@style/TgfcTheme.ContentList.MainText"
 				/>
 
 

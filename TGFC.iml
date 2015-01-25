@@ -16,44 +16,33 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="appcompat" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/libs/commons-io-2.4" />
+          <root url="jar://$MODULE_DIR$/libs/jsoup-1.8.1.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/libs/commons-io-2.4" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/libs/commons-io-2.4" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/libs/commons-io-2.4" recursive="false" type="SOURCES" />
+        <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/libs/commons-lang-2.6" />
+          <root url="jar://$MODULE_DIR$/libs/commons-io-2.4.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/libs/commons-lang-2.6" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/libs/commons-lang-2.6" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/libs/commons-lang-2.6" recursive="false" type="SOURCES" />
+        <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/libs/jsoup-1.8.1" />
+          <root url="jar://$MODULE_DIR$/libs/commons-lang-2.6.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/libs/jsoup-1.8.1" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/libs/jsoup-1.8.1" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/libs/jsoup-1.8.1" recursive="false" type="SOURCES" />
+        <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="MaterialDesign" />
   </component>
 </module>

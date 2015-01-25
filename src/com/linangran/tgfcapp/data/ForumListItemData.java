@@ -1,9 +1,12 @@
 package com.linangran.tgfcapp.data;
 
+import java.io.Serializable;
+
 /**
  * Created by linangran on 2/1/15.
  */
-public class ForumListItemData {
+public class ForumListItemData implements Serializable
+{
 
 	public String title;
 	public String posterName;

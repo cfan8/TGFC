@@ -12,6 +12,7 @@ import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.adapters.ForumListAdapter;
 import com.linangran.tgfcapp.data.ForumListItemData;
 import com.linangran.tgfcapp.data.HttpResult;
+import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +71,7 @@ public class ForumListFragment extends Fragment {
 	{
 		if (result.hasError)
 		{
-			String text = "网络错误";
-			if (result.errorInfo != null)
-			{
-				text += ": " + result.errorInfo;
-			}
-			Toast toast = Toast.makeText(this.getActivity(), text, Toast.LENGTH_SHORT);
-			toast.show();
+			ErrorHandlerUtils.handleError(result, this.getActivity());
 		}
 		return result.hasError;
 	}

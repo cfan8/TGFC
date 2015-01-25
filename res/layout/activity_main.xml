@@ -51,11 +51,13 @@
 				android:layout_gravity="left|start"
 				android:background="@color/white"
 				android:orientation="vertical"
+				android:id="@+id/main_drawer_content_layout"
 				>
 
 			<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:id="@+id/main_drawer_login_panel"
 					>
 
 				<ImageView
@@ -73,7 +75,7 @@
 						android:layout_alignParentLeft="true"
 						android:paddingLeft="20dp"
 						android:paddingBottom="10dp"
-						android:text="UserNickName"
+						android:text="@string/prompt_nologinuser"
 						android:layout_marginBottom="3dp"
 						android:textColor="@color/white"
 						style="@style/Base.TextAppearance.AppCompat.Small"
@@ -86,6 +88,7 @@
 						android:scaleType="fitCenter"
 						android:layout_alignTop="@+id/main_drawer_username_textview"
 						android:layout_alignRight="@+id/main_drawer_header_image"
+						android:id="@+id/main_drawer_login_button"
 						android:layout_marginRight="20dp"
 						android:background="@color/transparent"
 						android:src="@drawable/ic_login"

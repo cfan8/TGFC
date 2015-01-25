@@ -15,7 +15,7 @@
 		<item name="themeColorPrimaryDark">@color/tgreddark</item>
 		<item name="themeColorPrimaryContrast">@color/tgbluelight</item>
 		<item name="themeColorMainText">@color/deepgray</item>
-		<item name="themeColorMainTextBackground">@color/lightgray</item>
+		<item name="themeColorMainTextBackground">@color/white</item>
 		<item name="themeColorAnnotationText">@color/midgray</item>
 		<item name="themeColorDivider">@color/lightgray</item>
 	</style>
@@ -49,6 +49,19 @@
 	</style>
 
 	<style name="TgfcTheme.ForumList">
+	</style>
+
+	<style name="TgfcTheme.ContentList">
+	</style>
+
+	<style name="TgfcTheme.ContentList.MainText">
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/deepgray</item>
+	</style>
+
+	<style name="TgfcTheme.ContentList.QuoteText">
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">?attr/themeColorAnnotationText</item>
 	</style>
 
 	<style name="TgfcTheme.ForumList.Title">

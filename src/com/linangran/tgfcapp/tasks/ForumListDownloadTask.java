@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import com.linangran.tgfcapp.data.ForumListItemData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.fragments.ForumListFragment;
-import com.linangran.tgfcapp.network.NetworkUtils;
+import com.linangran.tgfcapp.utils.NetworkUtils;
 
 import java.util.List;
 

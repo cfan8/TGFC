@@ -1,6 +1,7 @@
 package com.linangran.tgfcapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.activities.ContentActivity;
 import com.linangran.tgfcapp.data.ForumListItemData;
 import com.linangran.tgfcapp.fragments.ForumListFragment;
 import com.linangran.tgfcapp.tasks.ForumListDownloadTask;
@@ -117,6 +119,22 @@ public class ForumListAdapter extends BaseAdapter
 		posterTextView.setText(forumListItemData.posterName);
 		replierTextView.setText(forumListItemData.replierName);
 		countTextView.setText(forumListItemData.replyCount + "/" + forumListItemData.readCount);
+
+
+		convertView.setTag(this.forumDataList.get(position));
+		convertView.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				ForumListItemData itemData = (ForumListItemData) view.getTag();
+				Intent intent = new Intent(ForumListAdapter.this.context, ContentActivity.class);
+				intent.putExtra("tid", itemData.tid);
+				intent.putExtra("title", itemData.title);
+				ForumListAdapter.this.context.startActivity(intent);
+			}
+		});
+
 		return convertView;
 	}
 

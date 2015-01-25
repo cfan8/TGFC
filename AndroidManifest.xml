@@ -12,8 +12,6 @@
 	<uses-permission android:name="android.permission.INTERNET"/>
 
 
-
-
 	<application
 			android:label="@string/app_name"
 			android:icon="@drawable/ic_launcher">
@@ -26,5 +24,11 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+		<activity
+				android:name=".activities.ContentActivity"
+				android:theme="@style/TgfcTheme"></activity>
+		<activity
+				android:name=".activities.LoginActivity"
+				android:theme="@style/TgfcTheme"></activity>
 	</application>
 </manifest>
