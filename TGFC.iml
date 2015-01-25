@@ -43,7 +43,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="MaterialDesign" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -53,5 +52,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="MaterialDesign" />
   </component>
 </module>
