@@ -32,7 +32,7 @@
 
 			<com.gc.materialdesign.views.ProgressBarIndeterminateDeterminate
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="4dp"
 					android:id="@+id/activity_login_webview_progress_bar"
 					android:visibility="invisible"
 					>

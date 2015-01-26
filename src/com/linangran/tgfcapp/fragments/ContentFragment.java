@@ -3,9 +3,7 @@ package com.linangran.tgfcapp.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.adapters.ContentViewPagerAdapter;
 import com.linangran.tgfcapp.data.ContentListPageData;
@@ -22,6 +20,7 @@ public class ContentFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -41,4 +40,10 @@ public class ContentFragment extends Fragment
 		this.contentViewPagerAdapter.updatePagerInfo(pageData);
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.menu_fragment_content_list, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
 }

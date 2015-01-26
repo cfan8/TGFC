@@ -3,11 +3,13 @@ package com.linangran.tgfcapp.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.activities.ContentActivity;
 import com.linangran.tgfcapp.adapters.ContentListAdapter;
 import com.linangran.tgfcapp.data.ContentListPageData;
 import com.linangran.tgfcapp.data.HttpResult;
@@ -37,7 +39,7 @@ public class ContentListPageFragment extends Fragment
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState)
 	{
 		Bundle bundle = getArguments();
 		this.tid = bundle.getInt("tid");
@@ -55,6 +57,32 @@ public class ContentListPageFragment extends Fragment
 			this.contentListAdapter = new ContentListAdapter(this, tid, page);
 		}
 		this.listView.setAdapter(this.contentListAdapter);
+		this.listView.setOnScrollListener(new AbsListView.OnScrollListener()
+		{
+			int lastVisibleItem = 0;
+			ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
+
+			@Override
+			public void onScrollStateChanged(AbsListView absListView, int i)
+			{
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+			{
+				if (lastVisibleItem < firstVisibleItem)
+				{
+					contentActivity.hideActionBar();
+				}
+				else if (firstVisibleItem == 0 || lastVisibleItem > firstVisibleItem)
+				{
+					contentActivity.showActionBar();
+				}
+				lastVisibleItem = firstVisibleItem;
+
+			}
+		});
 		this.loadingIndicatorProgressBar = (ProgressBar) contentListFragmentView.findViewById(R.id.content_list_fragment_page_loading);
 		this.loadFailTextView = (TextView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_load_fail);
 		this.swipeRefreshLayout = (SwipeRefreshLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_swipe_refresh);
@@ -76,6 +104,8 @@ public class ContentListPageFragment extends Fragment
 				}
 			}
 		});
+		this.swipeRefreshLayout.setProgressViewOffset(false, 0,
+				(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96, getResources().getDisplayMetrics()));
 		this.viewPagerFragment = (ContentFragment) this.getParentFragment();
 		if (bundle.containsKey("pagedata"))
 		{

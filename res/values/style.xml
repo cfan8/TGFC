@@ -18,6 +18,12 @@
 		<item name="themeColorMainTextBackground">@color/white</item>
 		<item name="themeColorAnnotationText">@color/midgray</item>
 		<item name="themeColorDivider">@color/lightgray</item>
+
+
+
+
+		<item name="windowActionBarOverlay">true</item>
+
 	</style>
 
 	<style name="TgfcThemeBase.Activity">

@@ -3,6 +3,7 @@ package com.linangran.tgfcapp.activities;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -97,10 +98,12 @@ public class LoginActivity extends ActionBarActivity
 		{
 			WebViewUtils.clearCookies();
 			this.loginWebView.loadUrl(APIURL.WAP_LOGIN_URL);
+			this.setTitle("请登录");
 		}
 		else
 		{
 			this.loginWebView.loadUrl(APIURL.WAP_LOGOUT_URL);
+			this.setTitle("正在注销，请稍后");
 		}
 		this.loginWebView.getSettings().setJavaScriptEnabled(true);
 		this.toolbar = (Toolbar) findViewById(R.id.activity_login_toolbar);
@@ -108,20 +111,33 @@ public class LoginActivity extends ActionBarActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		this.webViewProgress = (ProgressBarIndeterminateDeterminate) findViewById(R.id.activity_login_webview_progress_bar);
 		this.webViewProgress.setVisibility(View.VISIBLE);
+
 	}
 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		super.onOptionsItemSelected(item);
 		switch (item.getItemId())
 		{
-			case R.id.home:
-				this.finish();
+			case android.R.id.home:
+				finish();
 				break;
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if (this.loginWebView.canGoBack())
+		{
+			this.loginWebView.goBack();
+		}
+		else
+		{
+			this.finish();
+		}
 	}
 
 	public void loginFinish(String uid, String verify)

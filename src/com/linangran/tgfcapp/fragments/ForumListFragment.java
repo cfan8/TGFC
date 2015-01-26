@@ -3,11 +3,8 @@ package com.linangran.tgfcapp.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.adapters.ForumListAdapter;
 import com.linangran.tgfcapp.data.ForumListItemData;
@@ -20,14 +17,17 @@ import java.util.List;
 /**
  * Created by linangran on 2/1/15.
  */
-public class ForumListFragment extends Fragment {
+public class ForumListFragment extends Fragment
+{
 
 	private ListView listView;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ForumListAdapter forumListAdapter;
 
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	public void reload(int fid)
@@ -36,7 +36,8 @@ public class ForumListFragment extends Fragment {
 		this.listView.setAdapter(this.forumListAdapter);
 	}
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
 		View fragmentView = inflater.inflate(R.layout.forum_list_fragment, container, false);
 		this.listView = (ListView) fragmentView.findViewById(R.id.forum_list_fragment_list_view);
 		List<ForumListItemData> list = new ArrayList<ForumListItemData>();
@@ -80,5 +81,12 @@ public class ForumListFragment extends Fragment {
 			ErrorHandlerUtils.handleError(result, this.getActivity());
 		}
 		return result.hasError;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.menu_fragment_forum_list, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 }

@@ -18,6 +18,8 @@
 				android:layout_height="match_parent"
 				android:id="@+id/content_list_fragment_page_list_view"
 				android:background="?attr/themeColorMainTextBackground"
+				android:paddingTop="80dp"
+				android:clipToPadding="false"
 				>
 
 		</ListView>

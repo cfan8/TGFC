@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,9 +20,6 @@ import com.linangran.tgfcapp.utils.NetworkUtils;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.util.List;
-
-import static com.linangran.tgfcapp.R.id.main_drawer_alllist;
-import static com.linangran.tgfcapp.R.id.text;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -189,4 +183,5 @@ public class MainActivity extends ActionBarActivity
 			usernameTextView.setText(R.string.prompt_nologinuser);
 		}
 	}
+
 }
