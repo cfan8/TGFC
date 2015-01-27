@@ -30,5 +30,8 @@
 		<activity
 				android:name=".activities.LoginActivity"
 				android:theme="@style/TgfcTheme"></activity>
+		<activity
+				android:name=".activities.PostActivity"
+				android:theme="@style/TgfcTheme"></activity>
 	</application>
 </manifest>

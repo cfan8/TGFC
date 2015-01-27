@@ -58,9 +58,13 @@ public class ForumListAdapter extends BaseAdapter
 	public Object getItem(int i)
 	{
 		if (i < this.forumDataList.size())
+		{
 			return this.forumDataList.get(i);
+		}
 		else
+		{
 			return null;
+		}
 	}
 
 	@Override
@@ -75,7 +79,8 @@ public class ForumListAdapter extends BaseAdapter
 		if (position >= this.forumDataList.size())
 		{
 			return VIEW_CONTENT_TYPE_LOADING;
-		} else
+		}
+		else
 		{
 			return VIEW_CONTENT_TYPE_ITEM;
 		}
@@ -131,6 +136,7 @@ public class ForumListAdapter extends BaseAdapter
 				Intent intent = new Intent(ForumListAdapter.this.context, ContentActivity.class);
 				intent.putExtra("tid", itemData.tid);
 				intent.putExtra("title", itemData.title);
+				intent.putExtra("fid", ForumListAdapter.this.fid);
 				ForumListAdapter.this.context.startActivity(intent);
 			}
 		});
@@ -177,4 +183,15 @@ public class ForumListAdapter extends BaseAdapter
 		this.notifyDataSetChanged();
 	}
 
+	public void abortTask()
+	{
+		if (this.downloadTask != null && this.downloadTask.getStatus().equals(AsyncTask.Status.RUNNING))
+		{
+			this.downloadTask.cancel(true);
+		}
+		if (this.refreshTask != null && this.refreshTask.getStatus().equals(AsyncTask.Status.RUNNING))
+		{
+			this.refreshTask.cancel(true);
+		}
+	}
 }

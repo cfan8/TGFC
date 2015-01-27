@@ -14,4 +14,10 @@ public class APIURL
 	public static final String WAP_LOGIN_URL = WAP_API_URL + "?action=login";
 	public static final String WAP_LOGOUT_URL = WAP_API_URL + "?action=login&logout=yes";
 	public static final String WAP_MY_INFO = WAP_API_URL + "?action=my";
+	public static final String WAP_POST_NEW = WAP_API_URL + "?action=post&do=newthread";
+	public static final String WAP_POST_REPLY = WAP_API_URL + "?action=post&do=reply";
+	public static final String WAP_POST_EDIT = WAP_API_URL + "?action=post&do=edit";
+
+
+	public static final String ANDROID_CLIENT_SIGNATURE = "\r\n________\r\n发送自TGFC Android测试版客户端";
 }

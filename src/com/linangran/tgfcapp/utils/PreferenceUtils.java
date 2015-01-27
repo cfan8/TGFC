@@ -20,6 +20,9 @@ public class PreferenceUtils
 	public static final String KEY_USERNAME = "username";
 
 	public static final String KEY_PINNED_LIST = "pinned_list";
+	public static final String KEY_DRAFT_TITLE = "draft_title";
+	public static final String KEY_DRAFT_CONTENT = "draft_content";
+	public static final String KEY_HAS_DRAFT = "has_draft";
 
 
 	static SharedPreferences pref = null;
@@ -99,6 +102,40 @@ public class PreferenceUtils
 	{
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putBoolean(KEY_IS_LOGIN, false);
+		editor.commit();
+	}
+
+	public static boolean hasDraft()
+	{
+		return pref.getBoolean(KEY_HAS_DRAFT, false);
+	}
+
+	public static String getDraftTitle()
+	{
+		return pref.getString(KEY_DRAFT_TITLE, "");
+	}
+
+	public static String getDraftContent()
+	{
+		return pref.getString(KEY_DRAFT_CONTENT, "");
+	}
+
+	public static void saveDraft(String title, String content)
+	{
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putBoolean(KEY_HAS_DRAFT, true);
+		if (title != null && title.length() != 0)
+		{
+			editor.putString(KEY_DRAFT_TITLE, title);
+		}
+		editor.putString(KEY_DRAFT_CONTENT, content);
+		editor.commit();
+	}
+
+	public static void discardDraft()
+	{
+		SharedPreferences.Editor editor = pref.edit();
+		editor.putBoolean(KEY_HAS_DRAFT, false);
 		editor.commit();
 	}
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -122,7 +123,10 @@ public class LoginActivity extends ActionBarActivity
 		{
 			case android.R.id.home:
 				finish();
-				break;
+				return true;
+			case R.id.menu_activity_login_refresh:
+				this.loginWebView.reload();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -176,4 +180,13 @@ public class LoginActivity extends ActionBarActivity
 	{
 		this.loginWebView.loadUrl(APIURL.WAP_LOGIN_URL);
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.menu_activity_login, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+
 }

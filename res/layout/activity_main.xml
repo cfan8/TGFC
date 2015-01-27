@@ -34,13 +34,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:background="@color/white"
+					android:id="@+id/activity_main"
+					android:orientation="vertical"
 					>
 
-				<fragment
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:id="@+id/main_forum_list_fragment"
-						android:name="com.linangran.tgfcapp.fragments.ForumListFragment" />
 			</LinearLayout>
 
 

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ForumBasicDataList
 {
-	private static ForumBasicData[] datas = new ForumBasicData[]{
+	public static ForumBasicData[] datas = new ForumBasicData[]{
 			new ForumBasicData(10, "完全数码讨论区", 2),
 	/*		new ForumBasicData(85,"Apple 专区"),
 			new ForumBasicData(5,"手机和掌机游戏讨论区"),
@@ -30,8 +30,8 @@ public class ForumBasicDataList
 			new ForumBasicData(94,"龙之谷"),
 			new ForumBasicData(81,"AION永恒之塔"),
 			new ForumBasicData(20,"梦幻之星专区"),
-			new ForumBasicData(65,"ChinaJoy 2013"),
-	*/        new ForumBasicData(25, "灌水与情感", 1),
+	*/		new ForumBasicData(65,"ChinaJoy 2013"),
+	        new ForumBasicData(25, "灌水与情感", 1),
 	/*		new ForumBasicData(72,"神鬼奇谈"),
 			new ForumBasicData(6,"体育运动专区"),
 			new ForumBasicData(48,"体育赛事直喷专区"),
@@ -69,4 +69,22 @@ public class ForumBasicDataList
 		return PreferenceUtils.getPinnedList();
 	}
 
+
+	public static ForumBasicData getForumBasicDataByFid(int fid)
+	{
+		List<ForumBasicData> list = getForumBasicDataList();
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.get(i).fid == fid)
+			{
+				return list.get(i);
+			}
+		}
+		return null;
+	}
+
+	public static ForumBasicData getDefaultForum()
+	{
+		return getForumBasicDataByFid(10);
+	}
 }

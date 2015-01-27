@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.ContentActivity;
@@ -27,6 +25,7 @@ public class ContentListPageFragment extends Fragment
 	private RelativeLayout loadInfoLayout;
 	private ProgressBar loadingIndicatorProgressBar;
 	private TextView loadFailTextView;
+	private SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 
 	private ContentListPageData pageData;
 	private int tid;
@@ -36,6 +35,7 @@ public class ContentListPageFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -60,7 +60,10 @@ public class ContentListPageFragment extends Fragment
 		this.listView.setOnScrollListener(new AbsListView.OnScrollListener()
 		{
 			int lastVisibleItem = 0;
+			int actionBarHeight = getResources().getDimensionPixelSize(R.dimen.actionbarTotalSize);
 			ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
+			int lastItemTop = actionBarHeight;
+			int scrollThreshold = 5;
 
 			@Override
 			public void onScrollStateChanged(AbsListView absListView, int i)
@@ -71,23 +74,30 @@ public class ContentListPageFragment extends Fragment
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
 			{
-				if (lastVisibleItem < firstVisibleItem)
+				int currentTop = actionBarHeight;
+				if (listView.getChildAt(0) != null)
+				{
+					currentTop = listView.getChildAt(0).getTop();
+				}
+				//Log.w("", "lastItem: " + lastVisibleItem + ", item: " + firstVisibleItem + "; lastTop: " + lastItemTop+ ", top: " + currentTop);
+				if (lastVisibleItem < firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop > scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop > scrollThreshold && currentTop <= 0))
 				{
 					contentActivity.hideActionBar();
 				}
-				else if (firstVisibleItem == 0 || lastVisibleItem > firstVisibleItem)
+				else if (lastVisibleItem > firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop < -scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop < -scrollThreshold))
 				{
 					contentActivity.showActionBar();
 				}
 				lastVisibleItem = firstVisibleItem;
-
+				lastItemTop = currentTop;
 			}
 		});
 		this.loadingIndicatorProgressBar = (ProgressBar) contentListFragmentView.findViewById(R.id.content_list_fragment_page_loading);
 		this.loadFailTextView = (TextView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_load_fail);
 		this.swipeRefreshLayout = (SwipeRefreshLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_swipe_refresh);
 		this.loadFailTextView = (TextView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_load_fail);
-		this.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+		this.swipeRefreshLayout.setColorSchemeResources(R.color.googlered, R.color.googleblue, R.color.googleyellow, R.color.googlegreen);
+		this.onRefreshListener = new SwipeRefreshLayout.OnRefreshListener()
 		{
 			@Override
 			public void onRefresh()
@@ -96,16 +106,16 @@ public class ContentListPageFragment extends Fragment
 				{
 					swipeRefreshLayout.setRefreshing(true);
 					ContentListPageFragment.this.contentListAdapter.startDownloading(true);
-					swipeRefreshLayout.setColorSchemeResources(R.color.googlered, R.color.googleblue, R.color.googleyellow, R.color.googlegreen);
 				}
 				else
 				{
 					swipeRefreshLayout.setRefreshing(false);
 				}
 			}
-		});
-		this.swipeRefreshLayout.setProgressViewOffset(false, 0,
-				(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96, getResources().getDisplayMetrics()));
+		};
+		this.swipeRefreshLayout.setOnRefreshListener(this.onRefreshListener);
+		int dpActionBarSize = (int) (getResources().getDimension(R.dimen.actionbarTotalSize) / getResources().getDisplayMetrics().density);
+		this.swipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12 + dpActionBarSize, getResources().getDisplayMetrics()));
 		this.viewPagerFragment = (ContentFragment) this.getParentFragment();
 		if (bundle.containsKey("pagedata"))
 		{
@@ -171,5 +181,23 @@ public class ContentListPageFragment extends Fragment
 	{
 		super.onDestroyView();
 		this.contentListAdapter.abortTask();
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.menu_fragment_content_page, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.menu_fragment_content_page_refresh:
+				this.onRefreshListener.onRefresh();
+				return true;
+		} return super.onOptionsItemSelected(item);
 	}
 }

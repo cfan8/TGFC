@@ -17,9 +17,9 @@
 
 	<android.support.v7.widget.Toolbar
 			android:id="@+id/content_toolbar"
-			android:layout_height="80dp"
+			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:paddingTop="24dp"
+			android:paddingTop="@dimen/actionbarPaddingTop"
 			android:background="?attr/colorPrimary"
 			/>
 </RelativeLayout>

@@ -3,7 +3,7 @@
 
 
 	<!-- Base Theme -->
-	<style name="TgfcThemeBase" parent="@style/Theme.AppCompat.Light">
+	<style name="TgfcThemeBase" parent="@style/Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorPrimary">@color/tgred</item>
 		<item name="colorPrimaryDark">@color/tgreddark</item>
 		<item name="colorAccent">@color/tgbluelight</item>
@@ -20,9 +20,9 @@
 		<item name="themeColorDivider">@color/lightgray</item>
 
 
-
-
 		<item name="windowActionBarOverlay">true</item>
+		<item name="windowActionModeOverlay">true</item>
+		<item name="actionModeBackground">?attr/themeColorPrimary </item>
 
 	</style>
 
@@ -33,6 +33,16 @@
 	<style name="TgfcThemeBase.Drawer">
 	</style>
 
+	<style name="TgfcThemeBase.ActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+		<item name="popupTheme">@style/TgfcThemeBase.PopupMenu</item>
+	</style>
+
+
+	<style name="TgfcThemeBase.PopupMenu" parent="@style/ThemeOverlay.AppCompat.Light">
+		<!--
+		<item name="android:background">@color/tgred</item>
+		-->
+	</style>
 
 	<!-- General Theme For Lower API Devices -->
 	<style name="TgfcTheme" parent="@style/TgfcThemeBase">
@@ -80,5 +90,9 @@
 	<style name="TgfcTheme.ForumList.Info">
 		<item name="android:textSize">14sp</item>
 		<item name="android:textColor">?attr/themeColorAnnotationText</item>
+	</style>
+
+	<style name="TgfcTheme.ActionBar" parent="TgfcThemeBase.ActionBar">
+
 	</style>
 </resources>

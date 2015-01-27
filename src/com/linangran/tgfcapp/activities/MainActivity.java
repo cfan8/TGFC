@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.fragments.ForumListFragment;
+import com.linangran.tgfcapp.fragments.PostFragment;
 import com.linangran.tgfcapp.utils.ForumBasicDataList;
 import com.linangran.tgfcapp.utils.NetworkUtils;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
@@ -34,6 +36,9 @@ public class MainActivity extends ActionBarActivity
 	private LinearLayout drawerContentLayout;
 	private LinearLayout pinnedList;
 	private LinearLayout allList;
+
+	private ForumListFragment forumListFragment;
+	private String forumListFragmentID;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -123,6 +128,14 @@ public class MainActivity extends ActionBarActivity
 		this.allList = (LinearLayout) findViewById(R.id.main_drawer_alllist);
 		inflateForumList(ForumBasicDataList.getForumBasicDataList(), this.allList);
 		inflateForumList(ForumBasicDataList.getPinnedForumDataList(), this.pinnedList);
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("forumBasicData", ForumBasicDataList.getDefaultForum());
+		this.forumListFragment = new ForumListFragment();
+		this.forumListFragment.setArguments(bundle);
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.add(R.id.activity_main, this.forumListFragment, this.forumListFragmentID);
+		fragmentTransaction.commit();
 	}
 
 
@@ -155,8 +168,7 @@ public class MainActivity extends ActionBarActivity
 							MainActivity.this.drawerToggle.syncState();
 						}
 					});
-					ForumListFragment forumListFragment = (ForumListFragment) MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.main_forum_list_fragment);
-					forumListFragment.reload(forumBasicData.fid );
+					MainActivity.this.forumListFragment.reload(forumBasicData);
 				}
 			});
 		}

@@ -136,6 +136,8 @@
 				android:id="@+id/content_list_fragment_page_list_view_item_main_text"
 				android:text="这里显示的是帖子的主内容"
 				style="@style/TgfcTheme.ContentList.MainText"
+				android:textIsSelectable="true"
+				android:autoLink="web"
 				/>
 
 

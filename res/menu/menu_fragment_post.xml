@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tgfcapp="http://schemas.android.com/apk/res-auto">
+	<item
+			android:id="@+id/menu_fragment_post_send"
+			android:icon="@drawable/ic_send_white_24dp"
+			tgfcapp:showAsAction="always"
+			android:title="提交"></item>
+	<item
+			android:id="@+id/menu_fragment_post_clear"
+			tgfcapp:showAsAction="never"
+			android:title="清空"></item>
+	<item
+			android:id="@+id/menu_fragment_post_discard"
+			tgfcapp:showAsAction="never"
+			android:title="放弃改动"></item>
+</menu>

@@ -1,8 +1,6 @@
 package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import com.linangran.tgfcapp.data.ContentListItemData;
 import com.linangran.tgfcapp.data.ContentListPageData;
@@ -13,15 +11,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -62,15 +55,10 @@ public class NetworkUtils
 		if (userAgent == null)
 		{
 			String base = "Mozilla/5.0 (Linux; Android [AndroidVersion]; [DeviceName] Build/[BuildName]) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.93 Mobile Safari/537.36";
-			try
-			{
-				PackageInfo packageInfo = applicationContext.getPackageManager().getPackageInfo(applicationContext.getPackageName(), 0);
-				userAgent = base.replace("[AndroidVersion]", packageInfo.versionName).replace("[BuildName]", Build.VERSION.RELEASE).replace("[DeviceName]", Build.MODEL);
-			}
-			catch (PackageManager.NameNotFoundException e)
-			{
-				e.printStackTrace();
-			}
+			String buildId = "KTU84Q";
+			//PackageInfo packageInfo = applicationContext.getPackageManager().getPackageInfo(applicationContext.getPackageName(), 0);
+			userAgent = base.replace("[BuildName]", buildId).replace("[AndroidVersion]", Build.VERSION.RELEASE).replace("[DeviceName]", Build.MODEL);
+
 		}
 		return userAgent;
 	}
@@ -87,7 +75,7 @@ public class NetworkUtils
 				for (int i = 0; i < getParams.size(); i++)
 				{
 					NameValuePair pair = getParams.get(i);
-					if (i == 0)
+					if (urlBuilder.indexOf("?") == -1)
 					{
 						urlBuilder.append("?");
 					}
@@ -104,12 +92,13 @@ public class NetworkUtils
 			HttpPost httpPost = new HttpPost(structuredURL);
 			if (postParams != null && postParams.size() > 0)
 			{
-				httpPost.setEntity(new UrlEncodedFormEntity(postParams));
+				httpPost.setEntity(new UrlEncodedFormEntity(postParams, "UTF-8"));
 			}
 			if (referer != null)
 			{
 				httpPost.addHeader("Referer", referer);
 			}
+			httpPost.addHeader("User-Agent", getUserAgent());
 			HttpContext httpContext = new BasicHttpContext();
 			if (shouldLogin || PreferenceUtils.isLogin())
 			{
@@ -126,7 +115,7 @@ public class NetworkUtils
 		return null;
 	}
 
-	private static HttpResponse httpGet(String url,  String referer, boolean shouldLogin, String... args)
+	private static HttpResponse httpGet(String url, String referer, boolean shouldLogin, String... args)
 	{
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
 		if (args.length % 2 != 0)
@@ -144,7 +133,85 @@ public class NetworkUtils
 		}
 	}
 
-	private static HttpResult<String> httpGetString(String url, String referer, boolean shouldLogin,String... args)
+	public static HttpResponse httpPost(String url, String referer, List<NameValuePair> postParams, List<NameValuePair> getParams)
+	{
+		return httpRequest(url, referer, false, getParams, postParams);
+	}
+
+	public static HttpResponse httpPost(String url, String referer, List<NameValuePair> postParams, String... args)
+	{
+		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
+		if (args.length % 2 != 0)
+		{
+			return null;
+		}
+		else
+		{
+			for (int i = 0; i < args.length; i += 2)
+			{
+				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
+				getParams.add(pair);
+			}
+			return httpPost(url, referer, postParams, getParams);
+		}
+	}
+
+	private static HttpResult<String> httpPostString(String url, String referer, List<NameValuePair> postParams, List<NameValuePair> getParams)
+	{
+		HttpResponse response = httpPost(url, referer, postParams, getParams);
+		HttpResult<String> result = new HttpResult<String>();
+		if (response == null || response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+		{
+			result.hasError = true;
+			result.errorType = HttpResult.ERROR_TYPE_NETWORK_FAIL;
+			if (response != null)
+			{
+				result.errorInfo = response.getStatusLine().getReasonPhrase();
+			}
+			else
+			{
+				result.errorInfo = "网络连接错误";
+			}
+		}
+		else
+		{
+			String encoding = "UTF-8";
+			if (response.getEntity().getContentEncoding() != null && response.getEntity().getContentEncoding().getValue().length() != 0)
+			{
+				encoding = response.getEntity().getContentEncoding().getValue();
+			}
+			try
+			{
+				result.setResult(IOUtils.toString(response.getEntity().getContent(), encoding));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+				result.setErrorInfo(e.toString(), HttpResult.ERROR_TYPE_OTHERS);
+			}
+		}
+		return result;
+	}
+
+	private static HttpResult<String> httpPostString(String url, String referer, List<NameValuePair> postParams, String... args)
+	{
+		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
+		if (args.length % 2 != 0)
+		{
+			return null;
+		}
+		else
+		{
+			for (int i = 0; i < args.length; i += 2)
+			{
+				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
+				getParams.add(pair);
+			}
+			return httpPostString(url, referer, postParams, getParams);
+		}
+	}
+
+	private static HttpResult<String> httpGetString(String url, String referer, boolean shouldLogin, String... args)
 	{
 		HttpResponse response = httpGet(url, referer, shouldLogin, args);
 		HttpResult<String> result = new HttpResult<String>();
@@ -200,7 +267,7 @@ public class NetworkUtils
 				return listResult;
 			}
 
-			Pattern pattern = Pattern.compile("<span class=\"title\">(<b>)?<a href=\"([^\"]+)\">([^<]+)<\\/a>(<\\/b>)?<\\/span>(?:<span class=\"paging\">.*<\\/span>)?<br \\/>\\s*<span class=\"author\">\\[([^\\/]+)\\/(\\d+)\\/(\\d+)\\/([^\\]]+)]<\\/span>");
+			Pattern pattern = Pattern.compile("<span class=\"title\">(<b>)?<a href=\"([^\"]+)\">([^<]+)<\\/a>(<\\/b>)?<\\/span>(?:<span class=\"paging\">.*<\\/span>)?<br \\/>\\s*<span class=\"author\">\\[(?:<b>)?([^\\/]+)(?:<\\/b>)?\\/(\\d+)\\/(\\d+)\\/(?:<b>)?([^\\/]+)(?:<\\/b>)?]<\\/span>");
 			Matcher matcher = pattern.matcher(html);
 			List<ForumListItemData> dataList = new ArrayList<ForumListItemData>();
 			while (matcher.find())
@@ -426,5 +493,49 @@ public class NetworkUtils
 			}
 		}
 		return usernameResult;
+	}
+
+	public static HttpResult<Boolean> post(boolean isReply, boolean hasQuote, boolean isEdit, Integer fid, Integer tid, Integer quotePid, Integer editPid, String title, String content)
+	{
+		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+		String apiURL;
+		content += APIURL.ANDROID_CLIENT_SIGNATURE;
+		postParams.add(new BasicNameValuePair("subject", title));
+		postParams.add(new BasicNameValuePair("message", content));
+		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
+		getParams.add(new BasicNameValuePair("fid", fid.toString()));
+		if (isEdit)
+		{
+			apiURL = APIURL.WAP_POST_EDIT;
+			postParams.add(new BasicNameValuePair("pid", editPid.toString()));
+		}
+		else
+		{
+			if (isReply == false)
+			{
+				apiURL = APIURL.WAP_POST_NEW;
+			}
+			else
+			{
+				apiURL = APIURL.WAP_POST_REPLY;
+				postParams.add(new BasicNameValuePair("tid", tid.toString()));
+				if (hasQuote)
+				{
+					postParams.add(new BasicNameValuePair("pid", quotePid.toString()));
+				}
+			}
+		}
+		HttpResult<String> httpResult = httpPostString(apiURL, APIURL.WAP_API_URL, postParams, getParams);
+		HttpResult<Boolean> postResult = new HttpResult<Boolean>(httpResult);
+		String html = StringEscapeUtils.unescapeHtml(httpResult.result);
+		if (html.contains("成功"))
+		{
+			postResult.result = true;
+		}
+		else
+		{
+			postResult.result = false;
+		}
+		return postResult;
 	}
 }

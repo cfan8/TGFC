@@ -1,12 +1,15 @@
 package com.linangran.tgfcapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.*;
 import android.widget.ListView;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.adapters.ForumListAdapter;
+import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.data.ForumListItemData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
@@ -23,6 +26,9 @@ public class ForumListFragment extends Fragment
 	private ListView listView;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ForumListAdapter forumListAdapter;
+	private SwipeRefreshLayout.OnRefreshListener onRefreshListener;
+
+	private ForumBasicData forumBasicData;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -30,10 +36,13 @@ public class ForumListFragment extends Fragment
 		setHasOptionsMenu(true);
 	}
 
-	public void reload(int fid)
+	public void reload(ForumBasicData forumBasicData)
 	{
-		this.forumListAdapter = new ForumListAdapter(this.getActivity(), new ArrayList<ForumListItemData>(), this, fid);
+		this.forumBasicData = forumBasicData;
+		this.forumListAdapter.abortTask();
+		this.forumListAdapter = new ForumListAdapter(this.getActivity(), new ArrayList<ForumListItemData>(), this, this.forumBasicData.fid);
 		this.listView.setAdapter(this.forumListAdapter);
+		this.getActivity().setTitle(this.forumBasicData.name);
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -41,11 +50,14 @@ public class ForumListFragment extends Fragment
 		View fragmentView = inflater.inflate(R.layout.forum_list_fragment, container, false);
 		this.listView = (ListView) fragmentView.findViewById(R.id.forum_list_fragment_list_view);
 		List<ForumListItemData> list = new ArrayList<ForumListItemData>();
-		this.forumListAdapter = new ForumListAdapter(this.getActivity(), list, this, 10);
+		Bundle bundle = getArguments();
+		this.forumBasicData = (ForumBasicData) bundle.get("forumBasicData");
+		this.forumListAdapter = new ForumListAdapter(this.getActivity(), list, this, this.forumBasicData.fid);
+		this.getActivity().setTitle(this.forumBasicData.name);
 		this.listView.setAdapter(this.forumListAdapter);
 		this.swipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.forum_list_fragment_swipe_refresh);
 		this.swipeRefreshLayout.setColorSchemeResources(R.color.googlered, R.color.googleblue, R.color.googleyellow, R.color.googlegreen);
-		this.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+		this.onRefreshListener = new SwipeRefreshLayout.OnRefreshListener()
 		{
 			@Override
 			public void onRefresh()
@@ -53,7 +65,8 @@ public class ForumListFragment extends Fragment
 				ForumListFragment.this.swipeRefreshLayout.setRefreshing(true);
 				forumListAdapter.refreshData();
 			}
-		});
+		};
+		this.swipeRefreshLayout.setOnRefreshListener(this.onRefreshListener);
 		return fragmentView;
 	}
 
@@ -88,5 +101,31 @@ public class ForumListFragment extends Fragment
 	{
 		inflater.inflate(R.menu.menu_fragment_forum_list, menu);
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		this.forumListAdapter.abortTask();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.menu_fragment_forum_list_add_post:
+				Intent intent = new Intent(getActivity(), PostActivity.class);
+				intent.putExtra("isReply", false);
+				intent.putExtra("fid", forumBasicData.fid);
+				startActivity(intent);
+				return true;
+			case R.id.menu_fragment_forum_list_refresh:
+				onRefreshListener.onRefresh();
+				return true;
+
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

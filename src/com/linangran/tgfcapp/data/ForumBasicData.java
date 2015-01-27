@@ -1,9 +1,11 @@
 package com.linangran.tgfcapp.data;
 
+import java.io.Serializable;
+
 /**
  * Created by linangran on 25/1/15.
  */
-public class ForumBasicData implements Comparable<ForumBasicData>
+public class ForumBasicData implements Comparable<ForumBasicData>, Serializable
 {
 	static int counter = 0;
 

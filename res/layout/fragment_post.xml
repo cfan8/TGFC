@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:id="@+id/fragment_post"
+			android:layout_height="match_parent"
+		>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			>
+
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:id="@+id/fragment_post_title_layout"
+				>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="标题："
+					/>
+
+			<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/fragment_post_title_edit_text"
+					android:gravity="top|left"
+					android:textColor="?attr/themeColorMainText"
+					/>
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:id="@+id/fragment_post_quoted_text_layout"
+				>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="引用的内容："
+					/>
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="QuotedText"
+					android:id="@+id/fragment_post_quoted_text_view"
+					android:background="@drawable/shape_button_border"
+					/>
+		</LinearLayout>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="内容："
+				/>
+
+		<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/fragment_post_content_edit_text"
+				android:gravity="left|top"
+				android:textColor="?attr/themeColorMainText"
+				/>
+
+	</LinearLayout>
+
+</ScrollView>

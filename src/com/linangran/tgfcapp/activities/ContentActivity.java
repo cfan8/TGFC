@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.fragments.ContentFragment;
 
@@ -31,9 +33,7 @@ public class ContentActivity extends ActionBarActivity
 		this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		this.setTitle(title);
 		this.contentFragment = new ContentFragment();
-		Bundle fragmentBundle = new Bundle();
-		fragmentBundle.putInt("tid", this.tid);
-		this.contentFragment.setArguments(fragmentBundle);
+		this.contentFragment.setArguments(bundle);
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(R.id.activity_content_fragment_linear_layout, contentFragment, contentFragmentID);
 		fragmentTransaction.commit();
@@ -45,6 +45,7 @@ public class ContentActivity extends ActionBarActivity
 		if (getSupportActionBar().isShowing() == false)
 		{
 			getSupportActionBar().show();
+			//Log.w("", "Actionbar shown");
 		}
 	}
 
@@ -53,6 +54,19 @@ public class ContentActivity extends ActionBarActivity
 		if (getSupportActionBar().isShowing())
 		{
 			getSupportActionBar().hide();
+			//Log.w("", "Actionbar hided");
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				this.finish();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
