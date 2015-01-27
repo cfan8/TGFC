@@ -22,13 +22,17 @@ public class ContentViewPagerAdapter extends FragmentStatePagerAdapter
 	public int totalPostCount = 1;
 	public int tid;
 	private int totalPage = 1;
+	public int fid;
+	public String title;
 	public HashMap<Integer, ContentListPageData> cachedData = new HashMap<Integer, ContentListPageData>();
 
 
-	public ContentViewPagerAdapter(FragmentManager fm, int tid)
+	public ContentViewPagerAdapter(FragmentManager fm, int tid, int fid, String title)
 	{
 		super(fm);
 		this.tid = tid;
+		this.fid = fid;
+		this.title = title;
 	}
 
 	public void setTotalPage(int totalPage)
@@ -48,6 +52,8 @@ public class ContentViewPagerAdapter extends FragmentStatePagerAdapter
 		Bundle dataBundle = new Bundle();
 		dataBundle.putInt("tid", tid);
 		dataBundle.putInt("page", i + 1);
+		dataBundle.putInt("fid", fid);
+		dataBundle.putString("title", title);
 		if (cachedData.containsKey(i + 1))
 		{
 			dataBundle.putSerializable("pagedata", cachedData.get(i + 1));

@@ -28,8 +28,10 @@ public class ContentListPageFragment extends Fragment
 	private SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 
 	private ContentListPageData pageData;
-	private int tid;
-	private int page;
+	public int tid;
+	public int page;
+	public int fid;
+	public String title;
 
 
 	public void onCreate(Bundle savedInstanceState)
@@ -44,6 +46,8 @@ public class ContentListPageFragment extends Fragment
 		Bundle bundle = getArguments();
 		this.tid = bundle.getInt("tid");
 		this.page = bundle.getInt("page");
+		this.fid = bundle.getInt("fid");
+		this.title = bundle.getString("title");
 		View contentListFragmentView = inflater.inflate(R.layout.content_list_fragment_page, container, false);
 		this.listView = (ListView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view);
 		this.loadInfoLayout = (RelativeLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view_empty_view);

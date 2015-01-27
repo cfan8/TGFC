@@ -16,4 +16,6 @@ public class ContentListItemData implements Serializable
 	public String quotedText;
 	public String mainText;
 	public int ratings;
+	public String platformInfo;
+	public boolean canEdit;
 }

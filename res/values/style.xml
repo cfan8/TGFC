@@ -95,4 +95,18 @@
 	<style name="TgfcTheme.ActionBar" parent="TgfcThemeBase.ActionBar">
 
 	</style>
+
+	<style name="TgfcTheme.ImageButton" parent="TgfcTheme">
+		<item name="android:width">36dp</item>
+		<item name="android:height">36dp</item>
+		<item name="android:scaleType">fitCenter</item>
+		<item name="android:padding">6dp</item>
+		<item name="android:layout_marginRight">12dp</item>
+	</style>
+
+	<style name="TgfcTheme.ImageButton.Small" parent="TgfcTheme.ImageButton">
+		<item name="android:width">36dp</item>
+		<item name="android:height">36dp</item>
+		<item name="android:padding">10dp</item>
+	</style>
 </resources>

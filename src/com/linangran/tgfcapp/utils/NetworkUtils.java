@@ -351,7 +351,7 @@ public class NetworkUtils
 		Elements messageElements = htmlDoc.select(".message");
 		Elements infobarElements = htmlDoc.select(".infobar");
 		int messageStart = 0;
-		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(.+)<\\/a>");
+		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+)(<\\/b>)?<\\/a>");
 		Matcher mainPostMatcher = mainPostPattern.matcher(html);
 		if (mainPostMatcher.find())
 		{
@@ -361,6 +361,7 @@ public class NetworkUtils
 			itemData.posterTime = mainPostMatcher.group(2);
 			itemData.posterUID = Integer.parseInt(mainPostMatcher.group(3));
 			itemData.posterName = mainPostMatcher.group(4);
+			itemData.canEdit = mainPostMatcher.group(5) != null;
 			Pattern ratingPattern = Pattern.compile("评分记录\\( <b>(\\d+)<\\/b>");
 			Matcher ratingMatcher = ratingPattern.matcher(html);
 			if (ratingMatcher.find())
@@ -373,7 +374,8 @@ public class NetworkUtils
 			{
 				itemData.pid = Integer.parseInt(pidMatcher.group(1));
 			}
-			itemData.mainText = cleanText(messageElements.get(0).html());
+			itemData.mainText = messageElements.get(0).html();
+			extractPlatform(itemData);
 			dataList.add(itemData);
 		}
 		for (int i = messageStart, j = 0; i < messageElements.size(); i++, j++)
@@ -382,7 +384,7 @@ public class NetworkUtils
 			Element msgElement = messageElements.get(i);
 			Element barElement = infobarElements.get(j);
 			String infoString = StringEscapeUtils.unescapeHtml(barElement.html());
-			Pattern barPattern = Pattern.compile("<a href=\".*?pid=(\\d+).*?>#(\\d+)[\\s\\S]*?<a href=\".*?uid=(\\d+).*?>(.+?)<\\/a>[\\s\\S]*?(?:骚\\((\\d+)\\)[\\s\\S]*?)?<span class=\"nf\">(?:<font \\S*>)? (.*?)(?:<\\/font>)?<\\/span>");
+			Pattern barPattern = Pattern.compile("<a href=\".*?pid=(\\d+).*?>#(\\d+)[\\s\\S]*?<a href=\".*?uid=(\\d+).*?>(?:<b>)?(.+?)(?:<\\/b>)?<\\/a>[\\s\\S]*?(?:骚\\((\\d+)\\)[\\s\\S]*?)?<span class=\"nf\">(?:<font \\S*>)? (?:<b>)?(.*?)(<\\/b>)?(?:<\\/font>)?<\\/span>");
 			Matcher barMatcher = barPattern.matcher(infoString);
 			if (barMatcher.find())
 			{
@@ -395,6 +397,7 @@ public class NetworkUtils
 					itemData.ratings = Integer.parseInt(barMatcher.group(5));
 				}
 				itemData.posterTime = barMatcher.group(6);
+				itemData.canEdit = barMatcher.group(7) != null;
 			}
 			Elements quotedElements = msgElement.select(".quote-bd");
 			if (quotedElements.size() > 0)
@@ -409,14 +412,35 @@ public class NetworkUtils
 				msgElement.select(".ui-topic-content").remove();
 			}
 			itemData.mainText = msgElement.html();
-			itemData.mainText = cleanText(itemData.mainText);
+			extractPlatform(itemData);
 			dataList.add(itemData);
 		}
 	}
 
+	public static void extractPlatform(ContentListItemData itemData)
+	{
+		Pattern platformPattern = Pattern.compile("(posted by wap, platform: .+?)\\s*<br(\\s*?\\/)*?>");
+		Pattern androidPattern = Pattern.compile("<br(?:\\s*?\\/)?>\\s*_{8,}\\s*<br(?:\\s*?\\/)?>\\s*(发送自.+?客户端)");
+		Matcher platformMatcher = platformPattern.matcher(itemData.mainText);
+		if (platformMatcher.find())
+		{
+			itemData.platformInfo = platformMatcher.group(1);
+			itemData.mainText = itemData.mainText.replaceAll(platformPattern.pattern(), "");
+		}
+		Matcher androidMatcher = androidPattern.matcher(itemData.mainText);
+		if (androidMatcher.find())
+		{
+			itemData.platformInfo = androidMatcher.group(1);
+			itemData.mainText = itemData.mainText.replaceAll(androidPattern.pattern(), "");
+		}
+		itemData.mainText = cleanText(itemData.mainText);
+		itemData.mainText = cleanEditHistory(itemData.mainText);
+	}
+
 	public static String cleanQuote(String html)
 	{
-		return html.replaceAll("<\\/?i>", "").replaceAll("\\s{2}", " ");
+		String s = html.replaceAll("<\\/?i>", "").replaceAll("\\s{2}", " ");
+		return s;
 	}
 
 
@@ -424,7 +448,9 @@ public class NetworkUtils
 	{
 		html = html.replaceAll("\\[color=#(.{6})\\]", "").replaceAll("\\[\\/color\\]", "");
 		html = html.replaceAll("\\[size=([^\\[])+\\]", "").replaceAll("\\[\\/size\\]", "");
-		return html;
+		html = html.replaceAll("(\\s*<\\/?br\\s*\\/?>\\s*){2,}", "<br />");
+		Document doc = Jsoup.parse(html);
+		return doc.body().html();
 	}
 
 	public static String getPlainText(String html)
@@ -432,7 +458,16 @@ public class NetworkUtils
 		Document htmlDoc = Jsoup.parse(html);
 		htmlDoc.select("br").append("#br#");
 		String text = htmlDoc.text();
-		return text.replaceAll("(\\s*#br#\\s*)+", "\n");
+		String s = text.replaceAll("(\\s*#br#\\s*)+", "\n").replaceAll("^\n", "").replaceAll("\n$", "");
+		s = cleanEditHistory(s);
+		s = s.replaceAll("(posted by wap, platform: .+?)\\s*", "").replaceAll("\\s*_{8,}\\s*(发送自.+?客户端)", "");
+		return s;
+	}
+
+	public static String cleanEditHistory(String html)
+	{
+		return html
+				.replaceAll("\\[?\\s*?(<i>)?\\s*本帖最后由.+?于.+?编辑\\s*(<\\/i>)?\\s*?\\]?", "");
 	}
 
 	public static void generalContentParser(String html, ContentListPageData pageData, int tid)

@@ -4,7 +4,11 @@
 			  android:orientation="vertical"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
-			  android:padding="10dp"
+			  android:paddingTop="12dp"
+			  android:focusable="true"
+			  android:clickable="true"
+			  android:focusableInTouchMode="true"
+			  android:id="@+id/content_list_fragment_page_list_view_item"
 		>
 
 	<RelativeLayout
@@ -12,6 +16,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="10dp"
 			android:layout_marginTop="5dp"
+			android:layout_marginLeft="12dp"
+			android:layout_marginRight="12dp"
 			>
 
 		<TextView
@@ -21,21 +27,23 @@
 				android:text="发帖用户名"
 				/>
 
-		<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/content_list_fragment_page_list_view_item_rating"
-				android:text="+10086"
-				android:layout_toRightOf="@id/content_list_fragment_page_list_view_item_poster_name"
-				/>
 
 		<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:id="@+id/content_list_fragment_page_list_view_item_time"
 				android:text="19:20 Jan 3"
-				android:layout_below="@+id/content_list_fragment_page_list_view_item_poster_name"
-				android:layout_alignLeft="@id/content_list_fragment_page_list_view_item_poster_name"
+				android:layout_marginLeft="60dp"
+				android:layout_toRightOf="@+id/content_list_fragment_page_list_view_item_poster_name"
+				/>
+
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_rating"
+				android:text="+10086"
+				android:layout_toLeftOf="@+id/content_list_fragment_page_list_view_item_floor_num"
 				/>
 
 		<TextView
@@ -45,40 +53,9 @@
 				android:text="#1"
 				android:layout_alignParentRight="true"
 				android:layout_alignTop="@+id/content_list_fragment_page_list_view_item_poster_name"
+				android:minEms="4"
+				android:gravity="right"
 				/>
-
-
-		<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:id="@+id/content_list_fragment_page_list_view_item_button_group"
-				android:layout_below="@+id/content_list_fragment_page_list_view_item_floor_num"
-				android:layout_alignRight="@+id/content_list_fragment_page_list_view_item_floor_num"
-				>
-
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/content_list_fragment_page_list_view_item_quote"
-					android:text="引用"
-					/>
-
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/content_list_fragment_page_list_view_item_rate"
-					android:text="评分"
-					/>
-
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/content_list_fragment_page_list_view_item_share"
-					android:text="分享"
-					/>
-		</LinearLayout>
-
 
 	</RelativeLayout>
 
@@ -86,6 +63,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:layout_marginLeft="12dp"
+			android:layout_marginRight="12dp"
 			>
 
 		<LinearLayout
@@ -110,6 +89,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="vertical"
+					android:layout_marginBottom="5dp"
 					>
 
 
@@ -143,5 +123,66 @@
 
 	</LinearLayout>
 
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="36dp"
+			android:orientation="horizontal"
+			android:id="@+id/content_list_fragment_page_list_view_item_button_group"
+			android:layout_below="@+id/content_list_fragment_page_list_view_item_floor_num"
+			android:layout_alignRight="@+id/content_list_fragment_page_list_view_item_floor_num"
+			android:padding="0dp"
+			>
+
+		<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_quote"
+				android:src="@drawable/ic_format_quote_grey600_24dp"
+				style="@style/TgfcTheme.ImageButton"
+				android:layout_alignParentRight="true"
+				/>
+
+		<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_edit"
+				android:src="@drawable/ic_edit_grey600_24dp"
+				style="@style/TgfcTheme.ImageButton"
+				android:layout_toLeftOf="@id/content_list_fragment_page_list_view_item_quote"
+				android:visibility="gone"
+				/>
+
+		<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_rate"
+				android:src="@drawable/ic_plus_one_grey600_24dp"
+				style="@style/TgfcTheme.ImageButton"
+				android:layout_toLeftOf="@id/content_list_fragment_page_list_view_item_edit"
+				/>
+
+		<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_share"
+				android:src="@drawable/ic_share_grey600_24dp"
+				style="@style/TgfcTheme.ImageButton.Small"
+				android:layout_toLeftOf="@id/content_list_fragment_page_list_view_item_rate"
+				/>
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_list_fragment_page_list_view_item_platform"
+				android:text="Post By Wap"
+				android:layout_alignParentLeft="true"
+				android:textSize="10sp"
+				android:layout_marginLeft="12dp"
+				android:layout_centerVertical="true"
+				/>
+
+
+	</RelativeLayout>
 
 </LinearLayout>

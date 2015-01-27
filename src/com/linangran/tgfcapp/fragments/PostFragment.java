@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.*;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -89,7 +90,7 @@ public class PostFragment extends Fragment
 			if (hasQuote)
 			{
 				this.quotedTextLayout.setVisibility(View.VISIBLE);
-				this.quotedTextView.setText(quotedText);
+				this.quotedTextView.setText(Html.fromHtml(quotedText), TextView.BufferType.SPANNABLE);
 			}
 			else
 			{

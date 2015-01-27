@@ -35,7 +35,7 @@ public class ContentFragment extends Fragment
 		this.fid = bundle.getInt("fid");
 		this.title = bundle.getString("title");
 		View contentFragment = inflater.inflate(R.layout.content_list_fragment, container, false);
-		this.contentViewPagerAdapter = new ContentViewPagerAdapter(getChildFragmentManager(), tid);
+		this.contentViewPagerAdapter = new ContentViewPagerAdapter(getChildFragmentManager(), tid, fid, title);
 		this.viewPager = (ViewPager) contentFragment.findViewById(R.id.content_list_fragment_view_pager);
 		this.viewPager.setAdapter(this.contentViewPagerAdapter);
 		return contentFragment;

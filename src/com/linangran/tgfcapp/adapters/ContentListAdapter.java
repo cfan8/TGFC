@@ -1,21 +1,21 @@
 package com.linangran.tgfcapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.data.ContentListItemData;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,26 @@ public class ContentListAdapter extends BaseAdapter
 	private int page;
 	private ContentListDownloadTask downloadTask;
 	private ContentListPageFragment contentListPageFragment;
+
+	private View.OnClickListener quoteReplyListener = new View.OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			View item = (View) view.getParent().getParent();
+			ContentListItemData itemData = (ContentListItemData) item.getTag();
+			Intent intent = new Intent(view.getContext(), PostActivity.class);
+			intent.putExtra("isReply", true);
+			intent.putExtra("hasQuote", true);
+			intent.putExtra("isEdit", false);
+			intent.putExtra("fid", contentListPageFragment.fid);
+			intent.putExtra("tid", contentListPageFragment.tid);
+			intent.putExtra("quotePid", itemData.pid);
+			intent.putExtra("quotedText", itemData.mainText);
+			intent.putExtra("mainTitle", contentListPageFragment.title);
+			view.getContext().startActivity(intent);
+		}
+	};
 
 
 	public void abortTask()
@@ -105,7 +125,6 @@ public class ContentListAdapter extends BaseAdapter
 		if (convertView == null)
 		{
 			convertView = this.layoutInflater.inflate(R.layout.content_list_fragment_page_list_view_item, viewGroup, false);
-			//SetListenerHere;
 		}
 		ContentListItemData itemData = dataList.get(i);
 		convertView.setTag(itemData);
@@ -117,6 +136,11 @@ public class ContentListAdapter extends BaseAdapter
 		TextView quotedTextTextView = (TextView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_quoted_text);
 		TextView mainTextTextView = (TextView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_main_text);
 		LinearLayout quoteLayout = (LinearLayout) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_quote_layout);
+		TextView platformTextView = (TextView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_platform);
+		ImageView shareImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_share);
+		ImageView editImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_edit);
+		ImageView plusImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_rate);
+		ImageView quoteImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_quote);
 		posterNameTextView.setText(itemData.posterName);
 		postTimeTextView.setText(itemData.posterTime);
 		if (itemData.ratings == 0)
@@ -139,10 +163,24 @@ public class ContentListAdapter extends BaseAdapter
 		{
 			quoteLayout.setVisibility(View.GONE);
 		}
+		if (itemData.canEdit)
+		{
+			editImageView.setVisibility(View.VISIBLE);
+			plusImageView.setVisibility(View.GONE);
+		}
+		else
+		{
+			editImageView.setVisibility(View.GONE);
+			plusImageView.setVisibility(View.VISIBLE);
+		}
 		mainTextTextView.setText(Html.fromHtml(itemData.mainText), TextView.BufferType.SPANNABLE);
+		platformTextView.setText(itemData.platformInfo);
+
+		quoteImageView.setOnClickListener(quoteReplyListener);
 
 		return convertView;
 	}
+
 
 	public void updateContentDataList(List<ContentListItemData> dataList)
 	{
