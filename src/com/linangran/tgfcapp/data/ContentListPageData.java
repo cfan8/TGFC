@@ -17,6 +17,8 @@ public class ContentListPageData implements Serializable
 	public String title;
 	public List<ContentListItemData> dataList;
 
+	public List<String> imgURLList;
+
 	public ContentListPageData()
 	{
 		this.dataList = new ArrayList<ContentListItemData>();

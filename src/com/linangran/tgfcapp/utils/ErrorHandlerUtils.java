@@ -39,6 +39,12 @@ public class ErrorHandlerUtils
 				case HttpResult.ERROR_TYPE_ARGUMENT_ERROR:
 					toastString = "参数错误";
 					break;
+				case HttpResult.ERROR_TYPE_NOT_IMAGE:
+					toastString = "图片错误";
+					break;
+				case HttpResult.ERROR_TYPE_WRITE_CACHE_FILE_FAIL:
+					toastString = "写入缓存失败";
+					break;
 				default:
 					toastString = "未知错误";
 					break;

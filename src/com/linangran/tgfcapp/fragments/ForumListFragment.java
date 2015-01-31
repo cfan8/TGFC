@@ -43,6 +43,10 @@ public class ForumListFragment extends Fragment
 		this.forumListAdapter = new ForumListAdapter(this.getActivity(), new ArrayList<ForumListItemData>(), this, this.forumBasicData.fid);
 		this.listView.setAdapter(this.forumListAdapter);
 		this.getActivity().setTitle(this.forumBasicData.name);
+		if (this.swipeRefreshLayout.isRefreshing())
+		{
+			this.swipeRefreshLayout.setRefreshing(false);
+		}
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

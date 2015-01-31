@@ -2,20 +2,27 @@ package com.linangran.tgfcapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.text.Spanned;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.data.ContentListItemData;
+import com.linangran.tgfcapp.data.DrawableInfo;
+import com.linangran.tgfcapp.data.ImageDownloadInfo;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
+import com.linangran.tgfcapp.tasks.ImageDownloadTask;
+import com.linangran.tgfcapp.utils.ImageDownloadManager;
+import com.linangran.tgfcapp.views.AsyncImageGetter;
+import com.linangran.tgfcapp.views.URLDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +41,11 @@ public class ContentListAdapter extends BaseAdapter
 	private int page;
 	private ContentListDownloadTask downloadTask;
 	private ContentListPageFragment contentListPageFragment;
+
+
+
+	private int themeColorPrimary;
+	private int themeColorAnnotationText;
 
 	private View.OnClickListener quoteReplyListener = new View.OnClickListener()
 	{
@@ -73,6 +85,11 @@ public class ContentListAdapter extends BaseAdapter
 		this.page = page;
 		this.contentListPageFragment = contentListPageFragment;
 		startDownloading(false);
+		TypedValue typedValue = new TypedValue();
+		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorPrimary, typedValue, true);
+		this.themeColorPrimary = typedValue.data;
+		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorAnnotationText, typedValue, true);
+		this.themeColorAnnotationText = typedValue.data;
 	}
 
 	public ContentListAdapter(ContentListPageFragment contentListPageFragment, int tid, int page, List<ContentListItemData> dataList)
@@ -141,16 +158,27 @@ public class ContentListAdapter extends BaseAdapter
 		ImageView editImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_edit);
 		ImageView plusImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_rate);
 		ImageView quoteImageView = (ImageView) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_quote);
+		RelativeLayout postInfoRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.content_list_fragment_page_list_view_item_post_info);
 		posterNameTextView.setText(itemData.posterName);
 		postTimeTextView.setText(itemData.posterTime);
 		if (itemData.ratings == 0)
 		{
 			ratingTextView.setVisibility(View.INVISIBLE);
+			for (int cindex = 0; cindex < postInfoRelativeLayout.getChildCount(); cindex++)
+			{
+				TextView contentTextView = (TextView) postInfoRelativeLayout.getChildAt(cindex);
+				contentTextView.setTextColor(this.themeColorAnnotationText);
+			}
 		}
 		else
 		{
 			ratingTextView.setVisibility(View.VISIBLE);
 			ratingTextView.setText("+" + itemData.ratings);
+			for (int cindex = 0; cindex < postInfoRelativeLayout.getChildCount(); cindex++)
+			{
+				TextView contentTextView = (TextView) postInfoRelativeLayout.getChildAt(cindex);
+				contentTextView.setTextColor(this.themeColorPrimary);
+			}
 		}
 		floorNumTextView.setText("#" + itemData.floorNum);
 		if (itemData.quotedInfo != null)
@@ -173,13 +201,17 @@ public class ContentListAdapter extends BaseAdapter
 			editImageView.setVisibility(View.GONE);
 			plusImageView.setVisibility(View.VISIBLE);
 		}
-		mainTextTextView.setText(Html.fromHtml(itemData.mainText), TextView.BufferType.SPANNABLE);
+		Spanned spannedText = Html.fromHtml(itemData.mainText, new AsyncImageGetter(mainTextTextView, context), null);
+		mainTextTextView.setText(spannedText);
+
 		platformTextView.setText(itemData.platformInfo);
 
 		quoteImageView.setOnClickListener(quoteReplyListener);
 
 		return convertView;
 	}
+
+
 
 
 	public void updateContentDataList(List<ContentListItemData> dataList)

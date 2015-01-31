@@ -2,18 +2,15 @@ package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
 import android.os.Build;
-import com.linangran.tgfcapp.data.ContentListItemData;
-import com.linangran.tgfcapp.data.ContentListPageData;
-import com.linangran.tgfcapp.data.ForumListItemData;
-import com.linangran.tgfcapp.data.HttpResult;
+import com.linangran.tgfcapp.data.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -25,6 +22,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +61,7 @@ public class NetworkUtils
 		return userAgent;
 	}
 
-	private static HttpResponse httpRequest(String url, String referer, boolean shouldLogin, List<NameValuePair> getParams, List<NameValuePair> postParams)
+	private static HttpResponse httpRequest(String url, String referer, boolean shouldLogin, boolean isDownload, List<NameValuePair> getParams, List<NameValuePair> postParams)
 	{
 		try
 		{
@@ -89,23 +87,32 @@ public class NetworkUtils
 				}
 				structuredURL = urlBuilder.toString();
 			}
-			HttpPost httpPost = new HttpPost(structuredURL);
+			HttpUriRequest httpRequest;
+			if (isDownload)
+			{
+				httpRequest = new HttpGet(structuredURL);
+			}
+			else
+			{
+				httpRequest = new HttpPost(structuredURL);
+			}
 			if (postParams != null && postParams.size() > 0)
 			{
+				HttpPost httpPost = (HttpPost) httpRequest;
 				httpPost.setEntity(new UrlEncodedFormEntity(postParams, "UTF-8"));
 			}
-			if (referer != null)
+			if (referer != null && referer.length() != 0)
 			{
-				httpPost.addHeader("Referer", referer);
+				httpRequest.addHeader("Referer", referer);
 			}
-			httpPost.addHeader("User-Agent", getUserAgent());
+			httpRequest.addHeader("User-Agent", getUserAgent());
 			HttpContext httpContext = new BasicHttpContext();
-			if (shouldLogin || PreferenceUtils.isLogin())
+			if (isDownload == false && (shouldLogin || PreferenceUtils.isLogin()))
 			{
 				String cookies = PreferenceUtils.KEY_PIKA_UID + "=" + PreferenceUtils.getUID() + "; " + PreferenceUtils.KEY_PIKA_VERIFY + "=" + PreferenceUtils.getVerify();
-				httpPost.addHeader("Cookie", cookies);
+				httpRequest.addHeader("Cookie", cookies);
 			}
-			HttpResponse response = httpClient.execute(httpPost, httpContext);
+			HttpResponse response = httpClient.execute(httpRequest, httpContext);
 			return response;
 		}
 		catch (IOException e)
@@ -115,7 +122,7 @@ public class NetworkUtils
 		return null;
 	}
 
-	private static HttpResponse httpGet(String url, String referer, boolean shouldLogin, String... args)
+	private static HttpResponse httpGet(String url, String referer, boolean shouldLogin, boolean isDownload,String... args)
 	{
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
 		if (args.length % 2 != 0)
@@ -129,16 +136,16 @@ public class NetworkUtils
 				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
 				getParams.add(pair);
 			}
-			return httpRequest(url, referer, shouldLogin, getParams, null);
+			return httpRequest(url, referer, shouldLogin, isDownload,getParams, null);
 		}
 	}
 
-	public static HttpResponse httpPost(String url, String referer, List<NameValuePair> postParams, List<NameValuePair> getParams)
+	public static HttpResponse httpPost(String url, String referer, boolean isDownload, List<NameValuePair> postParams, List<NameValuePair> getParams)
 	{
-		return httpRequest(url, referer, false, getParams, postParams);
+		return httpRequest(url, referer, false, isDownload, getParams, postParams);
 	}
 
-	public static HttpResponse httpPost(String url, String referer, List<NameValuePair> postParams, String... args)
+	public static HttpResponse httpPost(String url, String referer, boolean isDownload, List<NameValuePair> postParams, String... args)
 	{
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
 		if (args.length % 2 != 0)
@@ -152,13 +159,13 @@ public class NetworkUtils
 				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
 				getParams.add(pair);
 			}
-			return httpPost(url, referer, postParams, getParams);
+			return httpPost(url, referer, isDownload, postParams, getParams);
 		}
 	}
 
-	private static HttpResult<String> httpPostString(String url, String referer, List<NameValuePair> postParams, List<NameValuePair> getParams)
+	private static HttpResult<String> httpPostString(String url, String referer, boolean isDownload, List<NameValuePair> postParams, List<NameValuePair> getParams)
 	{
-		HttpResponse response = httpPost(url, referer, postParams, getParams);
+		HttpResponse response = httpPost(url, referer, isDownload, postParams, getParams);
 		HttpResult<String> result = new HttpResult<String>();
 		if (response == null || response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
 		{
@@ -193,7 +200,7 @@ public class NetworkUtils
 		return result;
 	}
 
-	private static HttpResult<String> httpPostString(String url, String referer, List<NameValuePair> postParams, String... args)
+	private static HttpResult<String> httpPostString(String url, String referer, boolean isDownload, List<NameValuePair> postParams, String... args)
 	{
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
 		if (args.length % 2 != 0)
@@ -207,13 +214,13 @@ public class NetworkUtils
 				NameValuePair pair = new BasicNameValuePair(args[i], args[i + 1]);
 				getParams.add(pair);
 			}
-			return httpPostString(url, referer, postParams, getParams);
+			return httpPostString(url, referer, isDownload, postParams, getParams);
 		}
 	}
 
-	private static HttpResult<String> httpGetString(String url, String referer, boolean shouldLogin, String... args)
+	private static HttpResult<String> httpGetString(String url, String referer, boolean shouldLogin, boolean isDownload, String... args)
 	{
-		HttpResponse response = httpGet(url, referer, shouldLogin, args);
+		HttpResponse response = httpGet(url, referer, shouldLogin, isDownload, args);
 		HttpResult<String> result = new HttpResult<String>();
 		if (response == null || response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
 		{
@@ -251,7 +258,7 @@ public class NetworkUtils
 	public static HttpResult<List<ForumListItemData>> getForumList(int fid, int page)
 	{
 		String url = APIURL.WAP_VIEW_FORUM_URL + fid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
 		HttpResult<List<ForumListItemData>> listResult = new HttpResult<List<ForumListItemData>>(stringResult);
 		if (stringResult.hasError == false)
 		{
@@ -311,7 +318,7 @@ public class NetworkUtils
 	public static HttpResult<ContentListPageData> getContentList(int tid, int page)
 	{
 		String url = APIURL.WAP_VIEW_CONTENT_URL + tid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
 		HttpResult<ContentListPageData> contentResult = new HttpResult<ContentListPageData>(stringResult);
 		ContentListPageData pageData = new ContentListPageData();
 		if (stringResult.hasError == false)
@@ -362,7 +369,7 @@ public class NetworkUtils
 			itemData.posterUID = Integer.parseInt(mainPostMatcher.group(3));
 			itemData.posterName = mainPostMatcher.group(4);
 			itemData.canEdit = mainPostMatcher.group(5) != null;
-			Pattern ratingPattern = Pattern.compile("评分记录\\( <b>(\\d+)<\\/b>");
+			Pattern ratingPattern = Pattern.compile("评分记录\\(.+?=(\\d+)\\)");
 			Matcher ratingMatcher = ratingPattern.matcher(html);
 			if (ratingMatcher.find())
 			{
@@ -415,6 +422,18 @@ public class NetworkUtils
 			extractPlatform(itemData);
 			dataList.add(itemData);
 		}
+		Pattern imgURLPattern = Pattern.compile("<img\\s*[^>]*?src\\s*=\\s*['\\\"]([^'\\\"]*?)['\\\"][^>]*?\\s*\\/?>");
+		List<String> imgURLList = new ArrayList<String>();
+		for (int i = 0; i < dataList.size(); i++)
+		{
+			String itemHTML = dataList.get(i).mainText;
+			Matcher imgURLMatcher = imgURLPattern.matcher(itemHTML);
+			while (imgURLMatcher.find())
+			{
+				imgURLList.add(imgURLMatcher.group(1));
+			}
+		}
+		pageData.imgURLList = imgURLList;
 	}
 
 	public static void extractPlatform(ContentListItemData itemData)
@@ -504,7 +523,7 @@ public class NetworkUtils
 
 	public static HttpResult<String> fetchUsername()
 	{
-		HttpResult<String> httpResult = httpGetString(APIURL.WAP_MY_INFO, APIURL.WAP_API_URL, true);
+		HttpResult<String> httpResult = httpGetString(APIURL.WAP_MY_INFO, APIURL.WAP_API_URL, true, false);
 		HttpResult<String> usernameResult = new HttpResult<String>();
 		if (httpResult.hasError == false)
 		{
@@ -560,7 +579,7 @@ public class NetworkUtils
 				}
 			}
 		}
-		HttpResult<String> httpResult = httpPostString(apiURL, APIURL.WAP_API_URL, postParams, getParams);
+		HttpResult<String> httpResult = httpPostString(apiURL, APIURL.WAP_API_URL, false, postParams, getParams);
 		HttpResult<Boolean> postResult = new HttpResult<Boolean>(httpResult);
 		String html = StringEscapeUtils.unescapeHtml(httpResult.result);
 		if (html.contains("成功"))
@@ -572,5 +591,56 @@ public class NetworkUtils
 			postResult.result = false;
 		}
 		return postResult;
+	}
+
+	public static HttpResult<ImageDownloadData> downloadImage(String url, String referer){
+		HttpResponse response = httpGet(url, referer, false, true);
+		HttpResult<ImageDownloadData> httpResult = new HttpResult<ImageDownloadData>();
+		if (response != null && response.getStatusLine()!= null && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+		{
+			String contentType = response.getEntity().getContentType().getValue();
+			if (contentType.contains("image") == false)
+			{
+				httpResult.setErrorInfo("Not Image", HttpResult.ERROR_TYPE_NOT_IMAGE);
+				return httpResult;
+			}
+			else
+			{
+				ImageDownloadData data = new ImageDownloadData();
+				if (contentType.contains("jpg") || contentType.contains("jpeg"))
+				{
+					data.setImageTypeJpeg();
+				}
+				else if (contentType.contains("png"))
+				{
+					data.setImageTypePng();
+				}
+				else if (contentType.contains("gif"))
+				{
+					data.setImageTypeGif();
+				}
+				else
+				{
+					httpResult.setErrorInfo("Not Supported Image Type", HttpResult.ERROR_TYPE_NOT_IMAGE);
+					return httpResult;
+				}
+				try
+				{
+					data.loadFromInputStream(response.getEntity().getContent());
+					httpResult.setResult(data);
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+					httpResult.setErrorInfo("Image Download Error", HttpResult.ERROR_TYPE_NETWORK_FAIL);
+				}
+				return httpResult;
+			}
+		}
+		else
+		{
+			httpResult.setErrorInfo(response.getStatusLine().toString(), HttpResult.ERROR_TYPE_NETWORK_FAIL);
+			return httpResult;
+		}
 	}
 }
