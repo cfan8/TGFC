@@ -15,7 +15,9 @@ import com.linangran.tgfcapp.adapters.ContentListAdapter;
 import com.linangran.tgfcapp.data.ContentListPageData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
+import com.linangran.tgfcapp.views.CustomScrollView;
 import com.linangran.tgfcapp.views.ListLinearLayout;
+import com.linangran.tgfcapp.views.OnScrollChangedListener;
 
 /**
  * Created by linangran on 3/1/15.
@@ -23,7 +25,7 @@ import com.linangran.tgfcapp.views.ListLinearLayout;
 public class ContentListPageFragment extends Fragment
 {
 	private ListLinearLayout listLinearLayout;
-	private ScrollView scrollView;
+	private CustomScrollView customScrollView;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ContentListAdapter contentListAdapter;
 	private ContentFragment viewPagerFragment;
@@ -55,7 +57,7 @@ public class ContentListPageFragment extends Fragment
 		this.title = bundle.getString("title");
 		View contentListFragmentView = inflater.inflate(R.layout.content_list_fragment_page, container, false);
 		this.listLinearLayout = (ListLinearLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view);
-		this.scrollView = (ScrollView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_scroll_view);
+		this.customScrollView = (CustomScrollView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_scroll_view);
 		this.loadInfoLayout = (RelativeLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view_empty_view);
 		if (bundle.containsKey("pagedata"))
 		{
@@ -66,61 +68,25 @@ public class ContentListPageFragment extends Fragment
 		{
 			this.contentListAdapter = new ContentListAdapter(this, tid, page);
 		}
-		this.scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener()
+		this.customScrollView.setOnScrollChangedListener(new OnScrollChangedListener()
 		{
-			int lastY = 0;
 
 			ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
 			int actionBarHeight = getResources().getDimensionPixelSize(R.dimen.actionbarTotalSize);
 
 			@Override
-			public void onScrollChanged()
+			public void onScrollChanged(ScrollView scrollView, int l, int t, int oldl, int oldt)
 			{
-				int y = scrollView.getScrollY();
-				if (y - lastY > 3 && y >= actionBarHeight)
+				if (t - oldt > 3 && t >= actionBarHeight)
 				{
 					contentActivity.hideActionBar();
 				}
-				else if (y < actionBarHeight || lastY - y > 3)
+				else if (t < actionBarHeight || oldt - t > 3)
 				{
 					contentActivity.showActionBar();
 				}
-				lastY = y;
 			}
-		}); /*
-	{
-		int lastVisibleItem = 0;
-		ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
-		int lastItemTop = actionBarHeight;
-		int scrollThreshold = 5;
-
-		@Override
-		public void onScrollStateChanged(AbsListView absListView, int i)
-		{
-
-		}
-
-		@Override
-		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-		{
-			int currentTop = actionBarHeight;
-			if (listLinearLayout.getChildAt(0) != null)
-			{
-				currentTop = listLinearLayout.getChildAt(0).getTop();
-			}
-			//Log.w("", "lastItem: " + lastVisibleItem + ", item: " + firstVisibleItem + "; lastTop: " + lastItemTop+ ", top: " + currentTop);
-			if (lastVisibleItem < firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop > scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop > scrollThreshold && currentTop <= 0))
-			{
-				contentActivity.hideActionBar();
-			}
-			else if (lastVisibleItem > firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop < -scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop < -scrollThreshold))
-			{
-				contentActivity.showActionBar();
-			}
-			lastVisibleItem = firstVisibleItem;
-			lastItemTop = currentTop;
-		}
-	});*/
+		});
 		this.listLinearLayout.setAdapter(this.contentListAdapter);
 
 		this.loadingIndicatorProgressBar = (ProgressBar) contentListFragmentView.findViewById(R.id.content_list_fragment_page_loading);

@@ -28,7 +28,7 @@ import java.net.CookieManager;
 /**
  * Created by linangran on 24/1/15.
  */
-public class LoginActivity extends ActionBarActivity
+public class LoginActivity extends SwipeBackActivity
 {
 
 	WebView loginWebView;

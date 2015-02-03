@@ -13,7 +13,7 @@
 			android:visibility="gone"
 			>
 
-		<ScrollView
+		<com.linangran.tgfcapp.views.CustomScrollView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:id="@+id/content_list_fragment_page_scroll_view"
@@ -29,7 +29,7 @@
 
 			</com.linangran.tgfcapp.views.ListLinearLayout>
 
-		</ScrollView>
+		</com.linangran.tgfcapp.views.CustomScrollView>
 
 
 

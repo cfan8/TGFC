@@ -11,7 +11,7 @@ import com.linangran.tgfcapp.fragments.PostFragment;
 /**
  * Created by linangran on 26/1/15.
  */
-public class PostActivity extends ActionBarActivity
+public class PostActivity extends SwipeBackActivity
 {
 	Toolbar toolbar;
 	PostFragment postFragment;

@@ -12,7 +12,7 @@ import com.linangran.tgfcapp.fragments.ContentFragment;
 /**
  * Created by linangran on 6/1/15.
  */
-public class ContentActivity extends ActionBarActivity
+public class ContentActivity extends SwipeBackActivity
 {
 	int tid;
 	String title;
@@ -42,6 +42,7 @@ public class ContentActivity extends ActionBarActivity
 
 	public void showActionBar()
 	{
+		//Log.w("", "Actionbar show Request");
 		if (getSupportActionBar().isShowing() == false)
 		{
 			getSupportActionBar().show();
@@ -51,6 +52,7 @@ public class ContentActivity extends ActionBarActivity
 
 	public void hideActionBar()
 	{
+		//Log.w("", "Actionbar hide Request");
 		if (getSupportActionBar().isShowing())
 		{
 			getSupportActionBar().hide();
