@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.fragments.ForumListFragment;
-import com.linangran.tgfcapp.fragments.PostFragment;
 import com.linangran.tgfcapp.utils.ForumBasicDataList;
 import com.linangran.tgfcapp.utils.NetworkUtils;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
@@ -38,7 +38,6 @@ public class MainActivity extends ActionBarActivity
 	private LinearLayout allList;
 
 	private ForumListFragment forumListFragment;
-	private String forumListFragmentID;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -130,11 +129,16 @@ public class MainActivity extends ActionBarActivity
 		inflateForumList(ForumBasicDataList.getPinnedForumDataList(), this.pinnedList);
 
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("forumBasicData", ForumBasicDataList.getDefaultForum());
-		this.forumListFragment = new ForumListFragment();
+		//bundle.putSerializable("forumBasicData", ForumBasicDataList.getDefaultForum());
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		this.forumListFragment = (ForumListFragment) fragmentManager.findFragmentByTag(ForumListFragment.TAG);
+		if (this.forumListFragment == null)
+		{
+			this.forumListFragment = new ForumListFragment();
+		}
 		this.forumListFragment.setArguments(bundle);
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.activity_main, this.forumListFragment, this.forumListFragmentID);
+		fragmentTransaction.add(R.id.activity_main, this.forumListFragment, ForumListFragment.TAG);
 		fragmentTransaction.commit();
 	}
 
@@ -174,7 +178,7 @@ public class MainActivity extends ActionBarActivity
 		}
 	}
 
-	private void reInflatePinnedList()
+	public void reInflatePinnedList()
 	{
 		this.pinnedList.removeAllViews();
 		inflateForumList(ForumBasicDataList.getPinnedForumDataList(), this.pinnedList);

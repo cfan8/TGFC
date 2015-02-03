@@ -7,6 +7,7 @@ import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
 import com.linangran.tgfcapp.tasks.ImageDownloadTask;
 import com.linangran.tgfcapp.utils.ImageDownloadManager;
 import com.linangran.tgfcapp.views.AsyncImageGetter;
+import com.linangran.tgfcapp.views.ListLinearLayout;
 import com.linangran.tgfcapp.views.URLDrawable;
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ import java.util.List;
 /**
  * Created by linangran on 5/1/15.
  */
-public class ContentListAdapter extends BaseAdapter
+public class ContentListAdapter
 {
 
 
@@ -42,6 +45,7 @@ public class ContentListAdapter extends BaseAdapter
 	private ContentListDownloadTask downloadTask;
 	private ContentListPageFragment contentListPageFragment;
 
+	public ListLinearLayout parentListLinearLayout;
 
 
 	private int themeColorPrimary;
@@ -103,7 +107,6 @@ public class ContentListAdapter extends BaseAdapter
 		this.dataList = dataList;
 	}
 
-	@Override
 	public int getCount()
 	{
 		return dataList.size();
@@ -124,19 +127,16 @@ public class ContentListAdapter extends BaseAdapter
 		}
 	}
 
-	@Override
 	public Object getItem(int i)
 	{
 		return dataList.get(i);
 	}
 
-	@Override
 	public long getItemId(int i)
 	{
 		return dataList.get(i).floorNum;
 	}
 
-	@Override
 	public View getView(int i, View convertView, ViewGroup viewGroup)
 	{
 		if (convertView == null)
@@ -201,6 +201,9 @@ public class ContentListAdapter extends BaseAdapter
 			editImageView.setVisibility(View.GONE);
 			plusImageView.setVisibility(View.VISIBLE);
 		}
+		//itemData.mainText = itemData.mainText.replaceAll(" ... ", "...");
+
+		//Log.w("", itemData.mainText);
 		Spanned spannedText = Html.fromHtml(itemData.mainText, new AsyncImageGetter(mainTextTextView, context), null);
 		mainTextTextView.setText(spannedText);
 
@@ -218,7 +221,12 @@ public class ContentListAdapter extends BaseAdapter
 	{
 		this.dataList.clear();
 		this.dataList.addAll(dataList);
-		this.notifyDataSetChanged();
+		this.parentListLinearLayout.updateView();
 		return;
+	}
+
+	public boolean isEmpty()
+	{
+		return dataList == null ||  dataList.size() == 0;
 	}
 }

@@ -10,6 +10,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:padding="12dp"
 			>
 
 
@@ -24,6 +25,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="标题："
+					style="@style/TgfcTheme.ContentList.MainText"
 					/>
 
 			<EditText
@@ -46,6 +48,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="引用的内容："
+					style="@style/TgfcTheme.ContentList.MainText"
 					/>
 
 			<TextView
@@ -54,6 +57,7 @@
 					android:text="QuotedText"
 					android:id="@+id/fragment_post_quoted_text_view"
 					android:background="@drawable/shape_button_border"
+					android:padding="10dp"
 					/>
 		</LinearLayout>
 
@@ -61,6 +65,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="内容："
+				style="@style/TgfcTheme.ContentList.MainText"
 				/>
 
 		<EditText

@@ -7,12 +7,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.*;
 import android.widget.ListView;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.activities.MainActivity;
 import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.adapters.ForumListAdapter;
 import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.data.ForumListItemData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ import java.util.List;
  */
 public class ForumListFragment extends Fragment
 {
+	public static final String KEY_LAST_VIEWED_FORUM = "key_last_viewed_forum";
+	public static String TAG = "FORUM_LIST_FRAGMENT_TAG";
+
 
 	private ListView listView;
 	private SwipeRefreshLayout swipeRefreshLayout;
@@ -29,6 +34,7 @@ public class ForumListFragment extends Fragment
 	private SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 
 	private ForumBasicData forumBasicData;
+	private Menu menu;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -56,6 +62,10 @@ public class ForumListFragment extends Fragment
 		List<ForumListItemData> list = new ArrayList<ForumListItemData>();
 		Bundle bundle = getArguments();
 		this.forumBasicData = (ForumBasicData) bundle.get("forumBasicData");
+		if (this.forumBasicData == null)
+		{
+			this.forumBasicData = PreferenceUtils.getLastViewedForum();
+		}
 		this.forumListAdapter = new ForumListAdapter(this.getActivity(), list, this, this.forumBasicData.fid);
 		this.getActivity().setTitle(this.forumBasicData.name);
 		this.listView.setAdapter(this.forumListAdapter);
@@ -104,14 +114,16 @@ public class ForumListFragment extends Fragment
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
 		inflater.inflate(R.menu.menu_fragment_forum_list, menu);
+		this.menu = menu;
+		updatePinnedState(false);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
 	public void onDestroy()
 	{
-		super.onDestroy();
 		this.forumListAdapter.abortTask();
+		super.onDestroy();
 	}
 
 	@Override
@@ -128,8 +140,43 @@ public class ForumListFragment extends Fragment
 			case R.id.menu_fragment_forum_list_refresh:
 				onRefreshListener.onRefresh();
 				return true;
+			case R.id.menu_fragment_forum_list_pin:
+				if (PreferenceUtils.isPinned(forumBasicData.fid))
+				{
+					PreferenceUtils.removeFromPinnedList(forumBasicData.fid);
+				}
+				else
+				{
+					PreferenceUtils.addToPinnedList(forumBasicData.fid);
+				}
+				updatePinnedState(true);
 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void updatePinnedState(boolean updateDrawer)
+	{
+		MenuItem pinItem = this.menu.findItem(R.id.menu_fragment_forum_list_pin);
+		if (PreferenceUtils.isPinned(forumBasicData.fid))
+		{
+			pinItem.setChecked(true);
+		}
+		else
+		{
+			pinItem.setChecked(false);
+		}
+		if (updateDrawer)
+		{
+			MainActivity mainActivity = (MainActivity) getActivity();
+			mainActivity.reInflatePinnedList();
+		}
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		PreferenceUtils.saveLastViewedForum(this.forumBasicData.fid);
 	}
 }

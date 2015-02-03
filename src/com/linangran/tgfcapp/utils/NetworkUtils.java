@@ -2,6 +2,7 @@ package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import com.linangran.tgfcapp.data.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -20,6 +21,7 @@ import org.apache.http.protocol.HttpContext;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.ByteArrayOutputStream;
@@ -360,6 +362,7 @@ public class NetworkUtils
 		int messageStart = 0;
 		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+)(<\\/b>)?<\\/a>");
 		Matcher mainPostMatcher = mainPostPattern.matcher(html);
+		Pattern urlReplacePattern = Pattern.compile("<a\\s*.*?href=\"(.*?)\"\\s*.*?>.*?\\s\\.\\.\\.\\s.*?<\\/a>");
 		if (mainPostMatcher.find())
 		{
 			messageStart++;
@@ -412,10 +415,13 @@ public class NetworkUtils
 				String quoteString = quotedElements.get(0).html();
 				String divider = "<br>";
 				int t = quoteString.indexOf(divider);
-				itemData.quotedInfo = quoteString.substring(0, t);
-				itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
-				itemData.quotedText = quoteString.substring(t + divider.length());
-				itemData.quotedText = getPlainText(cleanText(itemData.quotedText)).trim();
+				if (t != -1)
+				{
+					itemData.quotedInfo = quoteString.substring(0, t);
+					itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
+					itemData.quotedText = quoteString.substring(t + divider.length());
+					itemData.quotedText = getPlainText(cleanText(itemData.quotedText)).trim();
+				}
 				msgElement.select(".ui-topic-content").remove();
 			}
 			itemData.mainText = msgElement.html();
@@ -424,6 +430,14 @@ public class NetworkUtils
 		}
 		Pattern imgURLPattern = Pattern.compile("<img\\s*[^>]*?src\\s*=\\s*['\\\"]([^'\\\"]*?)['\\\"][^>]*?\\s*\\/?>");
 		List<String> imgURLList = new ArrayList<String>();
+		for (int i = 0; i < dataList.size(); i++)
+		{
+			ContentListItemData itemData = dataList.get(i);
+//			itemData.mainText = Jsoup.clean(itemData.mainText, Whitelist.basicWithImages());
+			Matcher urlReplaceMatcher = urlReplacePattern.matcher(itemData.mainText);
+//			Log.w("Matcher", String.valueOf(urlReplaceMatcher.find()));
+			itemData.mainText = urlReplaceMatcher.replaceAll("<a href=\"$1\">$1</a>");
+		}
 		for (int i = 0; i < dataList.size(); i++)
 		{
 			String itemHTML = dataList.get(i).mainText;

@@ -40,11 +40,14 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 	@Override
 	protected HttpResult<ImageDrawableData> doInBackground(Void... voids)
 	{
-		File cachedFileDirectory = new File(Environment.getExternalStorageDirectory(), "tgfccache");
+		File cachedFileDirectory = new File(context.getCacheDir(), "cached_image");
+
+//		File cachedFileDirectory = new File(Environment.getExternalStorageDirectory(), "tgfcimg");
 		if (cachedFileDirectory.exists() == false)
 		{
 			cachedFileDirectory.mkdir();
 		}
+
 		String url = info.url;
 		String referer = info.getReferer();
 		String md5 = info.getMD5();
@@ -107,6 +110,7 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 		Drawable drawable;
 		if (drawableInfo != null)
 		{
+			int width, height;
 			if (httpResult.hasError)
 			{
 				switch (httpResult.errorType)
@@ -118,18 +122,21 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 						drawable = context.getResources().getDrawable(R.drawable.prompt_image_network_fail);
 						break;
 				}
+				width = drawable.getIntrinsicWidth();
+				height = drawable.getIntrinsicHeight();
 			}
 			else
 			{
 				drawable = new BitmapDrawable(context.getResources(), httpResult.result.bitmap);
+				width = httpResult.result.bitmap.getWidth();
+				height = httpResult.result.bitmap.getHeight();
 			}
 			drawableInfo.levelListDrawable.addLevel(1, 1, drawable);
-			int width = httpResult.result.bitmap.getWidth();
-			int height = httpResult.result.bitmap.getHeight();
 			int maxWidth = drawableInfo.textView.getWidth() - 10;
 			if (width > maxWidth)
 			{
 				height = maxWidth * height / width;
+				width = maxWidth;
 			}
 			drawableInfo.levelListDrawable.setBounds(0, 0, width, height);
 			drawableInfo.levelListDrawable.setLevel(1);

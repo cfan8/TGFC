@@ -33,4 +33,17 @@ public class ForumBasicData implements Comparable<ForumBasicData>, Serializable
 	{
 		return this.order - forumBasicData.order;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		ForumBasicData data = (ForumBasicData) o;
+		return this.fid == data.fid;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return this.fid;
+	}
 }

@@ -5,20 +5,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
 import android.view.*;
-import android.widget.*;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.ContentActivity;
 import com.linangran.tgfcapp.adapters.ContentListAdapter;
 import com.linangran.tgfcapp.data.ContentListPageData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
+import com.linangran.tgfcapp.views.ListLinearLayout;
 
 /**
  * Created by linangran on 3/1/15.
  */
 public class ContentListPageFragment extends Fragment
 {
-	private ListView listView;
+	private ListLinearLayout listLinearLayout;
+	private ScrollView scrollView;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ContentListAdapter contentListAdapter;
 	private ContentFragment viewPagerFragment;
@@ -49,7 +54,8 @@ public class ContentListPageFragment extends Fragment
 		this.fid = bundle.getInt("fid");
 		this.title = bundle.getString("title");
 		View contentListFragmentView = inflater.inflate(R.layout.content_list_fragment_page, container, false);
-		this.listView = (ListView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view);
+		this.listLinearLayout = (ListLinearLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view);
+		this.scrollView = (ScrollView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_scroll_view);
 		this.loadInfoLayout = (RelativeLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view_empty_view);
 		if (bundle.containsKey("pagedata"))
 		{
@@ -60,42 +66,63 @@ public class ContentListPageFragment extends Fragment
 		{
 			this.contentListAdapter = new ContentListAdapter(this, tid, page);
 		}
-		this.listView.setAdapter(this.contentListAdapter);
-		this.listView.setOnScrollListener(new AbsListView.OnScrollListener()
+		this.scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener()
 		{
-			int lastVisibleItem = 0;
-			int actionBarHeight = getResources().getDimensionPixelSize(R.dimen.actionbarTotalSize);
+			int lastY = 0;
+
 			ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
-			int lastItemTop = actionBarHeight;
-			int scrollThreshold = 5;
+			int actionBarHeight = getResources().getDimensionPixelSize(R.dimen.actionbarTotalSize);
 
 			@Override
-			public void onScrollStateChanged(AbsListView absListView, int i)
+			public void onScrollChanged()
 			{
-
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-			{
-				int currentTop = actionBarHeight;
-				if (listView.getChildAt(0) != null)
-				{
-					currentTop = listView.getChildAt(0).getTop();
-				}
-				//Log.w("", "lastItem: " + lastVisibleItem + ", item: " + firstVisibleItem + "; lastTop: " + lastItemTop+ ", top: " + currentTop);
-				if (lastVisibleItem < firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop > scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop > scrollThreshold && currentTop <= 0))
+				int y = scrollView.getScrollY();
+				if (y - lastY > 3 && y >= actionBarHeight)
 				{
 					contentActivity.hideActionBar();
 				}
-				else if (lastVisibleItem > firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop < -scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop < -scrollThreshold))
+				else if (y < actionBarHeight || lastY - y > 3)
 				{
 					contentActivity.showActionBar();
 				}
-				lastVisibleItem = firstVisibleItem;
-				lastItemTop = currentTop;
+				lastY = y;
 			}
-		});
+		}); /*
+	{
+		int lastVisibleItem = 0;
+		ContentActivity contentActivity = (ContentActivity) ContentListPageFragment.this.getActivity();
+		int lastItemTop = actionBarHeight;
+		int scrollThreshold = 5;
+
+		@Override
+		public void onScrollStateChanged(AbsListView absListView, int i)
+		{
+
+		}
+
+		@Override
+		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+		{
+			int currentTop = actionBarHeight;
+			if (listLinearLayout.getChildAt(0) != null)
+			{
+				currentTop = listLinearLayout.getChildAt(0).getTop();
+			}
+			//Log.w("", "lastItem: " + lastVisibleItem + ", item: " + firstVisibleItem + "; lastTop: " + lastItemTop+ ", top: " + currentTop);
+			if (lastVisibleItem < firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop > scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop > scrollThreshold && currentTop <= 0))
+			{
+				contentActivity.hideActionBar();
+			}
+			else if (lastVisibleItem > firstVisibleItem || (firstVisibleItem != 0 && lastVisibleItem == firstVisibleItem && lastItemTop - currentTop < -scrollThreshold) || (firstVisibleItem == 0 && lastVisibleItem == 0 && lastItemTop - currentTop < -scrollThreshold))
+			{
+				contentActivity.showActionBar();
+			}
+			lastVisibleItem = firstVisibleItem;
+			lastItemTop = currentTop;
+		}
+	});*/
+		this.listLinearLayout.setAdapter(this.contentListAdapter);
+
 		this.loadingIndicatorProgressBar = (ProgressBar) contentListFragmentView.findViewById(R.id.content_list_fragment_page_loading);
 		this.loadFailTextView = (TextView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_load_fail);
 		this.swipeRefreshLayout = (SwipeRefreshLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_swipe_refresh);
@@ -202,6 +229,7 @@ public class ContentListPageFragment extends Fragment
 			case R.id.menu_fragment_content_page_refresh:
 				this.onRefreshListener.onRefresh();
 				return true;
-		} return super.onOptionsItemSelected(item);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
