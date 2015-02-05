@@ -2,31 +2,25 @@ package com.linangran.tgfcapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.data.ContentListItemData;
-import com.linangran.tgfcapp.data.DrawableInfo;
-import com.linangran.tgfcapp.data.ImageDownloadInfo;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
-import com.linangran.tgfcapp.tasks.ImageDownloadTask;
-import com.linangran.tgfcapp.utils.ImageDownloadManager;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
 import com.linangran.tgfcapp.views.AsyncImageGetter;
 import com.linangran.tgfcapp.views.ListLinearLayout;
-import com.linangran.tgfcapp.views.URLDrawable;
-import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,6 +190,7 @@ public class ContentListAdapter
 		{
 			editImageView.setVisibility(View.VISIBLE);
 			plusImageView.setVisibility(View.GONE);
+			editImageView.setOnClickListener(new ReplyListener(itemData.pid));
 		}
 		else
 		{
@@ -222,8 +217,6 @@ public class ContentListAdapter
 	}
 
 
-
-
 	public void updateContentDataList(List<ContentListItemData> dataList)
 	{
 		this.dataList.clear();
@@ -234,6 +227,25 @@ public class ContentListAdapter
 
 	public boolean isEmpty()
 	{
-		return dataList == null ||  dataList.size() == 0;
+		return dataList == null || dataList.size() == 0;
+	}
+
+	private class ReplyListener implements View.OnClickListener
+	{
+		int pid;
+		public ReplyListener(int pid)
+		{
+			this.pid = pid;
+		}
+
+		@Override
+		public void onClick(View v)
+		{
+			Intent intent = new Intent(contentListPageFragment.getActivity(), PostActivity.class);
+			intent.putExtra("isEdit", true);
+			intent.putExtra("editPid", pid);
+			intent.putExtra("tid", tid);
+			contentListPageFragment.startActivity(intent);
+		}
 	}
 }

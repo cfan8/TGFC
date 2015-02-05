@@ -18,4 +18,5 @@ public class ContentListItemData implements Serializable
 	public int ratings;
 	public String platformInfo;
 	public boolean canEdit;
+	public boolean isMainPost;
 }

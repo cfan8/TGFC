@@ -3,16 +3,20 @@ package com.linangran.tgfcapp.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.*;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.linangran.tgfcapp.R;
+import com.linangran.tgfcapp.data.EditPostData;
 import com.linangran.tgfcapp.data.HttpResult;
+import com.linangran.tgfcapp.tasks.EditPostTask;
 import com.linangran.tgfcapp.tasks.PostTask;
 import com.linangran.tgfcapp.utils.ErrorHandlerUtils;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
@@ -43,6 +47,7 @@ public class PostFragment extends Fragment
 
 
 	PostTask postTask;
+	EditPostTask editPostTask;
 
 	@Override
 
@@ -62,6 +67,7 @@ public class PostFragment extends Fragment
 		if (isEdit)
 		{
 			editPid = bundle.getInt("editPid");
+			tid = bundle.getInt("tid");
 		}
 		else
 		{
@@ -84,6 +90,16 @@ public class PostFragment extends Fragment
 		this.contentEditText = (EditText) fragment.findViewById(R.id.fragment_post_content_edit_text);
 		this.titleLayout = (LinearLayout) fragment.findViewById(R.id.fragment_post_title_layout);
 		this.quotedTextLayout = (LinearLayout) fragment.findViewById(R.id.fragment_post_quoted_text_layout);
+		updateUI();
+		if (isEdit)
+		{
+			startFetchEditText(editPid, tid);
+		}
+		return fragment;
+	}
+
+	public void updateUI()
+	{
 		if (isReply)
 		{
 			this.titleLayout.setVisibility(View.GONE);
@@ -102,7 +118,6 @@ public class PostFragment extends Fragment
 			this.titleLayout.setVisibility(View.VISIBLE);
 			this.quotedTextLayout.setVisibility(View.GONE);
 		}
-		return fragment;
 	}
 
 	@Override
@@ -248,5 +263,36 @@ public class PostFragment extends Fragment
 		this.postTask.setPostData(isReply, hasQuote, isEdit, fid, tid, quotePid, editPid, title, content);
 		this.loadingDialog = ProgressDialog.show(this.getActivity(), "", "正在提交，请稍后...", true);
 		this.postTask.execute();
+	}
+
+	public void startFetchEditText(int pid, int tid)
+	{
+		loadingDialog = ProgressDialog.show(this.getActivity(), "", "正在加载原始回帖", true);
+		if (this.editPostTask == null || this.editPostTask.getStatus().equals(AsyncTask.Status.RUNNING) == false)
+		{
+			this.editPostTask = new EditPostTask(pid, tid, this);
+			this.editPostTask.execute();
+		}
+	}
+
+	public void finishFetchEditText(HttpResult<EditPostData> result)
+	{
+		loadingDialog.dismiss();
+		if (result.hasError)
+		{
+			ErrorHandlerUtils.handleError(result, this.getActivity());
+		}
+		else
+		{
+			this.isReply = result.result.isReply;
+			//Log.w("", String.valueOf(this.isReply));
+			this.hasQuote = false;
+			if (isReply == false)
+			{
+				this.titleEditText.setText(result.result.title);
+			}
+			this.contentEditText.setText(result.result.content);
+			updateUI();
+		}
 	}
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 import com.linangran.tgfcapp.data.*;
+import com.linangran.tgfcapp.tasks.EditPostTask;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.*;
@@ -365,7 +366,7 @@ public class NetworkUtils
 		Elements messageElements = htmlDoc.select(".message");
 		Elements infobarElements = htmlDoc.select(".infobar");
 		int messageStart = 0;
-		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+)(<\\/b>)?<\\/a>");
+		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+?)(<\\/b>)?<\\/a>");
 		Matcher mainPostMatcher = mainPostPattern.matcher(html);
 		Pattern urlReplacePattern = Pattern.compile("<a\\s*.*?href=\"(.*?)\"\\s*.*?>.*?\\s\\.\\.\\.\\s.*?<\\/a>");
 		if (mainPostMatcher.find())
@@ -580,6 +581,16 @@ public class NetworkUtils
 		{
 			apiURL = APIURL.WAP_POST_EDIT;
 			postParams.add(new BasicNameValuePair("pid", editPid.toString()));
+			postParams.add(new BasicNameValuePair("tid", tid.toString()));
+			postParams.add(new BasicNameValuePair("fid", fid.toString()));
+			if (isReply == false)
+			{
+				postParams.add(new BasicNameValuePair("first", "1"));
+			}
+			else
+			{
+				postParams.add(new BasicNameValuePair("first", "0"));
+			}
 		}
 		else
 		{
@@ -659,6 +670,53 @@ public class NetworkUtils
 		{
 			httpResult.setErrorInfo(response.getStatusLine().toString(), HttpResult.ERROR_TYPE_NETWORK_FAIL);
 			return httpResult;
+		}
+	}
+
+
+	public static HttpResult<EditPostData> fetchEditText(int pid, int tid)
+	{
+		HttpResult<String> httpResult = httpGetString(APIURL.WAP_POST_EDIT, APIURL.WAP_API_URL, false, false, "pid", String.valueOf(pid), "tid", String.valueOf(tid));
+		HttpResult<EditPostData> editResult = new HttpResult<EditPostData>(httpResult);
+		if (httpResult.hasError)
+		{
+			return editResult;
+		}
+		else
+		{
+			String html = StringEscapeUtils.unescapeHtml(httpResult.result);
+			Pattern editTitlePattern = Pattern.compile("<input.*?(type=\"hidden\")?\\s*name=\"subject\".*?value=\"(.*?)\"\\s*\\/>");
+			Matcher editTitleMatcher = editTitlePattern.matcher(html);
+			EditPostData editPostData = new EditPostData();
+			editPostData.tid = tid;
+			editPostData.pid = pid;
+			if (editTitleMatcher.find())
+			{
+				//Log.w("group 1", editTitleMatcher.group(1));
+				if (editTitleMatcher.group(1) == null || editTitleMatcher.group(1).trim().length() ==0)
+				{
+					editPostData.isReply = false;
+					editPostData.title = editTitleMatcher.group(2);
+				}
+				else
+				{
+					editPostData.isReply = true;
+				}
+			}
+			Pattern editTextPattern = Pattern.compile("<textarea[^>]*>([^<]*)<\\/textarea>");
+			Matcher editTextMatcher = editTextPattern.matcher(html);
+			if (editTextMatcher.find())
+			{
+				editPostData.content = editTextMatcher.group(1);
+				editPostData.content = cleanEditHistory(editPostData.content);
+				editPostData.content = editPostData.content.replaceAll(APIURL.ANDROID_CLIENT_SIGNATURE_EDIT_REGEX, "");
+				editResult.setResult(editPostData);
+			}
+			else
+			{
+				editResult.setErrorInfo("网页解析错误", HttpResult.ERROR_TYPE_API_ERROR);
+			}
+			return editResult;
 		}
 	}
 }
