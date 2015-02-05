@@ -17,7 +17,7 @@ public class HttpResult<T>
 
 	public static final int ERROR_TYPE_NOT_IMAGE = 6;
 	public static final int ERROR_TYPE_WRITE_CACHE_FILE_FAIL = 7;
-
+	public static final int ERROR_TYPE_IMAGE_OFF = 8;
 
 	public static final int ERROR_TYPE_OTHERS = 1000;
 

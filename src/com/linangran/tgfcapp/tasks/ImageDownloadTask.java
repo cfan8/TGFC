@@ -6,11 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Environment;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.data.*;
 import com.linangran.tgfcapp.utils.ImageDownloadManager;
 import com.linangran.tgfcapp.utils.NetworkUtils;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.io.*;
 
@@ -23,6 +23,7 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 	ImageDownloadManager manager;
 	public ImageDownloadInfo info;
 	public DrawableInfo drawableInfo;
+	boolean downloadAnyway = false;
 
 	public ImageDownloadTask(Context context, ImageDownloadInfo info)
 	{
@@ -36,13 +37,18 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 		this.drawableInfo = drawableInfo;
 	}
 
+	public void setDownloadAnyway()
+	{
+		this.downloadAnyway = true;
+	}
+
 
 	@Override
 	protected HttpResult<ImageDrawableData> doInBackground(Void... voids)
 	{
 		File cachedFileDirectory = new File(context.getCacheDir(), "cached_image");
 
-//		File cachedFileDirectory = new File(Environment.getExternalStorageDirectory(), "tgfcimg");
+		//		File cachedFileDirectory = new File(Environment.getExternalStorageDirectory(), "tgfcimg");
 		if (cachedFileDirectory.exists() == false)
 		{
 			cachedFileDirectory.mkdir();
@@ -57,28 +63,37 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 		if (cachedFiles.length == 0)
 		{
 			//Download;
-			HttpResult<ImageDownloadData> imageDownloadResult = NetworkUtils.downloadImage(info.url, info.getReferer());
-			imageDrawableDataHttpResult = new HttpResult<ImageDrawableData>(imageDownloadResult);
-			if (imageDownloadResult.hasError == false)
+			if (PreferenceUtils.shouldShowImage() == false && downloadAnyway == false)
 			{
-				String fileName = md5 + "." + imageDownloadResult.result.imageType;
-				File imageFile = new File(cachedFileDirectory, fileName);
-				try
-				{
-					FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
-					fileOutputStream.write(imageDownloadResult.result.imageData);
-					fileOutputStream.close();
-				}
-				catch (IOException e)
-				{
-					imageDrawableDataHttpResult.setErrorInfo("Image Download Fail", HttpResult.ERROR_TYPE_WRITE_CACHE_FILE_FAIL);
-					return imageDrawableDataHttpResult;
-				}
-				cachedImageFile = imageFile;
+				HttpResult<ImageDrawableData> data = new HttpResult<ImageDrawableData>();
+				data.setErrorInfo("已关闭图片显示", HttpResult.ERROR_TYPE_IMAGE_OFF);
+				return data;
 			}
 			else
 			{
-				return imageDrawableDataHttpResult;
+				HttpResult<ImageDownloadData> imageDownloadResult = NetworkUtils.downloadImage(info.url, info.getReferer());
+				imageDrawableDataHttpResult = new HttpResult<ImageDrawableData>(imageDownloadResult);
+				if (imageDownloadResult.hasError == false)
+				{
+					String fileName = md5 + "." + imageDownloadResult.result.imageType;
+					File imageFile = new File(cachedFileDirectory, fileName);
+					try
+					{
+						FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+						fileOutputStream.write(imageDownloadResult.result.imageData);
+						fileOutputStream.close();
+					}
+					catch (IOException e)
+					{
+						imageDrawableDataHttpResult.setErrorInfo("Image Download Fail", HttpResult.ERROR_TYPE_WRITE_CACHE_FILE_FAIL);
+						return imageDrawableDataHttpResult;
+					}
+					cachedImageFile = imageFile;
+				}
+				else
+				{
+					return imageDrawableDataHttpResult;
+				}
 			}
 		}
 		else
@@ -117,6 +132,9 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 				{
 					case HttpResult.ERROR_TYPE_WRITE_CACHE_FILE_FAIL:
 						drawable = context.getResources().getDrawable(R.drawable.prompt_image_cache_error);
+						break;
+					case HttpResult.ERROR_TYPE_IMAGE_OFF:
+						drawable = context.getResources().getDrawable(R.drawable.prompt_image_no_image);
 						break;
 					default:
 						drawable = context.getResources().getDrawable(R.drawable.prompt_image_network_fail);

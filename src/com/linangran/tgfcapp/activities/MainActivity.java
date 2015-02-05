@@ -36,6 +36,7 @@ public class MainActivity extends ActionBarActivity
 	private LinearLayout drawerContentLayout;
 	private LinearLayout pinnedList;
 	private LinearLayout allList;
+	private TextView settingTextView;
 
 	private ForumListFragment forumListFragment;
 
@@ -127,6 +128,17 @@ public class MainActivity extends ActionBarActivity
 		this.allList = (LinearLayout) findViewById(R.id.main_drawer_alllist);
 		inflateForumList(ForumBasicDataList.getForumBasicDataList(), this.allList);
 		inflateForumList(ForumBasicDataList.getPinnedForumDataList(), this.pinnedList);
+
+		this.settingTextView = (TextView) findViewById(R.id.activity_main_settings);
+		this.settingTextView.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		Bundle bundle = new Bundle();
 		//bundle.putSerializable("forumBasicData", ForumBasicDataList.getDefaultForum());

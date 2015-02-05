@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+		>
+
+	<PreferenceCategory
+			android:title="浏览设置">
+
+		<ListPreference
+				android:key="items_per_page"
+				android:title="帖子列表每页显示数量"
+				android:entries="@array/numbers_per_page"
+				android:entryValues="@array/numbers_per_page"
+				android:defaultValue="30"
+				android:dialogTitle="帖子列表每页显示数量"
+				android:summary="%s"
+				/>
+
+		<ListPreference
+				android:key="posts_per_page"
+				android:title="内容页每页显示数量"
+				android:summary="%s"
+				android:entries="@array/numbers_per_page"
+				android:entryValues="@array/numbers_per_page"
+				android:dialogTitle="内容页每页显示数量"
+				android:defaultValue="30"
+				/>
+
+		<CheckBoxPreference
+				android:key="show_pinned_posts"
+				android:title="显示置顶帖子"
+				android:defaultValue="true"/>
+
+		<CheckBoxPreference
+				android:key="hide_quick_panel"
+				android:title="隐藏分享和评分按钮"
+				android:summaryOn="帖子内容页中，每篇回复的分享和评分按钮都会隐藏"
+				android:summaryOff="帖子内容页中，每篇回复都会显示分享和评分按钮"
+				android:defaultValue="false"/>
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+			android:title="图片设置">
+
+
+		<CheckBoxPreference
+				android:key="show_image_on_wifi"
+				android:title="WIFI下显示图片"
+				android:defaultValue="true"/>
+
+		<CheckBoxPreference
+				android:key="show_image_on_cellular"
+				android:title="3G下显示图片"
+				android:defaultValue="false"/>
+
+	</PreferenceCategory>
+
+
+	<PreferenceCategory
+			android:title="关于">
+
+
+		<Preference
+				android:key="about_version"
+				android:summary="Version "
+				android:title="TGFC Android Beta 客户端">
+
+
+		</Preference>
+
+		<Preference
+				android:key="show_in_market"
+				android:summary=""
+				android:title="在Google Play中评分">
+
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:data="market://details?id=com.linangran.tgfcapp"
+					/>
+
+		</Preference>
+
+		<Preference
+				android:key="feedback"
+				android:summary="如果与App崩溃相关，建议您同时使用Google Play的Report功能上传日志"
+				android:title="反馈意见">
+
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:data="https://github.com/cfan8/TGFC/issues"
+					/>
+
+		</Preference>
+
+
+
+		<Preference
+				android:key="about_github"
+				android:title="在GitHub中查看本项目"
+				android:summary="欢迎fork和pull request"
+				>
+
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:data="https://github.com/cfan8/TGFC"
+					/>
+
+		</Preference>
+
+		<Preference
+				android:key="about_license"
+				android:title="开放源代码协议"
+				android:summary="GPL v3"
+				>
+
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:data="http://www.gnu.org/licenses/gpl-3.0-standalone.html"
+					/>
+
+		</Preference>
+
+		<Preference
+				android:key="about_author"
+				android:title="关于作者"
+				>
+
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:data="http://www.linangran.com/?page_id=114"
+					/>
+
+		</Preference>
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

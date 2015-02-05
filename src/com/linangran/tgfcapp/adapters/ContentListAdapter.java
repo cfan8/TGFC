@@ -22,6 +22,7 @@ import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
 import com.linangran.tgfcapp.tasks.ImageDownloadTask;
 import com.linangran.tgfcapp.utils.ImageDownloadManager;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 import com.linangran.tgfcapp.views.AsyncImageGetter;
 import com.linangran.tgfcapp.views.ListLinearLayout;
 import com.linangran.tgfcapp.views.URLDrawable;
@@ -210,6 +211,12 @@ public class ContentListAdapter
 		platformTextView.setText(itemData.platformInfo);
 
 		quoteImageView.setOnClickListener(quoteReplyListener);
+
+		if (PreferenceUtils.hideQuickPanel())
+		{
+			shareImageView.setVisibility(View.GONE);
+			plusImageView.setVisibility(View.GONE);
+		}
 
 		return convertView;
 	}

@@ -260,7 +260,12 @@ public class NetworkUtils
 	public static HttpResult<List<ForumListItemData>> getForumList(int fid, int page)
 	{
 		String url = APIURL.WAP_VIEW_FORUM_URL + fid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
+		String iam = "";
+		if (PreferenceUtils.showPinnedPosts() == false)
+		{
+			iam = "notop";
+		}
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false, "tp", String.valueOf(PreferenceUtils.getItemCountOnForumList()), "iam", iam);
 		HttpResult<List<ForumListItemData>> listResult = new HttpResult<List<ForumListItemData>>(stringResult);
 		if (stringResult.hasError == false)
 		{
@@ -320,7 +325,7 @@ public class NetworkUtils
 	public static HttpResult<ContentListPageData> getContentList(int tid, int page)
 	{
 		String url = APIURL.WAP_VIEW_CONTENT_URL + tid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false, "pp", String.valueOf(PreferenceUtils.getPostCountOnContentList()));
 		HttpResult<ContentListPageData> contentResult = new HttpResult<ContentListPageData>(stringResult);
 		ContentListPageData pageData = new ContentListPageData();
 		if (stringResult.hasError == false)
@@ -453,7 +458,7 @@ public class NetworkUtils
 	public static void extractPlatform(ContentListItemData itemData)
 	{
 		Pattern platformPattern = Pattern.compile("(posted by wap, platform: .+?)\\s*<br(\\s*?\\/)*?>");
-		Pattern androidPattern = Pattern.compile("<br(?:\\s*?\\/)?>\\s*_{8,}\\s*<br(?:\\s*?\\/)?>\\s*(发送自.+?客户端)");
+		Pattern androidPattern = Pattern.compile(APIURL.ANDROID_CLIENT_SIGNATURE_REGEX);
 		Matcher platformMatcher = platformPattern.matcher(itemData.mainText);
 		if (platformMatcher.find())
 		{
@@ -567,7 +572,6 @@ public class NetworkUtils
 	{
 		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		String apiURL;
-		content += APIURL.ANDROID_CLIENT_SIGNATURE;
 		postParams.add(new BasicNameValuePair("subject", title));
 		postParams.add(new BasicNameValuePair("message", content));
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();

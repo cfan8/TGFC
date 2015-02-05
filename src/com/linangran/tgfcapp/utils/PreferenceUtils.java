@@ -2,8 +2,9 @@ package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.linangran.tgfcapp.data.ForumBasicData;
@@ -30,10 +31,21 @@ public class PreferenceUtils
 	public static final String KEY_LAST_VIEWED_FORUM_ID = "last_viewed_forum_id";
 
 
+	public static final String KEY_ABOUT_VERSION = "about_version";
+	public static final String KEY_ITEMS_PER_PAGE = "items_per_page";
+	public static final String KEY_POSTS_PER_PAGE = "posts_per_page";
+	public static final String KEY_SHOW_PINNED_POSTS = "show_pinned_posts";
+	public static final String KEY_SHOW_IMAGE_ON_WIFI = "show_image_on_wifi";
+	public static final String KEY_SHOW_IMAGE_ON_CELLULAR = "show_image_on_cellular";
+	public static final String KEY_HIDE_QUICK_PANEL = "hide_quick_panel";
+
+
 	static SharedPreferences pref = null;
+	static Context applicationContext = null;
 
 	public static void setContext(Context context)
 	{
+		PreferenceUtils.applicationContext = context;
 		PreferenceUtils.pref = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
@@ -76,7 +88,7 @@ public class PreferenceUtils
 		return;
 	}
 
-	private static<T> T getObject(String key, Type type)
+	private static <T> T getObject(String key, Type type)
 	{
 		String s = pref.getString(key, null);
 		if (s == null)
@@ -90,7 +102,7 @@ public class PreferenceUtils
 		}
 	}
 
-	private static<T> void putObject(String key, Object value)
+	private static <T> void putObject(String key, Object value)
 	{
 		Gson gson = new Gson();
 		String gsonData = gson.toJson(value);
@@ -103,7 +115,9 @@ public class PreferenceUtils
 
 	public static List<ForumBasicData> getPinnedList()
 	{
-		Type type = new TypeToken<List<ForumBasicData>>(){}.getType();
+		Type type = new TypeToken<List<ForumBasicData>>()
+		{
+		}.getType();
 		List<ForumBasicData> storedValue = getObject(KEY_PINNED_LIST, type);
 		if (storedValue == null)
 		{
@@ -228,5 +242,56 @@ public class PreferenceUtils
 		SharedPreferences.Editor editor = pref.edit();
 		editor.putBoolean(KEY_HAS_DRAFT, false);
 		editor.commit();
+	}
+
+	public static boolean shouldShowImage()
+	{
+		if (isOnWifi())
+		{
+			return showImageOnWifi();
+		}
+		else
+		{
+			return showImageOnCellular();
+		}
+	}
+
+	public static int getItemCountOnForumList()
+	{
+		String value = pref.getString(KEY_ITEMS_PER_PAGE, "30");
+		return Integer.valueOf(value);
+	}
+
+	public static int getPostCountOnContentList()
+	{
+		String value = pref.getString(KEY_POSTS_PER_PAGE, "30");
+		return Integer.valueOf(value);
+	}
+
+	public static boolean showPinnedPosts()
+	{
+		return pref.getBoolean(KEY_SHOW_PINNED_POSTS, true);
+	}
+
+	public static boolean hideQuickPanel()
+	{
+		return pref.getBoolean(KEY_HIDE_QUICK_PANEL, false);
+	}
+
+	private static boolean showImageOnWifi()
+	{
+		return pref.getBoolean(KEY_SHOW_IMAGE_ON_WIFI, true);
+	}
+
+	private static boolean showImageOnCellular()
+	{
+		return pref.getBoolean(KEY_SHOW_IMAGE_ON_CELLULAR, false);
+	}
+
+	private static boolean isOnWifi()
+	{
+		ConnectivityManager connManager = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		return mWifi.isConnected();
 	}
 }

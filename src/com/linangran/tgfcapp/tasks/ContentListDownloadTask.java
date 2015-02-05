@@ -7,6 +7,7 @@ import com.linangran.tgfcapp.data.ImageDownloadInfo;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.utils.ImageDownloadManager;
 import com.linangran.tgfcapp.utils.NetworkUtils;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class ContentListDownloadTask extends AsyncTask<Integer, Integer, HttpRes
 			contentListPageFragment.finishRefreshing();
 		}
 		contentListPageFragment.updateContentList(result);
-		if (result.hasError == false)
+		if (result.hasError == false && PreferenceUtils.shouldShowImage())
 		{
 			List<String> urlList = result.result.imgURLList;
 			ImageDownloadManager manager = ImageDownloadManager.getInstance();

@@ -44,6 +44,9 @@
 		-->
 	</style>
 
+	<style name="TgfcThemeBase.Settings" parent="TgfcTheme">
+	</style>
+
 	<!-- General Theme For Lower API Devices -->
 	<style name="TgfcTheme" parent="@style/TgfcThemeBase">
 	</style>
@@ -108,5 +111,9 @@
 		<item name="android:width">36dp</item>
 		<item name="android:height">36dp</item>
 		<item name="android:padding">10dp</item>
+	</style>
+
+	<style name="TgfcTheme.Settings" parent="TgfcThemeBase.Settings">
+
 	</style>
 </resources>

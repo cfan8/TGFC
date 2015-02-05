@@ -19,5 +19,8 @@ public class APIURL
 	public static final String WAP_POST_EDIT = WAP_API_URL + "?action=post&do=edit";
 
 
-	public static final String ANDROID_CLIENT_SIGNATURE = "\r\n________\r\n发送自TGFC Android测试版客户端";
+	public static final String ANDROID_CLIENT_SIGNATURE_DEFAULT = "\r\n________\r\n发送自TGFC Android测试版客户端";
+	public static final String ANDROID_CLIENT_SIGNATURE_TGBXS = "\r\n________\r\n发送自TGBXS Android测试版客户端";
+	public static final String ANDROID_CLIENT_SIGNATURE_TGYXW = "\r\n________\r\n发送自支持威武有希望了!客户端";
+	public static final String ANDROID_CLIENT_SIGNATURE_REGEX = "<br(?:\\s*?\\/)?>\\s*_{8,}\\s*<br(?:\\s*?\\/)?>\\s*(发送自.+?客户端)";
 }
