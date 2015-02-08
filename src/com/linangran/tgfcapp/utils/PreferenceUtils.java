@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import com.google.android.vending.licensing.AESObfuscator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.linangran.tgfcapp.data.ForumBasicData;
@@ -39,6 +41,10 @@ public class PreferenceUtils
 	public static final String KEY_SHOW_IMAGE_ON_CELLULAR = "show_image_on_cellular";
 	public static final String KEY_HIDE_QUICK_PANEL = "hide_quick_panel";
 
+	public static final String KEY_HAS_CHECKED_GOOGLE_PLAY = "has_checked_google_play";
+
+	public static AESObfuscator AES_OBFUSCATOR;
+
 
 	static SharedPreferences pref = null;
 	static Context applicationContext = null;
@@ -47,6 +53,7 @@ public class PreferenceUtils
 	{
 		PreferenceUtils.applicationContext = context;
 		PreferenceUtils.pref = PreferenceManager.getDefaultSharedPreferences(context);
+		AES_OBFUSCATOR = new AESObfuscator(APIURL.SALT, applicationContext.getPackageName(), Settings.Secure.ANDROID_ID);
 	}
 
 	public static boolean isLogin()
@@ -293,5 +300,19 @@ public class PreferenceUtils
 		ConnectivityManager connManager = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		return mWifi.isConnected();
+	}
+
+	public static boolean hasRegisteredOnGooglePlay()
+	{
+		return true;
+		//return pref.getBoolean(KEY_HAS_CHECKED_GOOGLE_PLAY, false);
+	}
+
+	public static void setRegisteredOnGooglePlay()
+	{
+		SharedPreferences.Editor edit = pref.edit();
+		edit.putBoolean(KEY_HAS_CHECKED_GOOGLE_PLAY, true);
+		edit.commit();
+		return;
 	}
 }

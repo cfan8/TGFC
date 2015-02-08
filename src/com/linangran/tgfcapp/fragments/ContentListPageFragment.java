@@ -101,12 +101,15 @@ public class ContentListPageFragment extends Fragment
 			{
 				if (ContentListPageFragment.this.contentListAdapter.isTaskRunning() == false)
 				{
-					swipeRefreshLayout.setRefreshing(true);
+					if (ContentListPageFragment.this.contentListAdapter.getCount() != 0)
+					{
+						swipeRefreshLayout.setRefreshing(true);
+					}
+					else
+					{
+						showLoadingView();
+					}
 					ContentListPageFragment.this.contentListAdapter.startDownloading(true);
-				}
-				else
-				{
-					swipeRefreshLayout.setRefreshing(false);
 				}
 			}
 		};
@@ -122,6 +125,15 @@ public class ContentListPageFragment extends Fragment
 		{
 			showLoadingView();
 		}
+		this.loadFailTextView.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				showLoadingView();
+				ContentListPageFragment.this.contentListAdapter.startDownloading(false);
+			}
+		});
 		return contentListFragmentView;
 	}
 

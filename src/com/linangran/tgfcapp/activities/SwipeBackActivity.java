@@ -13,7 +13,7 @@ import com.linangran.tgfcapp.R;
 /**
  * Created by linangran on 3/2/15.
  */
-public class SwipeBackActivity extends ActionBarActivity
+public class SwipeBackActivity extends AnalyzableActivity
 {
 
 	private LinearLayout containerLinearLayout;

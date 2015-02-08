@@ -1,29 +1,42 @@
 package com.linangran.tgfcapp.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.vending.licensing.LicenseChecker;
+import com.google.android.vending.licensing.LicenseCheckerCallback;
+import com.google.android.vending.licensing.Policy;
+import com.google.android.vending.licensing.ServerManagedPolicy;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.fragments.ForumListFragment;
+import com.linangran.tgfcapp.utils.APIURL;
 import com.linangran.tgfcapp.utils.ForumBasicDataList;
 import com.linangran.tgfcapp.utils.NetworkUtils;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends AnalyzableActivity
 {
 	/**
 	 * Called when the activity is first created.
@@ -39,6 +52,11 @@ public class MainActivity extends ActionBarActivity
 	private TextView settingTextView;
 
 	private ForumListFragment forumListFragment;
+
+	private ProgressDialog registerDialog;
+	private LicenseChecker licenseChecker;
+	private LicenseCheckerCallback licenseCheckerCallback;
+	private Handler handler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -103,7 +121,7 @@ public class MainActivity extends ActionBarActivity
 							}
 						}
 					};
-					AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this).setMessage("确认登出吗？").setPositiveButton("确定", logoutListner ).setNegativeButton("取消", logoutListner);
+					AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this).setMessage("确认登出吗？").setPositiveButton("确定", logoutListner).setNegativeButton("取消", logoutListner);
 					builder.show();
 				}
 				else
@@ -152,6 +170,27 @@ public class MainActivity extends ActionBarActivity
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(R.id.activity_main, this.forumListFragment, ForumListFragment.TAG);
 		fragmentTransaction.commit();
+
+
+		this.handler = new Handler();
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Google Play服务不可用").setMessage("应用需要完整的Google Play服务才能正常运行，请检查Google Play服务是否未安装或被禁用，并检查网络连接是否通畅。").setCancelable(false);
+			builder.setPositiveButton(R.string.text_exit, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					MainActivity.this.finish();
+				}
+			});
+			builder.show();
+		}
+		else
+		{
+			//registerOnGoogle();
+		}
 	}
 
 
@@ -210,6 +249,95 @@ public class MainActivity extends ActionBarActivity
 			loginButton.setImageResource(R.drawable.ic_login);
 			usernameTextView.setText(R.string.prompt_nologinuser);
 		}
+
+		//Check Google Play Services
 	}
 
+
+	public void showExitDialog(final String title, final String content, final boolean gotoMarket)
+	{
+		handler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+				builder.setTitle(title).setMessage(content).setPositiveButton(R.string.text_exit, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						MainActivity.this.finish();
+						if (gotoMarket)
+						{
+							Intent intent = new Intent(Intent.ACTION_VIEW);
+							intent.setData(Uri.parse("market://details?id=com.linangran.tgfcapp"));
+							startActivity(intent);
+						}
+					}
+				});
+				builder.setCancelable(false);
+				builder.show();
+			}
+		});
+	}
+
+	public void registerOnGoogle()
+	{
+		if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
+		{
+			registerDialog = ProgressDialog.show(this, "注册Google Play服务", "正在连接Google Play服务器");
+		}
+		this.licenseCheckerCallback = new LicenseCheckerCallback()
+		{
+			@Override
+			public void allow(int reason)
+			{
+				if (isFinishing())
+				{
+					return;
+				}
+				if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
+				{
+					PreferenceUtils.setRegisteredOnGooglePlay();
+					Toast.makeText(MainActivity.this, "已成功注册Google Play服务", Toast.LENGTH_SHORT).show();
+				}
+			}
+
+			@Override
+			public void dontAllow(int reason)
+			{
+				if (reason == Policy.RETRY)
+				{
+					showExitDialog("注册Google Play失败", "网络连接失败，请重启应用以重试。请确保与Google服务器保持畅通连接。", false);
+				}
+				else
+				{
+					showExitDialog("注册Google Play失败", "服务器拒绝注册：签名错误，请从Google Play商店重新下载应用", true);
+				}
+			}
+
+			@Override
+			public void applicationError(int errorCode)
+			{
+				showExitDialog("注册Google Play失败", "应用程序异常，请重启应用以重试；如果此错误反复出现，请重新安装应用", false);
+			}
+		};
+		this.licenseChecker = new LicenseChecker(this, new ServerManagedPolicy(this, PreferenceUtils.AES_OBFUSCATOR), APIURL.BASE64_PUBLIC_KEY);
+		this.licenseChecker.checkAccess(this.licenseCheckerCallback);
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		if (this.registerDialog != null && this.registerDialog.isShowing())
+		{
+			this.registerDialog.dismiss();
+		}
+		if (this.licenseChecker != null)
+		{
+			this.licenseChecker.onDestroy();
+		}
+	}
 }
