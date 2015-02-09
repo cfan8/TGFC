@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +14,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
+import android.util.Log;
+import android.view.*;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class MainActivity extends AnalyzableActivity
 	private LinearLayout pinnedList;
 	private LinearLayout allList;
 	private TextView settingTextView;
+	private TextView placeHolder;
 
 	private ForumListFragment forumListFragment;
 
@@ -172,6 +174,7 @@ public class MainActivity extends AnalyzableActivity
 
 
 		this.handler = new Handler();
+
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -188,7 +191,10 @@ public class MainActivity extends AnalyzableActivity
 		}
 		else
 		{
-			registerOnGoogle();
+			//Ugly wrapper for buggy google service library.
+			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+				registerOnGoogle();
+			}
 		}
 	}
 
@@ -361,5 +367,14 @@ public class MainActivity extends AnalyzableActivity
 		{
 			this.licenseChecker.onDestroy();
 		}
+	}
+
+	public int getNavigationBarHeight() {
+		Resources resources = getResources();
+		int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			return resources.getDimensionPixelSize(resourceId);
+		}
+		return 0;
 	}
 }

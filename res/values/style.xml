@@ -47,6 +47,10 @@
 	<style name="TgfcThemeBase.Settings" parent="TgfcTheme">
 	</style>
 
+	<style name="TgfcTheme.DarkText" parent="TgfcTheme">
+		<item name="android:textColor">@color/deepgray</item>
+	</style>
+
 	<!-- General Theme For Lower API Devices -->
 	<style name="TgfcTheme" parent="@style/TgfcThemeBase">
 	</style>

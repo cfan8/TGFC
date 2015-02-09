@@ -2,6 +2,7 @@ package com.linangran.tgfcapp.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -18,6 +19,10 @@ public class SettingActivity extends SwipeBackActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			this.setTheme(R.style.TgfcTheme_DarkText);
+		}
 		setContentView(R.layout.activity_setting);
 		SettingFragment settingFragment = new SettingFragment();
 		FragmentManager fragmentManager = getFragmentManager();
