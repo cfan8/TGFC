@@ -35,6 +35,12 @@ public class ContentViewPagerAdapter extends FragmentStatePagerAdapter
 		this.title = title;
 	}
 
+	public void updateThreadInfo(int fid, String title)
+	{
+		this.fid = fid;
+		this.title = title;
+	}
+
 	public void setTotalPage(int totalPage)
 	{
 		if (totalPage != this.totalPage)
@@ -52,8 +58,6 @@ public class ContentViewPagerAdapter extends FragmentStatePagerAdapter
 		Bundle dataBundle = new Bundle();
 		dataBundle.putInt("tid", tid);
 		dataBundle.putInt("page", i + 1);
-		dataBundle.putInt("fid", fid);
-		dataBundle.putString("title", title);
 		if (cachedData.containsKey(i + 1))
 		{
 			dataBundle.putSerializable("pagedata", cachedData.get(i + 1));

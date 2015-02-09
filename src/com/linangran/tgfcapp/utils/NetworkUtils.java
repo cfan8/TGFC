@@ -2,7 +2,9 @@ package com.linangran.tgfcapp.utils;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import com.linangran.tgfcapp.data.*;
+import com.linangran.tgfcapp.tasks.EditPostTask;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.*;
@@ -18,8 +20,10 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.jsoup.Jsoup;
+import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.ByteArrayOutputStream;
@@ -258,7 +262,12 @@ public class NetworkUtils
 	public static HttpResult<List<ForumListItemData>> getForumList(int fid, int page)
 	{
 		String url = APIURL.WAP_VIEW_FORUM_URL + fid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
+		String iam = "";
+		if (PreferenceUtils.showPinnedPosts() == false)
+		{
+			iam = "notop";
+		}
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false, "tp", String.valueOf(PreferenceUtils.getItemCountOnForumList()), "iam", iam);
 		HttpResult<List<ForumListItemData>> listResult = new HttpResult<List<ForumListItemData>>(stringResult);
 		if (stringResult.hasError == false)
 		{
@@ -318,7 +327,7 @@ public class NetworkUtils
 	public static HttpResult<ContentListPageData> getContentList(int tid, int page)
 	{
 		String url = APIURL.WAP_VIEW_CONTENT_URL + tid + "&page=" + page;
-		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false);
+		HttpResult<String> stringResult = httpGetString(url, APIURL.WAP_API_URL, false, false, "pp", String.valueOf(PreferenceUtils.getPostCountOnContentList()));
 		HttpResult<ContentListPageData> contentResult = new HttpResult<ContentListPageData>(stringResult);
 		ContentListPageData pageData = new ContentListPageData();
 		if (stringResult.hasError == false)
@@ -358,8 +367,9 @@ public class NetworkUtils
 		Elements messageElements = htmlDoc.select(".message");
 		Elements infobarElements = htmlDoc.select(".infobar");
 		int messageStart = 0;
-		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+)(<\\/b>)?<\\/a>");
+		Pattern mainPostPattern = Pattern.compile("标题:<b>(.+)<\\/b><br \\/>时间:(.+)<br \\/>作者:<a href=\".+uid=(\\d+).*\">(?:<b>)?(.+?)(<\\/b>)?<\\/a>");
 		Matcher mainPostMatcher = mainPostPattern.matcher(html);
+		Pattern urlReplacePattern = Pattern.compile("<a\\s*.*?href=\"(.*?)\"\\s*.*?>.*?\\s\\.\\.\\.\\s.*?<\\/a>");
 		if (mainPostMatcher.find())
 		{
 			messageStart++;
@@ -412,10 +422,13 @@ public class NetworkUtils
 				String quoteString = quotedElements.get(0).html();
 				String divider = "<br>";
 				int t = quoteString.indexOf(divider);
-				itemData.quotedInfo = quoteString.substring(0, t);
-				itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
-				itemData.quotedText = quoteString.substring(t + divider.length());
-				itemData.quotedText = getPlainText(cleanText(itemData.quotedText)).trim();
+				if (t != -1)
+				{
+					itemData.quotedInfo = quoteString.substring(0, t);
+					itemData.quotedInfo = cleanQuote(itemData.quotedInfo);
+					itemData.quotedText = quoteString.substring(t + divider.length());
+					itemData.quotedText = getPlainText(cleanText(itemData.quotedText)).trim();
+				}
 				msgElement.select(".ui-topic-content").remove();
 			}
 			itemData.mainText = msgElement.html();
@@ -424,6 +437,14 @@ public class NetworkUtils
 		}
 		Pattern imgURLPattern = Pattern.compile("<img\\s*[^>]*?src\\s*=\\s*['\\\"]([^'\\\"]*?)['\\\"][^>]*?\\s*\\/?>");
 		List<String> imgURLList = new ArrayList<String>();
+		for (int i = 0; i < dataList.size(); i++)
+		{
+			ContentListItemData itemData = dataList.get(i);
+//			itemData.mainText = Jsoup.clean(itemData.mainText, Whitelist.basicWithImages());
+			Matcher urlReplaceMatcher = urlReplacePattern.matcher(itemData.mainText);
+//			Log.w("Matcher", String.valueOf(urlReplaceMatcher.find()));
+			itemData.mainText = urlReplaceMatcher.replaceAll("<a href=\"$1\">$1</a>");
+		}
 		for (int i = 0; i < dataList.size(); i++)
 		{
 			String itemHTML = dataList.get(i).mainText;
@@ -439,7 +460,7 @@ public class NetworkUtils
 	public static void extractPlatform(ContentListItemData itemData)
 	{
 		Pattern platformPattern = Pattern.compile("(posted by wap, platform: .+?)\\s*<br(\\s*?\\/)*?>");
-		Pattern androidPattern = Pattern.compile("<br(?:\\s*?\\/)?>\\s*_{8,}\\s*<br(?:\\s*?\\/)?>\\s*(发送自.+?客户端)");
+		Pattern androidPattern = Pattern.compile(APIURL.ANDROID_CLIENT_SIGNATURE_REGEX);
 		Matcher platformMatcher = platformPattern.matcher(itemData.mainText);
 		if (platformMatcher.find())
 		{
@@ -519,6 +540,12 @@ public class NetworkUtils
 		{
 			pageData.totalReplyCount = 1;
 		}
+		Pattern fidPattern = Pattern.compile("fid=(\\d+)");
+		Matcher fidMatcher = fidPattern.matcher(html);
+		if (fidMatcher.find())
+		{
+			pageData.fid = Integer.parseInt(fidMatcher.group(1));
+		}
 	}
 
 	public static HttpResult<String> fetchUsername()
@@ -553,7 +580,6 @@ public class NetworkUtils
 	{
 		List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		String apiURL;
-		content += APIURL.ANDROID_CLIENT_SIGNATURE;
 		postParams.add(new BasicNameValuePair("subject", title));
 		postParams.add(new BasicNameValuePair("message", content));
 		List<NameValuePair> getParams = new ArrayList<NameValuePair>();
@@ -562,6 +588,16 @@ public class NetworkUtils
 		{
 			apiURL = APIURL.WAP_POST_EDIT;
 			postParams.add(new BasicNameValuePair("pid", editPid.toString()));
+			postParams.add(new BasicNameValuePair("tid", tid.toString()));
+			postParams.add(new BasicNameValuePair("fid", fid.toString()));
+			if (isReply == false)
+			{
+				postParams.add(new BasicNameValuePair("first", "1"));
+			}
+			else
+			{
+				postParams.add(new BasicNameValuePair("first", "0"));
+			}
 		}
 		else
 		{
@@ -589,6 +625,9 @@ public class NetworkUtils
 		else
 		{
 			postResult.result = false;
+			Document doc = Jsoup.parse(html);
+			HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
+			postResult.setErrorInfo(htmlToPlainText.getPlainText(doc.select("body").first()), HttpResult.ERROR_TYPE_OTHERS);
 		}
 		return postResult;
 	}
@@ -641,6 +680,53 @@ public class NetworkUtils
 		{
 			httpResult.setErrorInfo(response.getStatusLine().toString(), HttpResult.ERROR_TYPE_NETWORK_FAIL);
 			return httpResult;
+		}
+	}
+
+
+	public static HttpResult<EditPostData> fetchEditText(int pid, int tid)
+	{
+		HttpResult<String> httpResult = httpGetString(APIURL.WAP_POST_EDIT, APIURL.WAP_API_URL, false, false, "pid", String.valueOf(pid), "tid", String.valueOf(tid));
+		HttpResult<EditPostData> editResult = new HttpResult<EditPostData>(httpResult);
+		if (httpResult.hasError)
+		{
+			return editResult;
+		}
+		else
+		{
+			String html = StringEscapeUtils.unescapeHtml(httpResult.result);
+			Pattern editTitlePattern = Pattern.compile("<input.*?(type=\"hidden\")?\\s*name=\"subject\".*?value=\"(.*?)\"\\s*\\/>");
+			Matcher editTitleMatcher = editTitlePattern.matcher(html);
+			EditPostData editPostData = new EditPostData();
+			editPostData.tid = tid;
+			editPostData.pid = pid;
+			if (editTitleMatcher.find())
+			{
+				//Log.w("group 1", editTitleMatcher.group(1));
+				if (editTitleMatcher.group(1) == null || editTitleMatcher.group(1).trim().length() ==0)
+				{
+					editPostData.isReply = false;
+					editPostData.title = editTitleMatcher.group(2);
+				}
+				else
+				{
+					editPostData.isReply = true;
+				}
+			}
+			Pattern editTextPattern = Pattern.compile("<textarea[^>]*>([^<]*)<\\/textarea>");
+			Matcher editTextMatcher = editTextPattern.matcher(html);
+			if (editTextMatcher.find())
+			{
+				editPostData.content = editTextMatcher.group(1);
+				editPostData.content = cleanEditHistory(editPostData.content);
+				editPostData.content = editPostData.content.replaceAll(APIURL.ANDROID_CLIENT_SIGNATURE_EDIT_REGEX, "");
+				editResult.setResult(editPostData);
+			}
+			else
+			{
+				editResult.setErrorInfo("网页解析错误", HttpResult.ERROR_TYPE_API_ERROR);
+			}
+			return editResult;
 		}
 	}
 }

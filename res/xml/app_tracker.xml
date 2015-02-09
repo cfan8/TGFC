@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<bool name="ga_reportUncaughtExceptions">true</bool>
+
+	<integer name="ga_sessionTimeout">300</integer>
+
+	<bool name="ga_autoActivityTracking">true</bool>
+
+	<screenName name="com.linangran.tgfcapp.fragments.ContentFragment">
+		TGFCApp ContentFragment
+	</screenName>
+
+	<screenName name="com.linangran.tgfcapp.fragments.ContentListPageFragment">
+		TGFCApp ContentListPageFragment
+	</screenName>
+
+	<screenName name="com.linangran.tgfcapp.fragments.ForumListFragment">
+		TGFCApp ForumListFragment
+	</screenName>
+
+	<screenName name="com.linangran.tgfcapp.fragments.PostFragment">
+		TGFCApp PostFragment
+	</screenName>
+
+	<screenName name="com.linangran.tgfcapp.fragments.SettingFragment">
+		TGFCApp SettingFragment
+	</screenName>
+
+	<string name="ga_trackingId">UA-59499936-1</string>
+
+
+</resources>

@@ -1,5 +1,7 @@
 bin/
 gen/
 out/
+out/
 workspace.xml
+TGFC.apk
 tasks.xml

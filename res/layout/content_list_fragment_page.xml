@@ -13,16 +13,25 @@
 			android:visibility="gone"
 			>
 
-		<ListView
+		<com.linangran.tgfcapp.views.CustomScrollView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:id="@+id/content_list_fragment_page_list_view"
-				android:background="?attr/themeColorMainTextBackground"
-				android:paddingTop="@dimen/actionbarTotalSize"
-				android:clipToPadding="false"
+				android:id="@+id/content_list_fragment_page_scroll_view"
 				>
+			<com.linangran.tgfcapp.views.ListLinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:id="@+id/content_list_fragment_page_list_view"
+					android:background="?attr/themeColorMainTextBackground"
+					android:paddingTop="@dimen/actionbarTotalSize"
+					android:orientation="vertical"
+					>
 
-		</ListView>
+			</com.linangran.tgfcapp.views.ListLinearLayout>
+
+		</com.linangran.tgfcapp.views.CustomScrollView>
+
+
 
 	</android.support.v4.widget.SwipeRefreshLayout>
 
@@ -45,10 +54,11 @@
 				/>
 
 		<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
 				android:text="加载失败，点击刷新"
 				android:layout_centerInParent="true"
+				android:gravity="center"
 				android:id="@+id/content_list_fragment_page_load_fail"
 				android:visibility="gone"
 				/>

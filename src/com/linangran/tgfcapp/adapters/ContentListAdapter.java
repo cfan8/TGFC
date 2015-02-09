@@ -2,8 +2,6 @@ package com.linangran.tgfcapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.text.Spanned;
@@ -11,18 +9,19 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.data.ContentListItemData;
-import com.linangran.tgfcapp.data.DrawableInfo;
-import com.linangran.tgfcapp.data.ImageDownloadInfo;
+import com.linangran.tgfcapp.fragments.ContentFragment;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
-import com.linangran.tgfcapp.tasks.ImageDownloadTask;
-import com.linangran.tgfcapp.utils.ImageDownloadManager;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 import com.linangran.tgfcapp.views.AsyncImageGetter;
-import com.linangran.tgfcapp.views.URLDrawable;
+import com.linangran.tgfcapp.views.ListLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ import java.util.List;
 /**
  * Created by linangran on 5/1/15.
  */
-public class ContentListAdapter extends BaseAdapter
+public class ContentListAdapter
 {
 
 
@@ -40,8 +39,10 @@ public class ContentListAdapter extends BaseAdapter
 	private int tid;
 	private int page;
 	private ContentListDownloadTask downloadTask;
+	private ContentFragment contentFragment;
 	private ContentListPageFragment contentListPageFragment;
 
+	public ListLinearLayout parentListLinearLayout;
 
 
 	private int themeColorPrimary;
@@ -58,11 +59,11 @@ public class ContentListAdapter extends BaseAdapter
 			intent.putExtra("isReply", true);
 			intent.putExtra("hasQuote", true);
 			intent.putExtra("isEdit", false);
-			intent.putExtra("fid", contentListPageFragment.fid);
-			intent.putExtra("tid", contentListPageFragment.tid);
+			intent.putExtra("fid", contentFragment.fid);
+			intent.putExtra("tid", contentFragment.tid);
 			intent.putExtra("quotePid", itemData.pid);
 			intent.putExtra("quotedText", itemData.mainText);
-			intent.putExtra("mainTitle", contentListPageFragment.title);
+			intent.putExtra("mainTitle", contentFragment.title);
 			view.getContext().startActivity(intent);
 		}
 	};
@@ -76,34 +77,35 @@ public class ContentListAdapter extends BaseAdapter
 		}
 	}
 
-	public ContentListAdapter(ContentListPageFragment contentListPageFragment, int tid, int page)
+	public ContentListAdapter(ContentFragment contentFragment, ContentListPageFragment contentListPageFragment, int tid, int page)
 	{
 		super();
-		this.context = contentListPageFragment.getActivity();
+		this.context = contentFragment.getActivity();
 		this.layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.tid = tid;
 		this.page = page;
+		this.contentFragment = contentFragment;
 		this.contentListPageFragment = contentListPageFragment;
 		startDownloading(false);
 		TypedValue typedValue = new TypedValue();
-		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorPrimary, typedValue, true);
+		this.contentFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorPrimary, typedValue, true);
 		this.themeColorPrimary = typedValue.data;
-		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorAnnotationText, typedValue, true);
+		this.contentFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorAnnotationText, typedValue, true);
 		this.themeColorAnnotationText = typedValue.data;
 	}
 
-	public ContentListAdapter(ContentListPageFragment contentListPageFragment, int tid, int page, List<ContentListItemData> dataList)
+	public ContentListAdapter(ContentFragment contentFragment, ContentListPageFragment contentListPageFragment, int tid, int page, List<ContentListItemData> dataList)
 	{
 		super();
-		this.context = contentListPageFragment.getActivity();
+		this.context = contentFragment.getActivity();
 		this.layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.tid = tid;
 		this.page = page;
+		this.contentFragment = contentFragment;
 		this.contentListPageFragment = contentListPageFragment;
 		this.dataList = dataList;
 	}
 
-	@Override
 	public int getCount()
 	{
 		return dataList.size();
@@ -118,25 +120,22 @@ public class ContentListAdapter extends BaseAdapter
 	{
 		if (isTaskRunning() == false)
 		{
-			this.downloadTask = new ContentListDownloadTask(this.contentListPageFragment);
+			this.downloadTask = new ContentListDownloadTask(this.contentListPageFragment, this.contentFragment);
 			this.downloadTask.setRefreshing(isRefreshing);
 			this.downloadTask.execute(this.tid, this.page);
 		}
 	}
 
-	@Override
 	public Object getItem(int i)
 	{
 		return dataList.get(i);
 	}
 
-	@Override
 	public long getItemId(int i)
 	{
 		return dataList.get(i).floorNum;
 	}
 
-	@Override
 	public View getView(int i, View convertView, ViewGroup viewGroup)
 	{
 		if (convertView == null)
@@ -195,12 +194,16 @@ public class ContentListAdapter extends BaseAdapter
 		{
 			editImageView.setVisibility(View.VISIBLE);
 			plusImageView.setVisibility(View.GONE);
+			editImageView.setOnClickListener(new ReplyListener(itemData.pid));
 		}
 		else
 		{
 			editImageView.setVisibility(View.GONE);
 			plusImageView.setVisibility(View.VISIBLE);
 		}
+		//itemData.mainText = itemData.mainText.replaceAll(" ... ", "...");
+
+		//Log.w("", itemData.mainText);
 		Spanned spannedText = Html.fromHtml(itemData.mainText, new AsyncImageGetter(mainTextTextView, context), null);
 		mainTextTextView.setText(spannedText);
 
@@ -208,17 +211,45 @@ public class ContentListAdapter extends BaseAdapter
 
 		quoteImageView.setOnClickListener(quoteReplyListener);
 
+		if (PreferenceUtils.hideQuickPanel())
+		{
+			shareImageView.setVisibility(View.GONE);
+			plusImageView.setVisibility(View.GONE);
+		}
+
 		return convertView;
 	}
-
-
 
 
 	public void updateContentDataList(List<ContentListItemData> dataList)
 	{
 		this.dataList.clear();
 		this.dataList.addAll(dataList);
-		this.notifyDataSetChanged();
+		this.parentListLinearLayout.updateView();
 		return;
+	}
+
+	public boolean isEmpty()
+	{
+		return dataList == null || dataList.size() == 0;
+	}
+
+	private class ReplyListener implements View.OnClickListener
+	{
+		int pid;
+		public ReplyListener(int pid)
+		{
+			this.pid = pid;
+		}
+
+		@Override
+		public void onClick(View v)
+		{
+			Intent intent = new Intent(contentFragment.getActivity(), PostActivity.class);
+			intent.putExtra("isEdit", true);
+			intent.putExtra("editPid", pid);
+			intent.putExtra("tid", tid);
+			contentFragment.startActivity(intent);
+		}
 	}
 }

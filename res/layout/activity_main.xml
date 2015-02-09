@@ -28,6 +28,7 @@
 					android:layout_width="match_parent"
 					android:minHeight="?attr/actionBarSize"
 					android:background="?attr/colorPrimary"
+					style="@style/TgfcTheme.ActionBar"
 					/>
 
 			<LinearLayout
@@ -120,6 +121,7 @@
 							android:layout_height="wrap_content"
 							android:layout_width="match_parent"
 							android:id="@+id/main_drawer_pinlist"
+							android:paddingLeft="20dp"
 							>
 					</LinearLayout>
 
@@ -161,6 +163,7 @@
 				<TextView
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
+						android:id="@+id/activity_main_settings"
 						android:text="设置"
 						android:layout_margin="0dp"
 						android:layout_gravity="center"

@@ -53,5 +53,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="MaterialDesign" />
+    <orderEntry type="module" module-name="PlayLibrary" />
+    <orderEntry type="module" module-name="google-play-services_lib" />
   </component>
 </module>

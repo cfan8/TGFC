@@ -1,9 +1,9 @@
 package com.linangran.tgfcapp.tasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.fragments.PostFragment;
+import com.linangran.tgfcapp.utils.APIURL;
 import com.linangran.tgfcapp.utils.NetworkUtils;
 
 /**
@@ -31,6 +31,18 @@ public class PostTask extends AsyncTask<Void, Integer, HttpResult<Boolean>>
 	@Override
 	protected HttpResult<Boolean> doInBackground(Void... voids)
 	{
+		if (content.toLowerCase().indexOf("tgbxs") != -1)
+		{
+			content += APIURL.ANDROID_CLIENT_SIGNATURE_TGBXS;
+		}
+		else if (content.indexOf("有希望了") != -1)
+		{
+			content += APIURL.ANDROID_CLIENT_SIGNATURE_TGYXW;
+		}
+		else
+		{
+			content += APIURL.ANDROID_CLIENT_SIGNATURE_DEFAULT;
+		}
 		return NetworkUtils.post(isReply, hasQuote, isEdit, fid, tid, quotePid, editPid, title, content);
 	}
 

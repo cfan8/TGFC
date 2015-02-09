@@ -4,9 +4,11 @@ import android.os.AsyncTask;
 import com.linangran.tgfcapp.data.ContentListPageData;
 import com.linangran.tgfcapp.data.HttpResult;
 import com.linangran.tgfcapp.data.ImageDownloadInfo;
+import com.linangran.tgfcapp.fragments.ContentFragment;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.utils.ImageDownloadManager;
 import com.linangran.tgfcapp.utils.NetworkUtils;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 import java.util.List;
 
@@ -16,11 +18,13 @@ import java.util.List;
 public class ContentListDownloadTask extends AsyncTask<Integer, Integer, HttpResult<ContentListPageData>>
 {
 	private ContentListPageFragment contentListPageFragment;
+	private ContentFragment contentFragment;
 	private boolean isRefreshing;
 
-	public ContentListDownloadTask(ContentListPageFragment contentListPageFragment)
+	public ContentListDownloadTask(ContentListPageFragment contentListPageFragment, ContentFragment contentFragment)
 	{
 		this.contentListPageFragment = contentListPageFragment;
+		this.contentFragment = contentFragment;
 	}
 
 	public void setRefreshing(boolean isRefreshing)
@@ -45,6 +49,10 @@ public class ContentListDownloadTask extends AsyncTask<Integer, Integer, HttpRes
 		}
 		contentListPageFragment.updateContentList(result);
 		if (result.hasError == false)
+		{
+			contentFragment.updateThreadInfo(result.result.fid, result.result.title);
+		}
+		if (result.hasError == false && PreferenceUtils.shouldShowImage())
 		{
 			List<String> urlList = result.result.imgURLList;
 			ImageDownloadManager manager = ImageDownloadManager.getInstance();

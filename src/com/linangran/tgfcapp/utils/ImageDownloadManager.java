@@ -17,7 +17,7 @@ public class ImageDownloadManager
 	}
 
 	private static ImageDownloadManager instance;
-	private HashMap<String, ImageDownloadTask>  downloadTaskHashMap;
+	private HashMap<String, ImageDownloadTask> downloadTaskHashMap;
 
 	public static ImageDownloadManager getInstance()
 	{
@@ -33,13 +33,13 @@ public class ImageDownloadManager
 		if (this.downloadTaskHashMap.containsKey(imageDownloadTask.getSourceURL()))
 		{
 			ImageDownloadTask task = this.downloadTaskHashMap.get(imageDownloadTask.getSourceURL());
-			if (task.getStatus().equals(AsyncTask.Status.RUNNING))
+			if (imageDownloadTask.drawableInfo != null)
 			{
 				task.setDrawableInfo(imageDownloadTask.drawableInfo);
-				return;
 			}
+			return;
 		}
-		synchronized(this.downloadTaskHashMap)
+		synchronized (this.downloadTaskHashMap)
 		{
 			this.downloadTaskHashMap.put(imageDownloadTask.getSourceURL(), imageDownloadTask);
 		}
@@ -73,7 +73,7 @@ public class ImageDownloadManager
 
 	public void finishTask(String url)
 	{
-		synchronized(this.downloadTaskHashMap)
+		synchronized (this.downloadTaskHashMap)
 		{
 			ImageDownloadTask task = this.downloadTaskHashMap.get(url);
 			if (task != null)

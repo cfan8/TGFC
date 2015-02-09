@@ -13,4 +13,9 @@
 	<style name="TgfcTheme.Activity" parent="TgfcThemeBase.Activity">
 		<item name="android:fitsSystemWindows">false</item>
 	</style>
+
+
+
+	<style name="TgfcTheme.Settings" parent="TgfcThemeBase.Settings">
+	</style>
 </resources>
