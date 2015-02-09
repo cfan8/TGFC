@@ -10,6 +10,7 @@ import java.util.List;
 public class ContentListPageData implements Serializable
 {
 	public int tid;
+	public int fid;
 	public int totalPageCount;
 	public int currentPage;
 	public int totalReplyCount;

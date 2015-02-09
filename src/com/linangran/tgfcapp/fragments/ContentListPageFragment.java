@@ -28,7 +28,7 @@ public class ContentListPageFragment extends Fragment
 	private CustomScrollView customScrollView;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private ContentListAdapter contentListAdapter;
-	private ContentFragment viewPagerFragment;
+	private ContentFragment contentFragment;
 	private RelativeLayout loadInfoLayout;
 	private ProgressBar loadingIndicatorProgressBar;
 	private TextView loadFailTextView;
@@ -37,8 +37,8 @@ public class ContentListPageFragment extends Fragment
 	private ContentListPageData pageData;
 	public int tid;
 	public int page;
-	public int fid;
-	public String title;
+	//public int fid;
+	//public String title;
 
 
 	public void onCreate(Bundle savedInstanceState)
@@ -53,8 +53,9 @@ public class ContentListPageFragment extends Fragment
 		Bundle bundle = getArguments();
 		this.tid = bundle.getInt("tid");
 		this.page = bundle.getInt("page");
-		this.fid = bundle.getInt("fid");
-		this.title = bundle.getString("title");
+		//this.fid = bundle.getInt("fid");
+		//this.title = bundle.getString("title");
+		this.contentFragment = (ContentFragment) this.getParentFragment();
 		View contentListFragmentView = inflater.inflate(R.layout.content_list_fragment_page, container, false);
 		this.listLinearLayout = (ListLinearLayout) contentListFragmentView.findViewById(R.id.content_list_fragment_page_list_view);
 		this.customScrollView = (CustomScrollView) contentListFragmentView.findViewById(R.id.content_list_fragment_page_scroll_view);
@@ -62,11 +63,11 @@ public class ContentListPageFragment extends Fragment
 		if (bundle.containsKey("pagedata"))
 		{
 			ContentListPageData pagedata = (ContentListPageData) bundle.get("pagedata");
-			this.contentListAdapter = new ContentListAdapter(this, tid, page, pagedata.dataList);
+			this.contentListAdapter = new ContentListAdapter(contentFragment, this, tid, page, pagedata.dataList);
 		}
 		else
 		{
-			this.contentListAdapter = new ContentListAdapter(this, tid, page);
+			this.contentListAdapter = new ContentListAdapter(contentFragment, this, tid, page);
 		}
 		this.customScrollView.setOnScrollChangedListener(new OnScrollChangedListener()
 		{
@@ -116,7 +117,6 @@ public class ContentListPageFragment extends Fragment
 		this.swipeRefreshLayout.setOnRefreshListener(this.onRefreshListener);
 		int dpActionBarSize = (int) (getResources().getDimension(R.dimen.actionbarTotalSize) / getResources().getDisplayMetrics().density);
 		this.swipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12 + dpActionBarSize, getResources().getDisplayMetrics()));
-		this.viewPagerFragment = (ContentFragment) this.getParentFragment();
 		if (bundle.containsKey("pagedata"))
 		{
 			showListViewContent();
@@ -173,7 +173,7 @@ public class ContentListPageFragment extends Fragment
 		else
 		{
 			this.pageData = pageDataResult.result;
-			this.viewPagerFragment.updatePagerInfo(this.pageData);
+			this.contentFragment.updatePagerInfo(this.pageData);
 			this.contentListAdapter.updateContentDataList(this.pageData.dataList);
 			showListViewContent();
 		}

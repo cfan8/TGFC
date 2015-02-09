@@ -17,23 +17,23 @@ public class AnalyzableActivity extends ActionBarActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Tracker t = ((TGFCApplication) getApplication()).getTracker(TGFCApplication.TrackerName.APP_TRACKER);
+		/*Tracker t = ((TGFCApplication) getApplication()).getTracker(TGFCApplication.TrackerName.APP_TRACKER);
 		t.enableAdvertisingIdCollection(true);
 		t.setScreenName(this.getClass().getName());
-		t.send(new HitBuilders.AppViewBuilder().build());
+		t.send(new HitBuilders.AppViewBuilder().build());*/
 	}
 
 	@Override
 	protected void onStart()
 	{
 		super.onStart();
-		GoogleAnalytics.getInstance(this).reportActivityStart(this);
+		//GoogleAnalytics.getInstance(this).reportActivityStart(this);
 	}
 
 	@Override
 	protected void onStop()
 	{
 		super.onStop();
-		GoogleAnalytics.getInstance(this).reportActivityStop(this);
+		//GoogleAnalytics.getInstance(this).reportActivityStop(this);
 	}
 }

@@ -304,8 +304,8 @@ public class PreferenceUtils
 
 	public static boolean hasRegisteredOnGooglePlay()
 	{
-		return true;
-		//return pref.getBoolean(KEY_HAS_CHECKED_GOOGLE_PLAY, false);
+		//return true;
+		return pref.getBoolean(KEY_HAS_CHECKED_GOOGLE_PLAY, false);
 	}
 
 	public static void setRegisteredOnGooglePlay()

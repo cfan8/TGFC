@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.linangran.tgfcapp"
-		  android:versionCode="1"
-		  android:versionName="1.0">
+		  android:versionCode="3"
+		  android:versionName="1.0.1">
 
 	<uses-sdk
 			android:minSdkVersion="11"
@@ -31,7 +31,21 @@
 		</activity>
 		<activity
 				android:name=".activities.ContentActivity"
-				android:theme="@style/TgfcTheme"></activity>
+				android:theme="@style/TgfcTheme">
+
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"></action>
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="wap.tgfcer.com" android:pathPrefix="/index.php" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"></action>
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" android:host="club.tgfcer.com" android:pathPrefix="/thread-" />
+			</intent-filter>
+		</activity>
 		<activity
 				android:name=".activities.LoginActivity"
 				android:theme="@style/TgfcTheme"></activity>
@@ -41,6 +55,11 @@
 		<activity
 				android:name=".activities.SettingActivity"
 				android:theme="@style/TgfcTheme.Settings"></activity>
+		<activity
+				android:name=".activities.ViewActivity"
+				android:theme="@style/TgfcTheme">
+		</activity>
+
 
 
 		<meta-data

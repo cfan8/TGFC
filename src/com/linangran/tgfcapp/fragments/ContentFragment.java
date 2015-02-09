@@ -17,9 +17,9 @@ public class ContentFragment extends Fragment
 {
 	private ViewPager viewPager;
 	private ContentViewPagerAdapter contentViewPagerAdapter;
-	private int tid;
-	private int fid;
-	private String title;
+	public int tid;
+	public int fid;
+	public String title;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -31,14 +31,33 @@ public class ContentFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		Bundle bundle = getArguments();
-		this.tid = bundle.getInt("tid");
-		this.fid = bundle.getInt("fid");
-		this.title = bundle.getString("title");
-		View contentFragment = inflater.inflate(R.layout.content_list_fragment, container, false);
-		this.contentViewPagerAdapter = new ContentViewPagerAdapter(getChildFragmentManager(), tid, fid, title);
-		this.viewPager = (ViewPager) contentFragment.findViewById(R.id.content_list_fragment_view_pager);
-		this.viewPager.setAdapter(this.contentViewPagerAdapter);
-		return contentFragment;
+		boolean shouldExit = bundle.getBoolean("shouldExit" ,false);
+		if (shouldExit == false)
+		{
+			this.tid = bundle.getInt("tid");
+			this.fid = bundle.getInt("fid", Integer.MIN_VALUE);
+			this.title = bundle.getString("title");
+			View contentFragment = inflater.inflate(R.layout.content_list_fragment, container, false);
+			this.contentViewPagerAdapter = new ContentViewPagerAdapter(getChildFragmentManager(), tid, fid, title);
+			this.viewPager = (ViewPager) contentFragment.findViewById(R.id.content_list_fragment_view_pager);
+			this.viewPager.setAdapter(this.contentViewPagerAdapter);
+			return contentFragment;
+		}
+		else
+		{
+			return inflater.inflate(R.layout.content_list_fragment, container, false);
+		}
+	}
+
+	public void updateThreadInfo(int fid, String title)
+	{
+		if (this.fid == Integer.MIN_VALUE)
+		{
+			this.fid = fid;
+			this.title = title;
+			this.getActivity().setTitle(this.title);
+			this.contentViewPagerAdapter.updateThreadInfo(fid, title);
+		}
 	}
 
 	public void updatePagerInfo(ContentListPageData pageData)
@@ -59,15 +78,18 @@ public class ContentFragment extends Fragment
 		switch (item.getItemId())
 		{
 			case R.id.menu_fragment_content_list_reply:
-				Intent intent = new Intent(getActivity(), PostActivity.class);
-				intent.putExtra("isReply", true);
-				intent.putExtra("isEdit", false);
-				intent.putExtra("mainTitle", title);
-				intent.putExtra("fid", fid);
-				intent.putExtra("tid", tid);
-				intent.putExtra("hasQuote", false);
-				startActivity(intent);
-				return true;
+				if (fid != Integer.MIN_VALUE)
+				{
+					Intent intent = new Intent(getActivity(), PostActivity.class);
+					intent.putExtra("isReply", true);
+					intent.putExtra("isEdit", false);
+					intent.putExtra("mainTitle", title);
+					intent.putExtra("fid", fid);
+					intent.putExtra("tid", tid);
+					intent.putExtra("hasQuote", false);
+					startActivity(intent);
+					return true;
+				}
 		}
 		return super.onOptionsItemSelected(item);
 	}

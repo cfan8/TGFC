@@ -20,6 +20,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.jsoup.Jsoup;
+import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
@@ -539,6 +540,12 @@ public class NetworkUtils
 		{
 			pageData.totalReplyCount = 1;
 		}
+		Pattern fidPattern = Pattern.compile("fid=(\\d+)");
+		Matcher fidMatcher = fidPattern.matcher(html);
+		if (fidMatcher.find())
+		{
+			pageData.fid = Integer.parseInt(fidMatcher.group(1));
+		}
 	}
 
 	public static HttpResult<String> fetchUsername()
@@ -618,6 +625,9 @@ public class NetworkUtils
 		else
 		{
 			postResult.result = false;
+			Document doc = Jsoup.parse(html);
+			HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
+			postResult.setErrorInfo(htmlToPlainText.getPlainText(doc.select("body").first()), HttpResult.ERROR_TYPE_OTHERS);
 		}
 		return postResult;
 	}

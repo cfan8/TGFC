@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -189,7 +188,7 @@ public class MainActivity extends AnalyzableActivity
 		}
 		else
 		{
-			//registerOnGoogle();
+			registerOnGoogle();
 		}
 	}
 
@@ -250,7 +249,6 @@ public class MainActivity extends AnalyzableActivity
 			usernameTextView.setText(R.string.prompt_nologinuser);
 		}
 
-		//Check Google Play Services
 	}
 
 
@@ -261,6 +259,10 @@ public class MainActivity extends AnalyzableActivity
 			@Override
 			public void run()
 			{
+				if (MainActivity.this.registerDialog != null && MainActivity.this.registerDialog.isShowing())
+				{
+					MainActivity.this.registerDialog.dismiss();
+				}
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 				builder.setTitle(title).setMessage(content).setPositiveButton(R.string.text_exit, new DialogInterface.OnClickListener()
 				{
@@ -282,6 +284,29 @@ public class MainActivity extends AnalyzableActivity
 		});
 	}
 
+	public void finishRegisterOnGoogle(final boolean success)
+	{
+		handler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (MainActivity.this.registerDialog != null && MainActivity.this.registerDialog.isShowing())
+				{
+					MainActivity.this.registerDialog.dismiss();
+				}
+				if (success)
+				{
+					if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
+					{
+						PreferenceUtils.setRegisteredOnGooglePlay();
+						Toast.makeText(MainActivity.this, "已成功注册Google Play服务", Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
+	}
+
 	public void registerOnGoogle()
 	{
 		if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
@@ -297,11 +322,7 @@ public class MainActivity extends AnalyzableActivity
 				{
 					return;
 				}
-				if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
-				{
-					PreferenceUtils.setRegisteredOnGooglePlay();
-					Toast.makeText(MainActivity.this, "已成功注册Google Play服务", Toast.LENGTH_SHORT).show();
-				}
+				finishRegisterOnGoogle(true);
 			}
 
 			@Override
@@ -324,6 +345,7 @@ public class MainActivity extends AnalyzableActivity
 			}
 		};
 		this.licenseChecker = new LicenseChecker(this, new ServerManagedPolicy(this, PreferenceUtils.AES_OBFUSCATOR), APIURL.BASE64_PUBLIC_KEY);
+		//this.licenseChecker = new LicenseChecker(this, new StrictPolicy(), APIURL.BASE64_PUBLIC_KEY);
 		this.licenseChecker.checkAccess(this.licenseCheckerCallback);
 	}
 

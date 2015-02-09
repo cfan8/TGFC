@@ -35,7 +35,7 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/content_list_fragment_page_list_view_item_time"
 				android:text="19:20 Jan 3"
-				android:layout_marginLeft="60dp"
+				android:layout_marginLeft="30dp"
 				android:layout_toRightOf="@+id/content_list_fragment_page_list_view_item_poster_name"
 				/>
 

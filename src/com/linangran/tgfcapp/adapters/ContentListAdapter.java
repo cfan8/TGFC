@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.PostActivity;
 import com.linangran.tgfcapp.data.ContentListItemData;
+import com.linangran.tgfcapp.fragments.ContentFragment;
 import com.linangran.tgfcapp.fragments.ContentListPageFragment;
 import com.linangran.tgfcapp.tasks.ContentListDownloadTask;
 import com.linangran.tgfcapp.utils.PreferenceUtils;
@@ -38,6 +39,7 @@ public class ContentListAdapter
 	private int tid;
 	private int page;
 	private ContentListDownloadTask downloadTask;
+	private ContentFragment contentFragment;
 	private ContentListPageFragment contentListPageFragment;
 
 	public ListLinearLayout parentListLinearLayout;
@@ -57,11 +59,11 @@ public class ContentListAdapter
 			intent.putExtra("isReply", true);
 			intent.putExtra("hasQuote", true);
 			intent.putExtra("isEdit", false);
-			intent.putExtra("fid", contentListPageFragment.fid);
-			intent.putExtra("tid", contentListPageFragment.tid);
+			intent.putExtra("fid", contentFragment.fid);
+			intent.putExtra("tid", contentFragment.tid);
 			intent.putExtra("quotePid", itemData.pid);
 			intent.putExtra("quotedText", itemData.mainText);
-			intent.putExtra("mainTitle", contentListPageFragment.title);
+			intent.putExtra("mainTitle", contentFragment.title);
 			view.getContext().startActivity(intent);
 		}
 	};
@@ -75,29 +77,31 @@ public class ContentListAdapter
 		}
 	}
 
-	public ContentListAdapter(ContentListPageFragment contentListPageFragment, int tid, int page)
+	public ContentListAdapter(ContentFragment contentFragment, ContentListPageFragment contentListPageFragment, int tid, int page)
 	{
 		super();
-		this.context = contentListPageFragment.getActivity();
+		this.context = contentFragment.getActivity();
 		this.layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.tid = tid;
 		this.page = page;
+		this.contentFragment = contentFragment;
 		this.contentListPageFragment = contentListPageFragment;
 		startDownloading(false);
 		TypedValue typedValue = new TypedValue();
-		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorPrimary, typedValue, true);
+		this.contentFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorPrimary, typedValue, true);
 		this.themeColorPrimary = typedValue.data;
-		this.contentListPageFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorAnnotationText, typedValue, true);
+		this.contentFragment.getActivity().getTheme().resolveAttribute(R.attr.themeColorAnnotationText, typedValue, true);
 		this.themeColorAnnotationText = typedValue.data;
 	}
 
-	public ContentListAdapter(ContentListPageFragment contentListPageFragment, int tid, int page, List<ContentListItemData> dataList)
+	public ContentListAdapter(ContentFragment contentFragment, ContentListPageFragment contentListPageFragment, int tid, int page, List<ContentListItemData> dataList)
 	{
 		super();
-		this.context = contentListPageFragment.getActivity();
+		this.context = contentFragment.getActivity();
 		this.layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.tid = tid;
 		this.page = page;
+		this.contentFragment = contentFragment;
 		this.contentListPageFragment = contentListPageFragment;
 		this.dataList = dataList;
 	}
@@ -116,7 +120,7 @@ public class ContentListAdapter
 	{
 		if (isTaskRunning() == false)
 		{
-			this.downloadTask = new ContentListDownloadTask(this.contentListPageFragment);
+			this.downloadTask = new ContentListDownloadTask(this.contentListPageFragment, this.contentFragment);
 			this.downloadTask.setRefreshing(isRefreshing);
 			this.downloadTask.execute(this.tid, this.page);
 		}
@@ -241,11 +245,11 @@ public class ContentListAdapter
 		@Override
 		public void onClick(View v)
 		{
-			Intent intent = new Intent(contentListPageFragment.getActivity(), PostActivity.class);
+			Intent intent = new Intent(contentFragment.getActivity(), PostActivity.class);
 			intent.putExtra("isEdit", true);
 			intent.putExtra("editPid", pid);
 			intent.putExtra("tid", tid);
-			contentListPageFragment.startActivity(intent);
+			contentFragment.startActivity(intent);
 		}
 	}
 }
