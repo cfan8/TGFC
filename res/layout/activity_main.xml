@@ -168,9 +168,9 @@
 						android:layout_margin="0dp"
 						android:layout_gravity="center"
 						android:paddingLeft="20dp"
-						android:paddingTop="20dp"
-						android:paddingBottom="20dp"
-						android:textSize="18sp"
+						android:paddingTop="15dp"
+						android:paddingBottom="15dp"
+						android:textSize="@dimen/abc_text_size_small_material"
 						android:clickable="true"
 						android:background="?attr/selectableItemBackground"
 						/>

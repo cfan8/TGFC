@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.activities.MainActivity;
 import com.linangran.tgfcapp.activities.PostActivity;
+import com.linangran.tgfcapp.activities.SettingActivity;
 import com.linangran.tgfcapp.adapters.ForumListAdapter;
 import com.linangran.tgfcapp.data.ForumBasicData;
 import com.linangran.tgfcapp.data.ForumListItemData;
@@ -150,7 +151,11 @@ public class ForumListFragment extends Fragment
 					PreferenceUtils.addToPinnedList(forumBasicData.fid);
 				}
 				updatePinnedState(true);
-
+				return true;
+			case R.id.menu_fragment_forum_settings:
+				Intent settingIntent = new Intent(this.getActivity(), SettingActivity.class);
+				startActivity(settingIntent);
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

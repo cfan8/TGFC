@@ -23,4 +23,9 @@
 			android:checkable="true"
 			android:title="在侧栏中固定"
 			tgfcapp:showAsAction="never"/>
+
+	<item
+			android:id="@+id/menu_fragment_forum_settings"
+			android:title="设置"
+			tgfcapp:showAsAction="never"/>
 </menu>
