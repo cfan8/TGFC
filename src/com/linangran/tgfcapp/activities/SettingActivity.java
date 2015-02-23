@@ -24,11 +24,14 @@ public class SettingActivity extends SwipeBackActivity
 			this.setTheme(R.style.TgfcTheme_DarkText);
 		}
 		setContentView(R.layout.activity_setting);
-		SettingFragment settingFragment = new SettingFragment();
 		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.activity_setting, settingFragment, SettingFragment.TAG);
-		fragmentTransaction.commit();
+		if (fragmentManager.findFragmentByTag(SettingFragment.TAG) == null)
+		{
+			SettingFragment settingFragment = new SettingFragment();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.add(R.id.activity_setting, settingFragment, SettingFragment.TAG);
+			fragmentTransaction.commit();
+		}
 		Toolbar toolbar = (Toolbar) findViewById(R.id.activity_setting_toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);

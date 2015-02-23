@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -86,11 +87,15 @@ public class ContentActivity extends SwipeBackActivity
 		this.setSupportActionBar(this.toolbar);
 		this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		this.setTitle(title);
-		this.contentFragment = new ContentFragment();
-		this.contentFragment.setArguments(bundle);
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.activity_content_fragment_linear_layout, contentFragment, contentFragmentID);
-		fragmentTransaction.commit();
+		FragmentManager supportFragmentManager = getSupportFragmentManager();
+		if (supportFragmentManager.findFragmentByTag(contentFragmentID) == null)
+		{
+			this.contentFragment = new ContentFragment();
+			this.contentFragment.setArguments(bundle);
+			FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+			fragmentTransaction.add(R.id.activity_content_fragment_linear_layout, contentFragment, contentFragmentID);
+			fragmentTransaction.commit();
+		}
 		showActionBar();
 	}
 

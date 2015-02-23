@@ -1,6 +1,7 @@
 package com.linangran.tgfcapp.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,11 +35,16 @@ public class PostActivity extends SwipeBackActivity
 		{
 			setTitle("发表新帖");
 		}
-		this.postFragment = new PostFragment();
-		this.postFragment.setArguments(bundle);
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.activity_post, this.postFragment, this.postFragmentID);
-		fragmentTransaction.commit();
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		this.postFragment = (PostFragment) fragmentManager.findFragmentByTag(this.postFragmentID);
+		if (this.postFragment == null)
+		{
+			this.postFragment = new PostFragment();
+			this.postFragment.setArguments(bundle);
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(R.id.activity_post, this.postFragment, this.postFragmentID);
+			fragmentTransaction.commit();
+		}
 	}
 
 

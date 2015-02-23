@@ -14,8 +14,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -166,11 +167,11 @@ public class MainActivity extends AnalyzableActivity
 		if (this.forumListFragment == null)
 		{
 			this.forumListFragment = new ForumListFragment();
+			this.forumListFragment.setArguments(bundle);
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(R.id.activity_main, this.forumListFragment, ForumListFragment.TAG);
+			fragmentTransaction.commit();
 		}
-		this.forumListFragment.setArguments(bundle);
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.activity_main, this.forumListFragment, ForumListFragment.TAG);
-		fragmentTransaction.commit();
 
 
 		this.handler = new Handler();
@@ -192,7 +193,8 @@ public class MainActivity extends AnalyzableActivity
 		else
 		{
 			//Ugly wrapper for buggy google service library.
-			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
+			{
 				registerOnGoogle();
 			}
 		}
@@ -369,10 +371,12 @@ public class MainActivity extends AnalyzableActivity
 		}
 	}
 
-	public int getNavigationBarHeight() {
+	public int getNavigationBarHeight()
+	{
 		Resources resources = getResources();
 		int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-		if (resourceId > 0) {
+		if (resourceId > 0)
+		{
 			return resources.getDimensionPixelSize(resourceId);
 		}
 		return 0;
