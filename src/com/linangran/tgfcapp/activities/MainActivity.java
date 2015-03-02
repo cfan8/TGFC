@@ -144,6 +144,12 @@ public class MainActivity extends AnalyzableActivity
 				return true;
 			}
 		});
+		if (PreferenceUtils.useVirtualKeyOptimization())
+		{
+			int navigationHeight = (int) (48 * getResources().getDisplayMetrics().density + 0.5f);
+			this.drawerContentLayout.setPadding(this.drawerContentLayout.getPaddingLeft(), this.drawerContentLayout.getPaddingTop(),
+					this.drawerContentLayout.getPaddingRight(), navigationHeight);
+		}
 		this.pinnedList = (LinearLayout) findViewById(R.id.main_drawer_pinlist);
 		this.allList = (LinearLayout) findViewById(R.id.main_drawer_alllist);
 		inflateForumList(ForumBasicDataList.getForumBasicDataList(), this.allList);

@@ -39,6 +39,22 @@
 				android:summaryOff="帖子内容页中，每篇回复都会显示分享和评分按钮"
 				android:defaultValue="false"/>
 
+		<CheckBoxPreference
+				android:key="virtual_key_layout_optimization"
+				android:title="虚拟键布局优化"
+				android:summary="建议虚拟键机型打开此项，避免按键被虚拟键遮挡；修改此项设置需要重启应用才会生效。"
+				android:defaultValue="false"
+				/>
+
+		<!--
+		<CheckBoxPreference
+				android:key="synchronize_accounts"
+				android:title="同步已登录的帐号"
+				android:summaryOff="帐号同步已关闭"
+				android:summaryOn="TGFC Beta会使用Google Play服务在多设备上同步您的TGFC帐号信息"
+				android:defaultValue="false"/>
+				-->
+
 	</PreferenceCategory>
 
 	<PreferenceCategory
@@ -93,7 +109,6 @@
 					/>
 
 		</Preference>
-
 
 
 		<Preference

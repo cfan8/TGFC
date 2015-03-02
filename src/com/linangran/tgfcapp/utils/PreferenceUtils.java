@@ -40,6 +40,8 @@ public class PreferenceUtils
 	public static final String KEY_SHOW_IMAGE_ON_WIFI = "show_image_on_wifi";
 	public static final String KEY_SHOW_IMAGE_ON_CELLULAR = "show_image_on_cellular";
 	public static final String KEY_HIDE_QUICK_PANEL = "hide_quick_panel";
+	public static final String KEY_VIRTUAL_KEY_OPTIMIZATION = "virtual_key_layout_optimization";
+	public static final String KEY_SYNCHRONIZE_ACCOUNTS = "synchronize_accounts";
 
 	public static final String KEY_HAS_CHECKED_GOOGLE_PLAY = "has_checked_google_play";
 
@@ -314,5 +316,15 @@ public class PreferenceUtils
 		edit.putBoolean(KEY_HAS_CHECKED_GOOGLE_PLAY, true);
 		edit.commit();
 		return;
+	}
+
+	public static boolean useVirtualKeyOptimization()
+	{
+		return pref.getBoolean(KEY_VIRTUAL_KEY_OPTIMIZATION, false);
+	}
+
+	public static boolean syncAccounts()
+	{
+		return pref.getBoolean(KEY_SYNCHRONIZE_ACCOUNTS, false);
 	}
 }

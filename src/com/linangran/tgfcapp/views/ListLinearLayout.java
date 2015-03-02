@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.linangran.tgfcapp.R;
 import com.linangran.tgfcapp.adapters.ContentListAdapter;
+import com.linangran.tgfcapp.utils.PreferenceUtils;
 
 /**
  * Created by linangran on 31/1/15.
@@ -54,6 +55,11 @@ public class ListLinearLayout extends LinearLayout
 				imageView.setBackgroundColor(getResources().getColor(R.color.lightgray));
 				this.addView(imageView);
 			}
+		}
+		if (PreferenceUtils.useVirtualKeyOptimization())
+		{
+			int navigationHeight = (int) (48 * scale + 0.5f);
+			this.setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), navigationHeight);
 		}
 	}
 
