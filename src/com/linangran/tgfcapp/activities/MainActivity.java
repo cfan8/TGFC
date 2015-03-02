@@ -185,7 +185,7 @@ public class MainActivity extends AnalyzableActivity
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Google Play服务不可用").setMessage("应用需要完整的Google Play服务才能正常运行，请检查Google Play服务是否未安装或被禁用，并检查网络连接是否通畅。").setCancelable(false);
+			builder.setTitle("Google Play服务不可用").setMessage("应用需要完整的Google Play服务才能正常运行，请检查Google Play服务是否未安装或被禁用，并检查TGFC Beta是否被权限管理软件禁止访问Google Play服务。").setCancelable(false);
 			builder.setPositiveButton(R.string.text_exit, new DialogInterface.OnClickListener()
 			{
 				@Override
