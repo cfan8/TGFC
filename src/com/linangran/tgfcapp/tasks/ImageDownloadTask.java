@@ -106,6 +106,10 @@ public class ImageDownloadTask extends AsyncTask<Void, Integer, HttpResult<Image
 			FileInputStream fileInputStream = new FileInputStream(cachedImageFile);
 			Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream);
 			fileInputStream.close();
+			if (bitmap == null)
+			{
+				throw new IOException("Failed to load cached File.");
+			}
 			imageDrawableDataHttpResult.setResult(new ImageDrawableData(bitmap));
 			return imageDrawableDataHttpResult;
 		}

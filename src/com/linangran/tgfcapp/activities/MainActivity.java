@@ -344,7 +344,10 @@ public class MainActivity extends AnalyzableActivity
 			{
 				if (reason == Policy.RETRY)
 				{
-					showExitDialog("注册Google Play失败", "网络连接失败，请重启应用以重试。请确保与Google服务器保持畅通连接。", false);
+					if (PreferenceUtils.hasRegisteredOnGooglePlay() == false)
+					{
+						showExitDialog("注册Google Play失败", "网络连接失败，请重启应用以重试。请确保与Google服务器保持畅通连接。", false);
+					}
 				}
 				else
 				{
